@@ -17,4 +17,6 @@ public class MainCategory {
     private String name;
     @OneToMany
     private List<Garment> garments;
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<UnderCategory> underCategories;
 }

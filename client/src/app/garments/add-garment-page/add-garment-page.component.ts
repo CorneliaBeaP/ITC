@@ -1,33 +1,41 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {GarmentService} from "../../../service/garment.service";
 import {AttributeService} from "../../../service/attribute.service";
 import {Subscription} from "rxjs";
 import {MainCategory} from "../../classes/main-category";
+import {UnderCategory} from "../../classes/under-category";
 
 @Component({
   selector: 'app-add-garment-page',
   templateUrl: './add-garment-page.component.html',
   styleUrls: ['./add-garment-page.component.scss']
 })
-export class AddGarmentPageComponent implements OnInit {
+export class AddGarmentPageComponent implements OnInit, OnDestroy {
 
   url: string | ArrayBuffer;
   errorMessage: string;
   subscription: Subscription;
   mainCategoryList: MainCategory[];
+  underCategoryList: UnderCategory[];
 
 
   constructor(private garmentService: GarmentService, private attributeService: AttributeService) {
-    attributeService.getAllMainCategories();
   }
 
   ngOnInit(): void {
     this.getAllMainCategories();
+    this.getAllUnderCategories();
   }
 
   getAllMainCategories() {
-    this.subscription = this.attributeService.getAllMainCategories().subscribe((data) =>{
+    this.subscription = this.attributeService.getAllMainCategories().subscribe((data) => {
       this.mainCategoryList = data;
+    });
+  }
+
+  getAllUnderCategories() {
+    this.subscription = this.attributeService.getAllUnderCategories().subscribe((data) => {
+      this.underCategoryList = data;
     })
   }
 
@@ -56,6 +64,12 @@ export class AddGarmentPageComponent implements OnInit {
       }
     } else {
       this.errorMessage = 'Filen överstiger 1MB, vänligen försök med en mindre fil.'
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
     }
   }
 }

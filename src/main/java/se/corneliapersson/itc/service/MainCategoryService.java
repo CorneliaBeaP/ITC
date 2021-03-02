@@ -6,6 +6,7 @@ import se.corneliapersson.itc.dto.MainCategoryDTO;
 import se.corneliapersson.itc.entity.MainCategory;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Service
 public class MainCategoryService {
@@ -32,4 +33,5 @@ public class MainCategoryService {
         }
         return categories;
     }
+
 }
