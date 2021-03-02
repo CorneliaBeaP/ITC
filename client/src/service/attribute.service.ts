@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,16 @@ export class AttributeService {
   }
 
   getAllMainCategories(){
-    this.http.get(this.url + '/mcategories').subscribe((data) => {
+    const headerDict = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Access-Control-Allow-Headers': '*',
+      'Access-Control-Allow-Methods': '*'
+    };
+    const requestOptions = {
+      headers: new HttpHeaders(headerDict),
+    };
+    this.http.get(this.url + '/attributes/mcategories', requestOptions).subscribe((data) => {
       console.log(data);
       }
     )
