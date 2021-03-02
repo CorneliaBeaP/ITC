@@ -20,7 +20,6 @@ public class AttributesController {
 
     @GetMapping(path = "/api/attributes/mcategories")
     public ArrayList<MainCategoryDTO> getAllMainCategories(){
-        System.out.println(mainCategoryService.findAllMainCategories());
         return mainCategoryService.findAllMainCategories();
     }
 }

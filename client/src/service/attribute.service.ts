@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {map} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -22,9 +23,9 @@ export class AttributeService {
     const requestOptions = {
       headers: new HttpHeaders(headerDict),
     };
-    this.http.get(this.url + '/attributes/mcategories', requestOptions).subscribe((data) => {
-      console.log(data);
-      }
-    )
+   return this.http.get(this.url + '/attributes/mcategories', requestOptions).pipe(map(data =>{
+      let data2 = JSON.stringify(data);
+      return JSON.parse(data2);
+    }));
   }
 }

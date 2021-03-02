@@ -7,18 +7,30 @@
       <!--    <input type='file' (change)="onSelectFile($event)"></div>-->
       bild
     </div>
-
     <div class="row">
-      <div class="col">
-        huvudkategori
-      </div>
-      <div class="col">
-        :)
+      <div class="col" *ngIf="mainCategoryList">
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+            Huvudkategori
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a *ngFor="let category of mainCategoryList" class="dropdown-item" href="">{{category.name}}</a></li>
+          </ul>
+        </div>
       </div>
     </div>
     <div class="row">
-      <div class="col">
-        underkategori
+      <div class="col" *ngIf="mainCategoryList">
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id=""
+                  data-bs-toggle="dropdown" aria-expanded="false">
+            Huvudkategori
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a *ngFor="let category of mainCategoryList" class="dropdown-item" href="">{{category.name}}</a></li>
+          </ul>
+        </div>
       </div>
     </div>
     <div class="row">

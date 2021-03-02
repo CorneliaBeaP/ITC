@@ -1,14 +1,21 @@
 package se.corneliapersson.itc.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import se.corneliapersson.itc.domain.MainCategoryRepository;
 import se.corneliapersson.itc.dto.MainCategoryDTO;
 import se.corneliapersson.itc.entity.MainCategory;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Service
 public class MainCategoryService {
+
+    public MainCategoryService(MainCategoryRepository mainCategoryRepository) {
+        this.mainCategoryRepository = mainCategoryRepository;
+    }
+
     private MainCategoryRepository mainCategoryRepository;
 
     public MainCategoryDTO convertToMainCategoryDTO(MainCategory category){

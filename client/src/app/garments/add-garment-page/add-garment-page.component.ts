@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {GarmentService} from "../../../service/garment.service";
 import {AttributeService} from "../../../service/attribute.service";
+import {Subscription} from "rxjs";
+import {MainCategory} from "../../classes/main-category";
 
 @Component({
   selector: 'app-add-garment-page',
@@ -11,6 +13,8 @@ export class AddGarmentPageComponent implements OnInit {
 
   url: string | ArrayBuffer;
   errorMessage: string;
+  subscription: Subscription;
+  mainCategoryList: MainCategory[];
 
 
   constructor(private garmentService: GarmentService, private attributeService: AttributeService) {
@@ -18,8 +22,14 @@ export class AddGarmentPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getAllMainCategories();
   }
 
+  getAllMainCategories() {
+    this.subscription = this.attributeService.getAllMainCategories().subscribe((data) =>{
+      this.mainCategoryList = data;
+    })
+  }
 
 
   onSelectFile(event) { // called each time file input changes
