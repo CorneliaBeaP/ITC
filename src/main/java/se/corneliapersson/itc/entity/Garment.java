@@ -13,7 +13,7 @@ public class Garment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    long id;
+    private long id;
     @ManyToMany
     private List<Colour> colours;
     @ManyToOne
