@@ -1,22 +1,20 @@
 package se.corneliapersson.itc.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import se.corneliapersson.itc.domain.MainCategoryRepository;
 import se.corneliapersson.itc.dto.MainCategoryDTO;
 import se.corneliapersson.itc.entity.MainCategory;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 @Service
 public class MainCategoryService {
 
-    public MainCategoryService(MainCategoryRepository mainCategoryRepository) {
-        this.mainCategoryRepository = mainCategoryRepository;
+    public MainCategoryService(MainCategoryRepository repository) {
+        this.repository = repository;
     }
 
-    private MainCategoryRepository mainCategoryRepository;
+    private MainCategoryRepository repository;
 
     public MainCategoryDTO convertToMainCategoryDTO(MainCategory category){
         MainCategoryDTO mainCategoryDTO = new MainCategoryDTO();
@@ -26,7 +24,7 @@ public class MainCategoryService {
     }
 
     public ArrayList<MainCategoryDTO> findAllMainCategories(){
-       Iterable<MainCategory> mainCategories = mainCategoryRepository.findAll();
+       Iterable<MainCategory> mainCategories = repository.findAll();
        ArrayList<MainCategoryDTO> categories = new ArrayList<>();
         for (MainCategory c: mainCategories
              ) {
