@@ -5,6 +5,9 @@ import {Subscription} from "rxjs";
 import {MainCategory} from "../../classes/main-category";
 import {UnderCategory} from "../../classes/under-category";
 import {UndercategoryPipe} from "../../pipes/undercategory.pipe";
+import {Colour} from "../../classes/colour";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {Theme} from "../../classes/theme";
 
 @Component({
   selector: 'app-add-garment-page',
@@ -19,13 +22,35 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
   mainCategoryList: MainCategory[];
   underCategoryList: UnderCategory[];
   updatedUnderCategoryList: UnderCategory[];
+  colourList: Colour[];
+  themeList: Theme[];
+  mainCategoryChosenName: string;
+  underCategoryChosenName: string;
+  form: FormGroup;
+  selectedMainCategory: MainCategory;
 
-  constructor(private garmentService: GarmentService, private attributeService: AttributeService, private undercategoryPipe: UndercategoryPipe) {
+
+  constructor(private garmentService: GarmentService,
+              private attributeService: AttributeService,
+              private undercategoryPipe: UndercategoryPipe,
+              private formBuilder: FormBuilder) {
   }
 
   ngOnInit(): void {
     this.getAllMainCategories();
     this.getAllUnderCategories();
+    this.getAllColours();
+    this.getAllThemes();
+    this.createForm();
+  }
+
+  createForm() {
+    this.form = this.formBuilder.group({
+      undercategory: ['', Validators.required],
+      colour: ['', Validators.required],
+      theme: ['', Validators.required],
+      maincategory: ['', Validators.required]
+    });
   }
 
   getAllMainCategories() {
@@ -37,6 +62,19 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
   getAllUnderCategories() {
     this.subscription = this.attributeService.getAllUnderCategories().subscribe((data) => {
       this.underCategoryList = data;
+    })
+  }
+
+  getAllColours() {
+    this.subscription = this.attributeService.getAllColours().subscribe((data) => {
+      this.colourList = data;
+      console.log(this.colourList);
+    })
+  }
+
+  getAllThemes() {
+    this.subscription = this.attributeService.getAllThemes().subscribe((data) => {
+      this.themeList = data;
     })
   }
 
@@ -69,6 +107,14 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
 
   chooseMainCategory(id: number) {
     this.updatedUnderCategoryList = this.undercategoryPipe.transform(this.underCategoryList, id);
+  }
+
+  onChange() {
+    this.chooseMainCategory(this.form.get('maincategory').value)
+  }
+
+  onSubmit() {
+    console.log('Submitted');
   }
 
   ngOnDestroy(): void {

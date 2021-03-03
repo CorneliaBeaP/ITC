@@ -5,12 +5,8 @@ import se.corneliapersson.itc.domain.ColourRepository;
 import se.corneliapersson.itc.domain.MainCategoryRepository;
 import se.corneliapersson.itc.domain.ThemeRepository;
 import se.corneliapersson.itc.domain.UnderCategoryRepository;
-import se.corneliapersson.itc.dto.MainCategoryDTO;
-import se.corneliapersson.itc.dto.Response;
-import se.corneliapersson.itc.dto.UnderCategoryDTO;
-import se.corneliapersson.itc.entity.MainCategory;
-import se.corneliapersson.itc.entity.MainCategoryType;
-import se.corneliapersson.itc.entity.UnderCategory;
+import se.corneliapersson.itc.dto.*;
+import se.corneliapersson.itc.entity.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +29,7 @@ public class AttributesService {
 
     //Convertions
 
-    public MainCategoryDTO convertToMainCategoryDTO(MainCategory category){
+    public MainCategoryDTO convertToMainCategoryDTO(MainCategory category) {
         MainCategoryDTO mainCategoryDTO = new MainCategoryDTO();
         mainCategoryDTO.setId(category.getId());
         mainCategoryDTO.setName(category.getName());
@@ -48,12 +44,26 @@ public class AttributesService {
         return categoryDTO;
     }
 
+    public ColourDTO convertToColourDTO(Colour colour) {
+        ColourDTO colourDTO = new ColourDTO();
+        colourDTO.setId(colour.getId());
+        colourDTO.setName(colour.getName());
+        return colourDTO;
+    }
+
+    public ThemeDTO convertToThemeDTO(Theme theme) {
+        ThemeDTO themeDTO = new ThemeDTO();
+        themeDTO.setId(theme.getId());
+        themeDTO.setName(theme.getName());
+        return themeDTO;
+    }
+
     //findAll
 
-    public ArrayList<MainCategoryDTO> findAllMainCategories(){
+    public ArrayList<MainCategoryDTO> findAllMainCategories() {
         Iterable<MainCategory> mainCategories = mainCategoryRepository.findAll();
         ArrayList<MainCategoryDTO> categories = new ArrayList<>();
-        for (MainCategory c: mainCategories
+        for (MainCategory c : mainCategories
         ) {
             categories.add(convertToMainCategoryDTO(c));
         }
@@ -69,6 +79,28 @@ public class AttributesService {
         }
         return categoryDTOS;
     }
+
+    public ArrayList<ColourDTO> findAllColours() {
+        Iterable<Colour> colours = colourRepository.findAll();
+        ArrayList<ColourDTO> colourDTOS = new ArrayList<>();
+        for (Colour c : colours
+        ) {
+            colourDTOS.add(convertToColourDTO(c));
+        }
+        return colourDTOS;
+    }
+
+    public ArrayList<ThemeDTO> findAllThemes() {
+        Iterable<Theme> themes = themeRepository.findAll();
+        ArrayList<ThemeDTO> themeDTOS = new ArrayList<>();
+        for (Theme t : themes
+        ) {
+            themeDTOS.add(convertToThemeDTO(t));
+        }
+        return themeDTOS;
+    }
+
+    //Add
 
     public Response addUnderCategory(String name, MainCategoryType type) {
         Response response = new Response("ERROR", "Kunde inte spara kategori.");
@@ -92,6 +124,36 @@ public class AttributesService {
             mainCategoryRepository.save(mainCategory.get());
             response.setStatus("OK");
             response.setMessage("Kategori " + name + " sparad");
+        }
+        System.out.println(response.getMessage());
+        return response;
+    }
+
+    public Response addColour(String name) {
+        Response response = new Response("Ok", "Färgen " + name + " är sparad.");
+        Colour colour = new Colour();
+        colour.setName(name);
+        try {
+            colourRepository.save(colour);
+        } catch (Exception e) {
+            response.setStatus("ERROR");
+            response.setMessage("Kunde inte spara färg.");
+            e.printStackTrace();
+        }
+        System.out.println(response.getMessage());
+        return response;
+    }
+
+    public Response addTheme(String name) {
+        Response response = new Response("Ok", "Temat " + name + " är sparat.");
+        Theme theme = new Theme();
+        theme.setName(name);
+        try {
+            themeRepository.save(theme);
+        } catch (Exception e) {
+            response.setStatus("ERROR");
+            response.setMessage("Kunde inte spara tema.");
+            e.printStackTrace();
         }
         System.out.println(response.getMessage());
         return response;

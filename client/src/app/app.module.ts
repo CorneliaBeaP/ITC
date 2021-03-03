@@ -11,6 +11,7 @@ import { AddAttributesPageComponent } from './attributes/add-attributes-page/add
 import { AddGarmentPageComponent } from './garments/add-garment-page/add-garment-page.component';
 import {HttpClientModule} from "@angular/common/http";
 import { UndercategoryPipe } from './pipes/undercategory.pipe';
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { UndercategoryPipe } from './pipes/undercategory.pipe';
     BrowserModule,
     AppRoutingModule,
     RouterModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [UndercategoryPipe],
   bootstrap: [AppComponent]

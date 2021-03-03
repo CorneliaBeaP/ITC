@@ -4,11 +4,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import se.corneliapersson.itc.domain.MainCategoryRepository;
-import se.corneliapersson.itc.domain.UnderCategoryRepository;
-import se.corneliapersson.itc.entity.MainCategory;
-import se.corneliapersson.itc.entity.MainCategoryType;
-import se.corneliapersson.itc.service.UnderCategoryService;
+import se.corneliapersson.itc.service.AttributesService;
 
 import java.time.LocalDateTime;
 
@@ -20,9 +16,9 @@ public class ItcApplication {
     }
 
     @Bean
-    public CommandLineRunner setUp(MainCategoryRepository mainCategoryRepository, UnderCategoryService underCategoryService) {
+    public CommandLineRunner setUp(AttributesService attributesService) {
         return (args -> {
-            System.out.println(LocalDateTime.now() +  " Applikationen startar");
+            System.out.println(LocalDateTime.now() + " Applikationen startar");
 //            MainCategory mainCategory1 = new MainCategory();
 //            mainCategory1.setName("Överdel");
 //            MainCategory mainCategory2 = new MainCategory();
@@ -39,7 +35,20 @@ public class ItcApplication {
 //            underCategoryService.addUnderCategory("Kostymbyxor", MainCategoryType.UNDERDEL);
 //            underCategoryService.addUnderCategory("Jeans", MainCategoryType.UNDERDEL);
 //            underCategoryService.addUnderCategory("Linne", MainCategoryType.OVERDEL);
+//            attributesService.addColour("Svart");
+//            attributesService.addColour("Vit");
+//            attributesService.addColour("Röd");
+//            attributesService.addColour("Grön");
+//            attributesService.addColour("Rosa");
+//            attributesService.addColour("Gul");
+//            attributesService.addColour("Beige");
+//            attributesService.addColour("Blå");
+//            attributesService.addColour("Metallic");
+//            attributesService.addColour("Grå");
 
+//            attributesService.addTheme("Work");
+//            attributesService.addTheme("Fest");
+//            attributesService.addTheme("Vardag");
 
         });
     }

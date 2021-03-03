@@ -1,52 +1,46 @@
 <app-navbar></app-navbar>
 <div class="itccontainer">
   <h2>Lägg till plagg</h2>
-  <div class="row">
-    <div class="col">
-      <!--    <img [src]="url" height="200"> <br/>-->
-      <!--    <input type='file' (change)="onSelectFile($event)"></div>-->
+  <form (ngSubmit)="onSubmit()" [formGroup]="form">
+    <div class="row">
+      <div class="col">
+        <img [src]="url" height="200"> <br/>
+        <input type='file' (change)="onSelectFile($event)"></div>
       bild
     </div>
     <div class="row">
       <div class="col" *ngIf="mainCategoryList">
-        <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-                  data-bs-toggle="dropdown" aria-expanded="false">
-            Huvudkategori
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a *ngFor="let category of mainCategoryList" class="dropdown-item" (click)="chooseMainCategory(category.id)">{{category.name}}</a></li>
-          </ul>
+        <label>Huvudkategori</label>
+        <div class="col d-flex justify-content-center" >
+          <select (change)="onChange()" [formControlName]="'maincategory'" class="form-select form-select-sm" aria-label=".form-select-sm example" *ngIf="mainCategoryList">
+            <option value="{{category.id}}" *ngFor="let category of mainCategoryList" class="dropdown-item">{{category.name}}</option>
+          </select>
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col" *ngIf="updatedUnderCategoryList">
-        <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id=""
-                  data-bs-toggle="dropdown" aria-expanded="false">
-            Underkategori
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li><a *ngFor="let category of updatedUnderCategoryList" class="dropdown-item">{{category.name}}</a></li>
-          </ul>
-        </div>
+    <div class="row" *ngIf="updatedUnderCategoryList">
+      <label>Underkategori</label>
+      <div class="col d-flex justify-content-center" >
+        <select [formControlName]="'undercategory'" class="form-select form-select-sm" aria-label=".form-select-sm example" *ngIf="updatedUnderCategoryList">
+          <option  value="{{category.id}}" *ngFor="let category of updatedUnderCategoryList" class="dropdown-item">{{category.name}}</option>
+        </select>
       </div>
     </div>
-    <div class="row">
-      <div class="col">
-        färg
+    <div class="row" *ngIf="colourList">
+      <label>Färg</label>
+      <div class="col d-flex justify-content-center" >
+        <select [formControlName]="'colour'" class="form-select form-select-sm" aria-label=".form-select-sm example" *ngIf="colourList">
+          <option value="{{colour.id}}" *ngFor="let colour of colourList" class="dropdown-item">{{colour.name}}</option>
+        </select>
       </div>
     </div>
-    <div class="row">
-      <div class="col">
-        tema
+    <div class="row" *ngIf="themeList">
+      <label>Tema</label>
+      <div class="col d-flex justify-content-center" >
+        <select [formControlName]="'theme'" class="form-select form-select-sm" aria-label=".form-select-sm example" *ngIf="themeList">
+          <option  value="{{theme.id}}" *ngFor="let theme of themeList" class="dropdown-item">{{theme.name}}</option>
+        </select>
       </div>
     </div>
-    <div class="row">
-      <div class="col">
-        nyckelord
-      </div>
-    </div>
-  </div>
+  </form>
 </div>
