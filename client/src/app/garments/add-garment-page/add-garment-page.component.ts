@@ -24,10 +24,8 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
   updatedUnderCategoryList: UnderCategory[];
   colourList: Colour[];
   themeList: Theme[];
-  mainCategoryChosenName: string;
-  underCategoryChosenName: string;
   form: FormGroup;
-  selectedMainCategory: MainCategory;
+  addAnotherColour = false;
 
 
   constructor(private garmentService: GarmentService,
@@ -68,7 +66,6 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
   getAllColours() {
     this.subscription = this.attributeService.getAllColours().subscribe((data) => {
       this.colourList = data;
-      console.log(this.colourList);
     })
   }
 
@@ -76,6 +73,11 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
     this.subscription = this.attributeService.getAllThemes().subscribe((data) => {
       this.themeList = data;
     })
+  }
+
+  triggerFileUpload() {
+    let element: HTMLElement = document.getElementById('fileupload') as HTMLElement;
+    element.click();
   }
 
   onSelectFile(event) { // called each time file input changes

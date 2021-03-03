@@ -18,15 +18,15 @@ public class Garment {
     private List<Colour> colours;
     @ManyToOne
     private MainCategory mainCategory;
-    @ManyToMany
-    private List<UnderCategory> underCategories;
+    @ManyToOne
+    private UnderCategory underCategory;
     @ManyToMany
     private List<Theme> themes;
 
-    public Garment(List<Colour> colours, MainCategory mainCategory, List<UnderCategory> underCategories, List<Theme> themes) {
+    public Garment(List<Colour> colours, MainCategory mainCategory, UnderCategory underCategory, List<Theme> themes) {
         this.colours = colours;
         this.mainCategory = mainCategory;
-        this.underCategories = underCategories;
+        this.underCategory = underCategory;
         this.themes = themes;
     }
 

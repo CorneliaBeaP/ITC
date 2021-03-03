@@ -1,3 +1,7 @@
 select {
-  width: 30%;
+  max-width: 300px;
+}
+
+input[type=file] {
+  display: none;
 }
