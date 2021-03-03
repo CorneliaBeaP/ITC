@@ -5,8 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import se.corneliapersson.itc.dto.MainCategoryDTO;
 import se.corneliapersson.itc.dto.UnderCategoryDTO;
-import se.corneliapersson.itc.service.MainCategoryService;
-import se.corneliapersson.itc.service.UnderCategoryService;
+import se.corneliapersson.itc.service.AttributesService;
 
 import java.util.ArrayList;
 
@@ -14,21 +13,19 @@ import java.util.ArrayList;
 @RestController
 public class AttributesController {
 
-    private final MainCategoryService mainCategoryService;
-    private final UnderCategoryService underCategoryService;
+private final AttributesService attributesService;
 
-    public AttributesController(MainCategoryService mainCategoryService, UnderCategoryService underCategoryService) {
-        this.mainCategoryService = mainCategoryService;
-        this.underCategoryService = underCategoryService;
+    public AttributesController(AttributesService attributesService) {
+        this.attributesService = attributesService;
     }
 
     @GetMapping(path = "/api/attributes/mcategories")
     public ArrayList<MainCategoryDTO> getAllMainCategories() {
-        return mainCategoryService.findAllMainCategories();
+        return attributesService.findAllMainCategories();
     }
 
     @GetMapping(path = "/api/attributes/ucategories")
     public ArrayList<UnderCategoryDTO> getAllUnderCategories() {
-        return underCategoryService.findAllUnderCategories();
+        return attributesService.findAllUnderCategories();
     }
 }

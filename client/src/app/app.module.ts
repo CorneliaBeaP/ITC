@@ -10,6 +10,7 @@ import { ThemeComponent } from './attributes/theme/theme.component';
 import { AddAttributesPageComponent } from './attributes/add-attributes-page/add-attributes-page.component';
 import { AddGarmentPageComponent } from './garments/add-garment-page/add-garment-page.component';
 import {HttpClientModule} from "@angular/common/http";
+import { UndercategoryPipe } from './pipes/undercategory.pipe';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import {HttpClientModule} from "@angular/common/http";
     StartComponent,
     ThemeComponent,
     AddAttributesPageComponent,
-    AddGarmentPageComponent
+    AddGarmentPageComponent,
+    UndercategoryPipe
   ],
   imports: [
     BrowserModule,
@@ -26,7 +28,7 @@ import {HttpClientModule} from "@angular/common/http";
     RouterModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [UndercategoryPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

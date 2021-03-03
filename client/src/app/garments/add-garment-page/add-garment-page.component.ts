@@ -4,6 +4,7 @@ import {AttributeService} from "../../../service/attribute.service";
 import {Subscription} from "rxjs";
 import {MainCategory} from "../../classes/main-category";
 import {UnderCategory} from "../../classes/under-category";
+import {UndercategoryPipe} from "../../pipes/undercategory.pipe";
 
 @Component({
   selector: 'app-add-garment-page',
@@ -17,9 +18,9 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   mainCategoryList: MainCategory[];
   underCategoryList: UnderCategory[];
+  updatedUnderCategoryList: UnderCategory[];
 
-
-  constructor(private garmentService: GarmentService, private attributeService: AttributeService) {
+  constructor(private garmentService: GarmentService, private attributeService: AttributeService, private undercategoryPipe: UndercategoryPipe) {
   }
 
   ngOnInit(): void {
@@ -38,7 +39,6 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
       this.underCategoryList = data;
     })
   }
-
 
   onSelectFile(event) { // called each time file input changes
     if (event.target.files && event.target.files[0]) {
@@ -65,6 +65,10 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
     } else {
       this.errorMessage = 'Filen överstiger 1MB, vänligen försök med en mindre fil.'
     }
+  }
+
+  chooseMainCategory(id: number) {
+    this.updatedUnderCategoryList = this.undercategoryPipe.transform(this.underCategoryList, id);
   }
 
   ngOnDestroy(): void {

@@ -1,4 +1,4 @@
-package se.corneliapersson.itc.response;
+package se.corneliapersson.itc.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -14,4 +14,8 @@ public class Response {
         this.status = status;
         this.message = message;
     }
+
+    public Response() {
+    }
 }
+
