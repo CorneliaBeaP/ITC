@@ -162,15 +162,57 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
   }
 
   addColour() {
-    this.chosenColours.push(this.getColourById(this.form.get('colour').value));
+    if (!this.doesColourAlreadyExistInChosenColours(this.form.get('colour').value)) {
+      this.chosenColours.push(this.getColourById(this.form.get('colour').value));
+    }
+  }
+
+  doesColourAlreadyExistInChosenColours(id: number): Boolean {
+    let alreadyExist = false;
+    if (this.chosenColours.length > 0) {
+      this.chosenColours.forEach((c) => {
+        if (c.id == id) {
+          alreadyExist = true;
+        }
+      });
+    }
+    return alreadyExist;
   }
 
   addTheme() {
-    this.chosenThemes.push(this.getThemeById(this.form.get('theme').value));
+    if (!this.doesThemeAlreadyExistInChosenThemes(this.form.get('theme').value)) {
+      this.chosenThemes.push(this.getThemeById(this.form.get('theme').value));
+    }
+  }
+
+  doesThemeAlreadyExistInChosenThemes(id: number): Boolean {
+    let alreadyExist = false;
+    if (this.chosenThemes.length > 0) {
+      this.chosenThemes.forEach((t) => {
+        if (t.id == id) {
+          alreadyExist = true;
+        }
+      });
+    }
+    return alreadyExist;
   }
 
   addUnderCategory() {
-    this.chosenUnderCategories.push(this.getUnderCategoryById(this.form.get('undercategory').value));
+    if (!this.doesUnderCategoryAlreadyExistInChosenColours(this.form.get('undercategory').value)) {
+      this.chosenUnderCategories.push(this.getUnderCategoryById(this.form.get('undercategory').value));
+    }
+  }
+
+  doesUnderCategoryAlreadyExistInChosenColours(id: number): Boolean {
+    let alreadyExist = false;
+    if (this.chosenUnderCategories.length > 0) {
+      this.chosenUnderCategories.forEach((u) => {
+        if (u.id == id) {
+          alreadyExist = true;
+        }
+      });
+    }
+    return alreadyExist;
   }
 
   triggerFileUpload() {
@@ -190,7 +232,10 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  onUpload(file: any) {
+  onUpload(file
+             :
+             any
+  ) {
     //TODO: fortsätt
     let formData = new FormData();
     if (!(file.size > 1048576)) {
@@ -205,7 +250,10 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  chooseMainCategory(id: number) {
+  chooseMainCategory(id
+                       :
+                       number
+  ) {
     this.updatedUnderCategoryList = this.undercategoryPipe.transform(this.underCategoryList, id);
   }
 
@@ -237,7 +285,10 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  getValueFromForm(name: string) {
+  getValueFromForm(name
+                     :
+                     string
+  ) {
     return this.form.get(name).value;
   }
 
@@ -257,8 +308,11 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
   }
 
 
-  ngOnDestroy(): void {
-    if (this.subscription) {
+  ngOnDestroy()
+    :
+    void {
+    if (this.subscription
+    ) {
       this.subscription.unsubscribe();
     }
   }
