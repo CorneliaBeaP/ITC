@@ -1,7 +1,8 @@
 <app-navbar></app-navbar>
-<div class="itccontainer">
+<div class="itccontainer" *ngIf="pageloaded">
   <h2 class="m-5">Lägg till plagg</h2>
-  <form (ngSubmit)="onSubmit()" [formGroup]="form">
+  {{errorMessage}}
+  <form (ngSubmit)="onSubmit()" [formGroup]="form" (keydown.enter)="$event.preventDefault()">
     <div class="row">
       <div class="col">
         <img [src]="url" height="200"> <br/>
@@ -12,72 +13,89 @@
         </div>
       </div>
     </div>
-      <div class="row mt-5">
-        <div class="col" *ngIf="mainCategoryList">
-          <label>Huvudkategori</label>
-          <div class="col d-flex justify-content-center">
-            <select (change)="onChange()" [formControlName]="'maincategory'" class="form-select form-select-sm"
-                    aria-label=".form-select-sm example" *ngIf="mainCategoryList">
-              <option value="{{category.id}}" *ngFor="let category of mainCategoryList"
-                      class="dropdown-item">{{category.name}}</option>
-            </select>
+    <div class="row mt-5">
+      <div class="col" *ngIf="mainCategoryList">
+        <label>Huvudkategori</label>
+        <div class="col d-flex justify-content-center">
+          <select (change)="onChange()" [formControlName]="'maincategory'" class="form-select form-select-sm"
+                  aria-label=".form-select-sm example" *ngIf="mainCategoryList">
+            <option value="{{category.id}}" *ngFor="let category of mainCategoryList"
+                    class="dropdown-item">{{category.name}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-5" *ngIf="updatedUnderCategoryList">
+      <label>Underkategori</label>
+      <div class="col d-flex justify-content-center">
+        <select [formControlName]="'undercategory'" class="form-select form-select-sm"
+                aria-label=".form-select-sm example" *ngIf="updatedUnderCategoryList"
+                (change)="checkIfOtherUnderCategoryOtherwiseAdd()">
+          <option value="{{category.id}}" *ngFor="let category of updatedUnderCategoryList"
+                  class="dropdown-item">{{category.name}}</option>
+          <option value="annan" class="dropdown-item">Annan...</option>
+        </select>
+        {{chosenUnderCategories | json}}
+      </div>
+      <div class="row" *ngIf="showUnderCategoryTextfield">
+        <div class="col d-flex justify-content-center">
+          <input [formControlName]="'undercategoryfreetext'" type="text"  class="form-control"
+                 (keyup.enter)="onEnterUnderCategory()">}}
+          <div class="row mt-1">
+            <div class="col d-flex justify-content-center">
+              <button type="button" class="itcbutton btn" (click)="(onEnterUnderCategory())">Lägg till underkategori</button>
+            </div>
           </div>
         </div>
       </div>
-      <div class="row mt-5" *ngIf="updatedUnderCategoryList">
-        <label>Underkategori</label>
-        <div class="col d-flex justify-content-center">
-          <select [formControlName]="'undercategory'" class="form-select form-select-sm"
-                  aria-label=".form-select-sm example" *ngIf="updatedUnderCategoryList">
-            <option value="{{category.id}}" *ngFor="let category of updatedUnderCategoryList"
-                    class="dropdown-item">{{category.name}}</option>
-          </select>
-          <button class="plusbtn" type="button">+</button>
+    </div>
+    <div class="row mt-5" *ngIf="colourList">
+      <label>Färg</label>
+      <div class="col d-flex justify-content-center">
+        <select (change)="checkIfOtherColourOtherwiseAdd()" [formControlName]="'colour'" class="form-select form-select-sm"
+                aria-label=".form-select-sm example"
+                *ngIf="colourList">
+          <option value="{{colour.id}}" *ngFor="let colour of colourList"
+                  class="dropdown-item">{{colour.name}}</option>
+          <option value="annan" class="dropdown-item">Annan...</option>
+        </select>
+        {{chosenColours | json}}
+      </div>
+    </div>
+    <div class="row" *ngIf="showColourTextField">
+      <div class="col d-flex justify-content-center">
+        <input [formControlName]="'colourfreetext'" type="text"  class="form-control"
+               (keyup.enter)="onEnterColour()">
+        <div class="row mt-1">
+          <div class="col d-flex justify-content-center">
+            <button type="button" class="itcbutton btn" (click)="onEnterColour()">Lägg till färg</button>
+          </div>
         </div>
       </div>
-      <div class="row mt-5" *ngIf="colourList">
-        <label>Färg</label>
-        <div class="col d-flex justify-content-center">
-          <select [formControlName]="'colour'" class="form-select form-select-sm" aria-label=".form-select-sm example"
-                  *ngIf="colourList">
-            <option value="{{colour.id}}" *ngFor="let colour of colourList"
-                    class="dropdown-item">{{colour.name}}</option>
-            <option value="'annan'" class="dropdown-item">Annan...</option>
-
-          </select>
-          <button class="plusbtn" type="button">+</button>
+    </div>
+    <div class="row mt-5" *ngIf="themeList">
+      <label>Tema</label>
+      <div class="col d-flex justify-content-center">
+        <select [formControlName]="'theme'" class="form-select form-select-sm" aria-label=".form-select-sm example"
+                *ngIf="themeList" (change)="checkIfOtherThemeOtherwiseAdd()">
+          <option value="{{theme.id}}" *ngFor="let theme of themeList" class="dropdown-item">{{theme.name}}</option>
+          <option value="annan" class="dropdown-item">Annan...</option>
+        </select>
+      </div>
+    </div>
+    <div class="row" *ngIf="showThemeTextField">
+      <div class="col d-flex justify-content-center">
+        <input [formControlName]="'themefreetext'" type="text"  class="form-control"
+               (keyup.enter)="onEnterTheme()">
+        <div class="row mt-1">
+          <div class="col d-flex justify-content-center">
+            <button type="button" class="itcbutton btn" (click)="onEnterTheme()">Lägg till tema</button>
+          </div>
         </div>
       </div>
-      <div class="row m-5" *ngIf="addAnotherColour">
-        <div class="col d-flex justify-content-center">
-          <select [formControlName]="'colour'" class="form-select form-select-sm" aria-label=".form-select-sm example"
-                  *ngIf="colourList">
-            <option value="{{colour.id}}" *ngFor="let colour of colourList"
-                    class="dropdown-item">{{colour.name}}</option>
-          </select>
-          <button class="plusbtn" type="button">+</button>
-        </div>
-      </div>
-      <div class="row m-2">
-        <div class="col">
-          <button type="button" *ngIf="!addAnotherColour" class="itcbutton btn" (click)="addAnotherColour=true">Lägg
-            till en till färg
-          </button>
-        </div>
-      </div>
-      <div class="row mt-5" *ngIf="themeList">
-        <label>Tema</label>
-        <div class="col d-flex justify-content-center">
-          <select [formControlName]="'theme'" class="form-select form-select-sm" aria-label=".form-select-sm example"
-                  *ngIf="themeList">
-            <option value="{{theme.id}}" *ngFor="let theme of themeList" class="dropdown-item">{{theme.name}}</option>
-          </select>
-          <button class="plusbtn" type="button">+</button>
-
-        </div>
-      </div>
-      <div class="mt-5">
-        <button type="submit" class="itcbutton btn">Lägg till plagg</button>
-      </div>
+    </div>
+    <div class="mt-5">
+      <button type="submit" class="itcbutton btn">Lägg till plagg</button>
+    </div>
   </form>
 </div>

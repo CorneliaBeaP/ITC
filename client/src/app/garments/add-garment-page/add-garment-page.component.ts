@@ -1,13 +1,15 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {GarmentService} from "../../../service/garment.service";
 import {AttributeService} from "../../../service/attribute.service";
-import {Subscription} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {MainCategory} from "../../classes/main-category";
 import {UnderCategory} from "../../classes/under-category";
 import {UndercategoryPipe} from "../../pipes/undercategory.pipe";
 import {Colour} from "../../classes/colour";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Theme} from "../../classes/theme";
+import {Garment} from "../../classes/garment";
+import {strict} from "assert";
 
 @Component({
   selector: 'app-add-garment-page',
@@ -25,7 +27,13 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
   colourList: Colour[];
   themeList: Theme[];
   form: FormGroup;
-  addAnotherColour = false;
+  showColourTextField = false;
+  showThemeTextField = false;
+  showUnderCategoryTextfield = false;
+  chosenColours: Colour[] = [];
+  chosenThemes: Theme[] = [];
+  chosenUnderCategories: UnderCategory[] = [];
+  pageloaded = false;
 
 
   constructor(private garmentService: GarmentService,
@@ -35,10 +43,7 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.getAllMainCategories();
-    this.getAllUnderCategories();
-    this.getAllColours();
-    this.getAllThemes();
+    this.setUp();
     this.createForm();
   }
 
@@ -47,8 +52,21 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
       undercategory: ['', Validators.required],
       colour: ['', Validators.required],
       theme: ['', Validators.required],
-      maincategory: ['', Validators.required]
+      maincategory: ['', Validators.required],
+      colourfreetext: [''],
+      themefreetext: [''],
+      undercategoryfreetext: ['']
     });
+  }
+
+  setUp() {
+    Promise.all([this.getAllMainCategories(),
+      this.getAllUnderCategories(),
+      this.getAllColours(),
+      this.getAllThemes()]).then((value) => {
+      this.pageloaded = true;
+    })
+
   }
 
   getAllMainCategories() {
@@ -73,6 +91,86 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
     this.subscription = this.attributeService.getAllThemes().subscribe((data) => {
       this.themeList = data;
     })
+  }
+
+  onEnterColour() {
+    let colour = new Colour();
+    let colourfreetext = this.form.get('colourfreetext');
+    colour.name = colourfreetext.value;
+    colour.id = 0;
+    this.chosenColours.push(colour);
+    colourfreetext.reset('');
+  }
+
+  onEnterTheme() {
+    let theme = new Theme;
+    let themefreetext = this.form.get('themefreetext');
+    theme.name = themefreetext.value;
+    theme.id = 0;
+    this.chosenThemes.push(theme);
+    themefreetext.reset('');
+  }
+
+  onEnterUnderCategory() {
+    let underCategory = new UnderCategory();
+    let freetext = this.form.get('undercategoryfreetext');
+    underCategory.name = freetext.value;
+    underCategory.id = 0;
+    underCategory.mainCategory = this.getMainCategoryById(this.getValueFromForm('maincategory'));
+    this.chosenUnderCategories.push(underCategory);
+    freetext.reset('');
+  }
+
+  getColourById(id: number): Colour {
+    let colour: Colour = null;
+    this.colourList.forEach(colourfromlist => {
+      if (colourfromlist.id == id) {
+        colour = colourfromlist;
+      }
+    });
+    return colour;
+  }
+
+  getThemeById(id: number): Theme {
+    let theme: Theme = null;
+    this.themeList.forEach(themeFromList => {
+      if (themeFromList.id == id) {
+        theme = themeFromList;
+      }
+    });
+    return theme;
+  }
+
+  getMainCategoryById(id: number): MainCategory {
+    let category: MainCategory = null;
+    this.mainCategoryList.forEach(categoryFromList => {
+      if (categoryFromList.id == id) {
+        category = categoryFromList;
+      }
+    });
+    return category;
+  }
+
+  getUnderCategoryById(id: number): UnderCategory {
+    let category: UnderCategory = null;
+    this.underCategoryList.forEach(categoryFromList => {
+      if (categoryFromList.id == id) {
+        category = categoryFromList;
+      }
+    });
+    return category;
+  }
+
+  addColour() {
+    this.chosenColours.push(this.getColourById(this.form.get('colour').value));
+  }
+
+  addTheme() {
+    this.chosenThemes.push(this.getThemeById(this.form.get('theme').value));
+  }
+
+  addUnderCategory() {
+    this.chosenUnderCategories.push(this.getUnderCategoryById(this.form.get('undercategory').value));
   }
 
   triggerFileUpload() {
@@ -115,9 +213,49 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
     this.chooseMainCategory(this.form.get('maincategory').value)
   }
 
-  onSubmit() {
-    console.log('Submitted');
+  checkIfOtherColourOtherwiseAdd() {
+    if (this.form.get('colour').value == 'annan') {
+      this.showColourTextField = true;
+    } else {
+      this.addColour();
+    }
   }
+
+  checkIfOtherThemeOtherwiseAdd() {
+    if (this.form.get('theme').value == 'annan') {
+      this.showThemeTextField = true;
+    } else {
+      this.addTheme();
+    }
+  }
+
+  checkIfOtherUnderCategoryOtherwiseAdd() {
+    if (this.form.get('undercategory').value == 'annan') {
+      this.showUnderCategoryTextfield = true;
+    } else {
+      this.addUnderCategory();
+    }
+  }
+
+  getValueFromForm(name: string) {
+    return this.form.get(name).value;
+  }
+
+  onSubmit() {
+    this.errorMessage = '';
+    if (this.form.invalid || this.chosenColours.length < 1 || this.chosenThemes.length < 1) {
+      this.errorMessage = 'form is invalid';
+      return;
+    }
+    let garment: Garment = new Garment;
+    garment.mainCategory = this.getMainCategoryById(this.getValueFromForm('maincategory'));
+    garment.underCategories = this.chosenUnderCategories;
+    garment.colours = this.chosenColours;
+    garment.themes = this.chosenThemes;
+
+    console.log(garment);
+  }
+
 
   ngOnDestroy(): void {
     if (this.subscription) {
