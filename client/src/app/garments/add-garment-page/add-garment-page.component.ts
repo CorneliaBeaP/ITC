@@ -105,6 +105,7 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
       this.errorMessage = 'Färg finns redan!';
     }
     colourfreetext.reset('');
+    this.showColourTextField = false;
   }
 
   onEnterTheme() {
@@ -119,6 +120,7 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
       this.errorMessage = 'Tema finns redan!'
     }
     themefreetext.reset('');
+    this.showThemeTextField = false;
   }
 
   onEnterUnderCategory() {
@@ -134,6 +136,7 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
       this.errorMessage = 'Underkategori finns redan!'
     }
     freetext.reset('');
+    this.showUnderCategoryTextfield = false;
   }
 
   getColourById(id: number): Colour {

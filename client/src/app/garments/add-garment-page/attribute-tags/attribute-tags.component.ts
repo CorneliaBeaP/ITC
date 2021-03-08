@@ -18,7 +18,6 @@ export class AttributeTagsComponent implements OnInit {
   }
 
   remove(id: number) {
-    console.log('removing ' + id);
     this.removedAttribute.emit(id);
   }
 }
