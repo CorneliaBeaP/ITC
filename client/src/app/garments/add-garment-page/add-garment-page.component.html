@@ -17,7 +17,7 @@
       <div class="col" *ngIf="mainCategoryList">
         <label>Huvudkategori</label>
         <div class="col d-flex justify-content-center">
-          <select (change)="onChange()" [formControlName]="'maincategory'" class="form-select form-select-sm"
+          <select (change)="onChangeMainCategory()" [formControlName]="'maincategory'" class="form-select form-select-sm"
                   aria-label=".form-select-sm example" *ngIf="mainCategoryList">
             <option value="{{category.id}}" *ngFor="let category of mainCategoryList"
                     class="dropdown-item">{{category.name}}</option>
@@ -35,17 +35,23 @@
                   class="dropdown-item">{{category.name}}</option>
           <option value="annan" class="dropdown-item">Annan...</option>
         </select>
-        {{chosenUnderCategories | json}}
       </div>
       <div class="row" *ngIf="showUnderCategoryTextfield">
         <div class="col d-flex justify-content-center">
           <input [formControlName]="'undercategoryfreetext'" type="text" class="form-control"
-                 (keyup.enter)="onEnterUnderCategory()">}}
+                 (keyup.enter)="onEnterUnderCategory()">
           <div class="row mt-1">
             <div class="col d-flex justify-content-center">
               <button type="button" class="itcbutton btn" (click)="(onEnterUnderCategory())">Lägg till underkategori
               </button>
             </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col d-flex justify-content-center">
+          <div class="tagbox">
+            <app-attribute-tags *ngFor="let category of chosenUnderCategories" [id]="category.id" [name]="category.name"></app-attribute-tags>
           </div>
         </div>
       </div>
@@ -61,7 +67,6 @@
                   class="dropdown-item">{{colour.name}}</option>
           <option value="annan" class="dropdown-item">Annan...</option>
         </select>
-        {{chosenColours | json}}
       </div>
     </div>
     <div class="row" *ngIf="showColourTextField">
@@ -75,6 +80,13 @@
         </div>
       </div>
     </div>
+    <div class="row">
+      <div class="col d-flex justify-content-center">
+        <div class="tagbox">
+          <app-attribute-tags *ngFor="let colour of chosenColours" [id]="colour.id" [name]="colour.name"></app-attribute-tags>
+        </div>
+      </div>
+    </div>
     <div class="row mt-5" *ngIf="themeList">
       <label>Tema</label>
       <div class="col d-flex justify-content-center">
@@ -83,7 +95,6 @@
           <option value="{{theme.id}}" *ngFor="let theme of themeList" class="dropdown-item">{{theme.name}}</option>
           <option value="annan" class="dropdown-item">Annan...</option>
         </select>
-        {{chosenThemes |json}}
       </div>
     </div>
     <div class="row" *ngIf="showThemeTextField">
@@ -100,7 +111,7 @@
     <div class="row">
       <div class="col d-flex justify-content-center">
         <div class="tagbox">
-          <app-attribute-tags *ngFor="let theme of colourList" [id]="theme.id" [name]="theme.name"></app-attribute-tags>
+          <app-attribute-tags *ngFor="let theme of chosenThemes" [id]="theme.id" [name]="theme.name"></app-attribute-tags>
         </div>
       </div>
     </div>

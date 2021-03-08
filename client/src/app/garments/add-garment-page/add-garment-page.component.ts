@@ -257,8 +257,9 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
     this.updatedUnderCategoryList = this.undercategoryPipe.transform(this.underCategoryList, id);
   }
 
-  onChange() {
-    this.chooseMainCategory(this.form.get('maincategory').value)
+  onChangeMainCategory() {
+    this.chosenUnderCategories = [];
+    this.chooseMainCategory(this.form.get('maincategory').value);
   }
 
   checkIfOtherColourOtherwiseAdd() {
