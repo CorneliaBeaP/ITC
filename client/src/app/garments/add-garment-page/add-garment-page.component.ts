@@ -35,6 +35,7 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
   chosenUnderCategories: UnderCategory[] = [];
   pageloaded = false;
   idcounter = 100001;
+  picture: FormData;
 
   constructor(private garmentService: GarmentService,
               private attributeService: AttributeService,
@@ -270,26 +271,22 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
 
   onSelectFile(event) { // called each time file input changes
     if (event.target.files && event.target.files[0]) {
-      var reader = new FileReader();
-
+      let reader = new FileReader();
       reader.readAsDataURL(event.target.files[0]); // read file as data url
-
       reader.onload = (event) => { // called once readAsDataURL is completed
         this.url = event.target.result;
-      }
+      };
+      this.onUpload(event.target.files[0]);
     }
   }
 
-  onUpload(file
-             :
-             any
-  ) {
-    //TODO: fortsätt
+  onUpload(file: any) {
     let formData = new FormData();
     if (!(file.size > 1048576)) {
       if (file.type.match('image.jpg') || file.type.match('image.jpeg') || file.type.match('image.png')) {
         formData.append('name', file);
-        this.garmentService.uploadProfilePicture(formData);
+        // this.garmentService.uploadPicture(formData);
+        this.picture = formData;
       } else {
         this.errorMessage = `Vänligen välj en bild av typen .png eller .jpg`;
       }
@@ -298,10 +295,7 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  chooseMainCategory(id
-                       :
-                       number
-  ) {
+  chooseMainCategory(id: number) {
     this.updatedUnderCategoryList = this.undercategoryPipe.transform(this.underCategoryList, id);
   }
 
@@ -334,10 +328,7 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  getValueFromForm(name
-                     :
-                     string
-  ) {
+  getValueFromForm(name: string) {
     return this.form.get(name).value;
   }
 
@@ -364,7 +355,7 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.errorMessage = '';
-    if (this.form.invalid || this.chosenColours.length < 1 || this.chosenThemes.length < 1) {
+    if (this.form.invalid || this.chosenColours.length < 1 || this.chosenThemes.length < 1 || !this.url) {
       this.errorMessage = 'form is invalid';
       return;
     }
@@ -373,8 +364,8 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
     garment.underCategories = this.chosenUnderCategories;
     garment.colours = this.chosenColours;
     garment.themes = this.chosenThemes;
-
-    console.log(garment);
+    
+    this.garmentService.addGarment(garment, this.picture);
   }
 
 

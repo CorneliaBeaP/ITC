@@ -100,6 +100,45 @@ public class AttributesService {
         return themeDTOS;
     }
 
+    //findBy
+
+    public MainCategory findMainCategoryById(Long id) {
+        return mainCategoryRepository.findById(id).get();
+    }
+
+    public Colour findColourById(Long id) {
+        return colourRepository.findById(id).get();
+    }
+
+    public Theme findThemeById(Long id) {
+        return themeRepository.findById(id).get();
+    }
+
+    public UnderCategory findUnderCategoryById(Long id) {
+        return underCategoryRepository.findById(id).get();
+    }
+
+    public Colour findColourByName(String name) {
+        Colour colour;
+        Optional<Colour> foundColour = colourRepository.findByName(name);
+        colour = foundColour.orElse(null);
+        return colour;
+    }
+
+    public Theme findThemeByName(String name) {
+        Theme theme;
+        Optional<Theme> foundTheme = themeRepository.findByName(name);
+        theme = foundTheme.orElse(null);
+        return theme;
+    }
+
+    public UnderCategory findUnderCategoryByName(String name){
+        UnderCategory underCategory;
+        Optional<UnderCategory> foundUC = underCategoryRepository.findByName(name);
+        underCategory = foundUC.orElse(null);
+        return underCategory;
+    }
+
     //Add
 
     public Response addUnderCategory(String name, MainCategoryType type) {

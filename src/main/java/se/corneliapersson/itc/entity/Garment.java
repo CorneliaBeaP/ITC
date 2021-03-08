@@ -32,4 +32,15 @@ public class Garment {
 
     public Garment() {
     }
+
+    @Override
+    public String toString() {
+        return "Garment{" +
+                "id=" + id +
+                ", colours=" + colours +
+                ", mainCategory=" + mainCategory +
+                ", underCategories=" + underCategories +
+                ", themes=" + themes +
+                '}';
+    }
 }
