@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-attribute-tags',
@@ -9,10 +9,16 @@ export class AttributeTagsComponent implements OnInit {
 
   @Input() name: string;
   @Input() id: number;
+  @Output() removedAttribute = new EventEmitter<number>();
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
 
+  remove(id: number) {
+    console.log('removing ' + id);
+    this.removedAttribute.emit(id);
+  }
 }

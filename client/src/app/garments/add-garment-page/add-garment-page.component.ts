@@ -34,7 +34,7 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
   chosenThemes: Theme[] = [];
   chosenUnderCategories: UnderCategory[] = [];
   pageloaded = false;
-
+  idcounter = 100000;
 
   constructor(private garmentService: GarmentService,
               private attributeService: AttributeService,
@@ -97,7 +97,8 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
     let colour = new Colour();
     let colourfreetext = this.form.get('colourfreetext');
     colour.name = colourfreetext.value;
-    colour.id = 0;
+    colour.id = this.idcounter;
+    this.idcounter++;
     this.chosenColours.push(colour);
     colourfreetext.reset('');
   }
@@ -106,7 +107,8 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
     let theme = new Theme;
     let themefreetext = this.form.get('themefreetext');
     theme.name = themefreetext.value;
-    theme.id = 0;
+    theme.id = this.idcounter;
+    this.idcounter++;
     this.chosenThemes.push(theme);
     themefreetext.reset('');
   }
@@ -115,7 +117,8 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
     let underCategory = new UnderCategory();
     let freetext = this.form.get('undercategoryfreetext');
     underCategory.name = freetext.value;
-    underCategory.id = 0;
+    underCategory.id = this.idcounter;
+    this.idcounter++;
     underCategory.mainCategory = this.getMainCategoryById(this.getValueFromForm('maincategory'));
     this.chosenUnderCategories.push(underCategory);
     freetext.reset('');
@@ -291,6 +294,27 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
                      string
   ) {
     return this.form.get(name).value;
+  }
+
+  removeAttribute(id: number) {
+    this.chosenUnderCategories.forEach(x => {
+      if (x.id == id) {
+        let index = this.chosenUnderCategories.indexOf(x);
+        this.chosenUnderCategories.splice(index, 1);
+      }
+    });
+    this.chosenThemes.forEach(x => {
+      if (x.id == id) {
+        let index = this.chosenThemes.indexOf(x);
+        this.chosenThemes.splice(index, 1);
+      }
+    });
+    this.chosenColours.forEach(x => {
+      if (x.id == id) {
+        let index = this.chosenColours.indexOf(x);
+        this.chosenColours.splice(index, 1);
+      }
+    });
   }
 
   onSubmit() {

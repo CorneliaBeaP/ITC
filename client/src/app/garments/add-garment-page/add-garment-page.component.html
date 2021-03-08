@@ -51,7 +51,7 @@
       <div class="row">
         <div class="col d-flex justify-content-center">
           <div class="tagbox">
-            <app-attribute-tags *ngFor="let category of chosenUnderCategories" [id]="category.id" [name]="category.name"></app-attribute-tags>
+            <app-attribute-tags *ngFor="let category of chosenUnderCategories" [id]="category.id" [name]="category.name" (removedAttribute)="removeAttribute($event)"></app-attribute-tags>
           </div>
         </div>
       </div>
@@ -83,7 +83,7 @@
     <div class="row">
       <div class="col d-flex justify-content-center">
         <div class="tagbox">
-          <app-attribute-tags *ngFor="let colour of chosenColours" [id]="colour.id" [name]="colour.name"></app-attribute-tags>
+          <app-attribute-tags *ngFor="let colour of chosenColours" [id]="colour.id" [name]="colour.name" (removedAttribute)="removeAttribute($event)"></app-attribute-tags>
         </div>
       </div>
     </div>
@@ -111,7 +111,7 @@
     <div class="row">
       <div class="col d-flex justify-content-center">
         <div class="tagbox">
-          <app-attribute-tags *ngFor="let theme of chosenThemes" [id]="theme.id" [name]="theme.name"></app-attribute-tags>
+          <app-attribute-tags *ngFor="let theme of chosenThemes" [id]="theme.id" [name]="theme.name" (removedAttribute)="removeAttribute($event)"></app-attribute-tags>
         </div>
       </div>
     </div>
