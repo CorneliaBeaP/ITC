@@ -12,6 +12,7 @@ import { AddGarmentPageComponent } from './garments/add-garment-page/add-garment
 import {HttpClientModule} from "@angular/common/http";
 import { UndercategoryPipe } from './pipes/undercategory.pipe';
 import {ReactiveFormsModule} from "@angular/forms";
+import { AttributeTagsComponent } from './garments/add-garment-page/attribute-tags/attribute-tags.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     ThemeComponent,
     AddAttributesPageComponent,
     AddGarmentPageComponent,
-    UndercategoryPipe
+    UndercategoryPipe,
+    AttributeTagsComponent
   ],
   imports: [
     BrowserModule,

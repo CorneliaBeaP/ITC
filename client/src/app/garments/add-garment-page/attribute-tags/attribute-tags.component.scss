@@ -1,0 +1,20 @@
+.tagcontainer{
+  background-color: #f2f9ff;
+  width: auto;
+  white-space: nowrap;
+  display: inline-block;
+  margin: 4px 2px;
+  padding: 2px 5px 2px 20px;
+  border: 1px solid #3492eb;
+  border-radius: 16px;
+  text-decoration: none;
+  text-align: center;
+}
+
+.removebtn{
+  border-radius: 50%;
+  text-align: center;
+  color: #3492eb;
+  border: none;
+  background-color: #f2f9ff;
+}

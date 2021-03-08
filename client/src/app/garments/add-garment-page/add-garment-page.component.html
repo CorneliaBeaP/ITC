@@ -97,6 +97,13 @@
         </div>
       </div>
     </div>
+    <div class="row">
+      <div class="col d-flex justify-content-center">
+        <div class="tagbox">
+          <app-attribute-tags *ngFor="let theme of colourList" [id]="theme.id" [name]="theme.name"></app-attribute-tags>
+        </div>
+      </div>
+    </div>
     <div class="mt-5">
       <button type="submit" class="itcbutton btn">Lägg till plagg</button>
     </div>
