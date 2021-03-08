@@ -34,7 +34,7 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
   chosenThemes: Theme[] = [];
   chosenUnderCategories: UnderCategory[] = [];
   pageloaded = false;
-  idcounter = 100000;
+  idcounter = 100001;
 
   constructor(private garmentService: GarmentService,
               private attributeService: AttributeService,
@@ -99,7 +99,11 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
     colour.name = colourfreetext.value;
     colour.id = this.idcounter;
     this.idcounter++;
-    this.chosenColours.push(colour);
+    if (!this.doesColourAlreadyExistInColourList(colour.name)) {
+      this.chosenColours.push(colour);
+    } else {
+      this.errorMessage = 'Färg finns redan!';
+    }
     colourfreetext.reset('');
   }
 
@@ -109,7 +113,11 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
     theme.name = themefreetext.value;
     theme.id = this.idcounter;
     this.idcounter++;
-    this.chosenThemes.push(theme);
+    if (!this.doesThemeAlreadyExistInThemeList(theme.name)) {
+      this.chosenThemes.push(theme);
+    } else {
+      this.errorMessage = 'Tema finns redan!'
+    }
     themefreetext.reset('');
   }
 
@@ -120,7 +128,11 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
     underCategory.id = this.idcounter;
     this.idcounter++;
     underCategory.mainCategory = this.getMainCategoryById(this.getValueFromForm('maincategory'));
-    this.chosenUnderCategories.push(underCategory);
+    if (!this.doesUnderCategoryAlreadyExistInUndercategoryList(underCategory.name)) {
+      this.chosenUnderCategories.push(underCategory);
+    } else {
+      this.errorMessage = 'Underkategori finns redan!'
+    }
     freetext.reset('');
   }
 
@@ -182,6 +194,16 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
     return alreadyExist;
   }
 
+  doesColourAlreadyExistInColourList(name: string): Boolean {
+    let alreadyExist = false;
+    this.colourList.forEach(x => {
+      if (x.name.toLowerCase() == name.toLowerCase()) {
+        alreadyExist = true;
+      }
+    });
+    return alreadyExist;
+  }
+
   addTheme() {
     if (!this.doesThemeAlreadyExistInChosenThemes(this.form.get('theme').value)) {
       this.chosenThemes.push(this.getThemeById(this.form.get('theme').value));
@@ -200,6 +222,16 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
     return alreadyExist;
   }
 
+  doesThemeAlreadyExistInThemeList(name: string): Boolean {
+    let alreadyExist = false;
+    this.themeList.forEach(x => {
+      if (x.name.toLowerCase() == name.toLowerCase()) {
+        alreadyExist = true;
+      }
+    });
+    return alreadyExist;
+  }
+
   addUnderCategory() {
     if (!this.doesUnderCategoryAlreadyExistInChosenColours(this.form.get('undercategory').value)) {
       this.chosenUnderCategories.push(this.getUnderCategoryById(this.form.get('undercategory').value));
@@ -215,6 +247,16 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
         }
       });
     }
+    return alreadyExist;
+  }
+
+  doesUnderCategoryAlreadyExistInUndercategoryList(name: string): Boolean {
+    let alreadyExist = false;
+    this.underCategoryList.forEach(x => {
+      if (x.name.toLowerCase() == name.toLowerCase()) {
+        alreadyExist = true;
+      }
+    });
     return alreadyExist;
   }
 
