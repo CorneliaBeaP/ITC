@@ -21,20 +21,11 @@ export class ChooseOutfitPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getAllGarments();
-    this.getPictureForGarment(64);
   }
 
   getAllGarments() {
     this.subscription = this.garmentService.getAllGarments().subscribe(data => {
       this.allGarments = data;
-    });
-  }
-
-  getPictureForGarment(id: number) {
-    this.subscription = this.garmentService.getPicture(61).subscribe(data => {
-      const reader = new FileReader();
-      reader.onload = (e) => this.image = this.sanitizer.bypassSecurityTrustUrl(e.target.result.toString());
-      reader.readAsDataURL(new Blob([data]));
     });
   }
 
