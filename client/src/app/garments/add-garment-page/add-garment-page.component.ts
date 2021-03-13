@@ -10,6 +10,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Theme} from "../../classes/theme";
 import {Garment} from "../../classes/garment";
 import {strict} from "assert";
+import {AttributesAlphabeticalPipe} from "../../pipes/attributes-alphabetical.pipe";
 
 @Component({
   selector: 'app-add-garment-page',
@@ -40,6 +41,7 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
   constructor(private garmentService: GarmentService,
               private attributeService: AttributeService,
               private undercategoryPipe: UndercategoryPipe,
+              private attributesAlphabeticalPipe: AttributesAlphabeticalPipe,
               private formBuilder: FormBuilder) {
   }
 
@@ -78,19 +80,19 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
 
   getAllUnderCategories() {
     this.subscription = this.attributeService.getAllUnderCategories().subscribe((data) => {
-      this.underCategoryList = data;
+      this.underCategoryList = this.attributesAlphabeticalPipe.transform(data);
     })
   }
 
   getAllColours() {
     this.subscription = this.attributeService.getAllColours().subscribe((data) => {
-      this.colourList = data;
+      this.colourList = this.attributesAlphabeticalPipe.transform(data);
     })
   }
 
   getAllThemes() {
     this.subscription = this.attributeService.getAllThemes().subscribe((data) => {
-      this.themeList = data;
+      this.themeList = this.attributesAlphabeticalPipe.transform(data);
     })
   }
 
