@@ -6,7 +6,7 @@ import {ChooseOutfitPageComponent} from "./garments/choose-outfit-page/choose-ou
 
 const routes: Routes = [
   { path: 'home', component: ChooseOutfitPageComponent },
-  { path: '', component: StartComponent },
+  { path: '', component: ChooseOutfitPageComponent },
   { path: 'garment', component: AddGarmentPageComponent}
 ];
 
