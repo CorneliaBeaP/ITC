@@ -364,7 +364,7 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
     garment.underCategories = this.chosenUnderCategories;
     garment.colours = this.chosenColours;
     garment.themes = this.chosenThemes;
-    
+
     this.garmentService.addGarment(garment, this.picture);
   }
 

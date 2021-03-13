@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Garment} from "../app/classes/garment";
 import {Itcresponse} from "../app/classes/itcresponse";
-import {multicast} from "rxjs/operators";
+import {map, multicast} from "rxjs/operators";
 import {log} from "util";
 
 @Injectable({
@@ -18,22 +18,26 @@ export class GarmentService {
   }
 
   uploadPicture(formData: FormData, id: number) {
-    console.log(id);
-    console.log(formData);
     this.http.post(this.url + `/garment/picture/${id}`, formData).subscribe();
   }
 
   addGarment(garment: Garment, picture: FormData) {
-    console.log('addGarment');
-    console.log(garment.mainCategory.name);
-    console.log(garment.colours);
-    console.log(picture.get('name'));
-    // this.http.post(this.url +`/garment`, [garment, picture]).subscribe(data => {
-    //   console.log(data);
-    // });
-    this.http.post(this.url + `/garment`,  garment).subscribe((data:Itcresponse) => {
-      console.log(data.message);
+    this.http.post(this.url + `/garment`, garment).subscribe((data: Itcresponse) => {
       this.uploadPicture(picture, parseInt(data.message));
     });
+  }
+
+  getAllGarments() {
+    return this.http.get(this.url + `/garments`).pipe(map(data => {
+      let data2 = JSON.stringify(data);
+      return JSON.parse(data2);
+    }));
+  }
+
+  getPicture(id: number) {
+    const headers = new HttpHeaders().set('Content-Type', 'blob');
+    return this.http.get(this.url + `/garment/picture/${id}`, {headers, responseType: "blob"}).pipe(map(data => {
+      return data;
+    }));
   }
 }

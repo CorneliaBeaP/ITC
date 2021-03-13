@@ -44,6 +44,15 @@ public class AttributesService {
         return categoryDTO;
     }
 
+    public List<UnderCategoryDTO> convertToUnderCategoryDTOList(List<UnderCategory> list) {
+        List<UnderCategoryDTO> underCategoryDTOS = new ArrayList<>();
+        for (UnderCategory u: list
+             ) {
+            underCategoryDTOS.add(convertToUnderCategoryDTO(u));
+        }
+        return underCategoryDTOS;
+    }
+
     public ColourDTO convertToColourDTO(Colour colour) {
         ColourDTO colourDTO = new ColourDTO();
         colourDTO.setId(colour.getId());
@@ -51,11 +60,29 @@ public class AttributesService {
         return colourDTO;
     }
 
+    public List<ColourDTO> convertToColourDTOList(List<Colour> colours){
+        List<ColourDTO> colourDTOS = new ArrayList<>();
+        for (Colour c: colours
+             ) {
+            colourDTOS.add(convertToColourDTO(c));
+        }
+        return colourDTOS;
+    }
+
     public ThemeDTO convertToThemeDTO(Theme theme) {
         ThemeDTO themeDTO = new ThemeDTO();
         themeDTO.setId(theme.getId());
         themeDTO.setName(theme.getName());
         return themeDTO;
+    }
+
+    public List<ThemeDTO> convertToThemeDTOList(List<Theme> list) {
+        List<ThemeDTO> themeDTOS = new ArrayList<>();
+        for (Theme t: list
+        ) {
+            themeDTOS.add(convertToThemeDTO(t));
+        }
+        return themeDTOS;
     }
 
     //findAll

@@ -6,24 +6,22 @@ import { NavbarComponent } from './navigation/navbar/navbar.component';
 import { AppRoutingModule } from './app-routing.module';
 import { StartComponent } from './start/start.component';
 import {RouterModule} from "@angular/router";
-import { ThemeComponent } from './attributes/theme/theme.component';
-import { AddAttributesPageComponent } from './attributes/add-attributes-page/add-attributes-page.component';
 import { AddGarmentPageComponent } from './garments/add-garment-page/add-garment-page.component';
 import {HttpClientModule} from "@angular/common/http";
 import { UndercategoryPipe } from './pipes/undercategory.pipe';
 import {ReactiveFormsModule} from "@angular/forms";
 import { AttributeTagsComponent } from './garments/add-garment-page/attribute-tags/attribute-tags.component';
+import { ChooseOutfitPageComponent } from './garments/choose-outfit-page/choose-outfit-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     StartComponent,
-    ThemeComponent,
-    AddAttributesPageComponent,
     AddGarmentPageComponent,
     UndercategoryPipe,
-    AttributeTagsComponent
+    AttributeTagsComponent,
+    ChooseOutfitPageComponent
   ],
   imports: [
     BrowserModule,

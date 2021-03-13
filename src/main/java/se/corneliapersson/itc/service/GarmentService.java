@@ -6,6 +6,11 @@ import se.corneliapersson.itc.domain.GarmentRepository;
 import se.corneliapersson.itc.dto.*;
 import se.corneliapersson.itc.entity.*;
 
+import javax.imageio.ImageIO;
+import java.awt.image.RenderedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -21,6 +26,26 @@ public class GarmentService {
     public GarmentService(GarmentRepository repository, AttributesService attributesService) {
         this.repository = repository;
         this.attributesService = attributesService;
+    }
+
+    public GarmentDTO convertToGarmentDTO(Garment garment) {
+        GarmentDTO garmentDTO = new GarmentDTO();
+        garmentDTO.setId(garment.getId());
+        garmentDTO.setMainCategory(attributesService.convertToMainCategoryDTO(garment.getMainCategory()));
+        garmentDTO.setColours(attributesService.convertToColourDTOList(garment.getColours()));
+        garmentDTO.setThemes(attributesService.convertToThemeDTOList(garment.getThemes()));
+        garmentDTO.setUnderCategories(attributesService.convertToUnderCategoryDTOList(garment.getUnderCategories()));
+        return garmentDTO;
+    }
+
+    public List<GarmentDTO> getAllGarments() {
+        List<Garment> allGarments = (List<Garment>) repository.findAll();
+        List<GarmentDTO> garmentDTOS = new ArrayList<>();
+        for (Garment g : allGarments
+        ) {
+            garmentDTOS.add(convertToGarmentDTO(g));
+        }
+        return garmentDTOS;
     }
 
     public Garment addGarment(GarmentDTO garmentDTO) {
@@ -95,6 +120,14 @@ public class GarmentService {
             response.setMessage("Kunde inte spara bild");
         }
         return response;
+    }
 
+    public byte[] getImage(Long id) throws IOException {
+        File sourceimage= new File("client/src/assets/garmentpics/" + id + ".png");
+        RenderedImage image = ImageIO.read(sourceimage);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ImageIO.write(image, "png", bos);
+        byte[] data = bos.toByteArray();
+        return data;
     }
 }
