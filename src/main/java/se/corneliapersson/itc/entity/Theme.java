@@ -15,6 +15,6 @@ public class Theme {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String name;
-    @ManyToMany
+    @ManyToMany(mappedBy = "themes")
     private List<Garment> garments;
 }

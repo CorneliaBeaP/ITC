@@ -4,6 +4,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import se.corneliapersson.itc.domain.MainCategoryRepository;
+import se.corneliapersson.itc.entity.MainCategory;
+import se.corneliapersson.itc.entity.MainCategoryType;
 import se.corneliapersson.itc.service.AttributesService;
 
 import java.time.LocalDateTime;
@@ -16,7 +19,7 @@ public class ItcApplication {
     }
 
     @Bean
-    public CommandLineRunner setUp(AttributesService attributesService) {
+    public CommandLineRunner setUp(AttributesService attributesService, MainCategoryRepository mainCategoryRepository) {
         return (args -> {
             System.out.println(LocalDateTime.now() + " Applikationen startar");
 //            MainCategory mainCategory1 = new MainCategory();
@@ -28,13 +31,13 @@ public class ItcApplication {
 //            mainCategoryRepository.save(mainCategory1);
 //            mainCategoryRepository.save(mainCategory2);
 //            mainCategoryRepository.save(mainCategory3);
-
-//            underCategoryService.addUnderCategory("Tights", MainCategoryType.UNDERDEL);
-//            underCategoryService.addUnderCategory("Kimono", MainCategoryType.OVERDEL);
-//            underCategoryService.addUnderCategory("Skjorta", MainCategoryType.OVERDEL);
-//            underCategoryService.addUnderCategory("Kostymbyxor", MainCategoryType.UNDERDEL);
-//            underCategoryService.addUnderCategory("Jeans", MainCategoryType.UNDERDEL);
-//            underCategoryService.addUnderCategory("Linne", MainCategoryType.OVERDEL);
+//
+//            attributesService.addUnderCategory("Tights", MainCategoryType.UNDERDEL);
+//            attributesService.addUnderCategory("Kimono", MainCategoryType.OVERDEL);
+//            attributesService.addUnderCategory("Skjorta", MainCategoryType.OVERDEL);
+//            attributesService.addUnderCategory("Kostymbyxor", MainCategoryType.UNDERDEL);
+//            attributesService.addUnderCategory("Jeans", MainCategoryType.UNDERDEL);
+//            attributesService.addUnderCategory("Linne", MainCategoryType.OVERDEL);
 //            attributesService.addColour("Svart");
 //            attributesService.addColour("Vit");
 //            attributesService.addColour("Röd");
@@ -45,7 +48,7 @@ public class ItcApplication {
 //            attributesService.addColour("Blå");
 //            attributesService.addColour("Metallic");
 //            attributesService.addColour("Grå");
-
+//
 //            attributesService.addTheme("Work");
 //            attributesService.addTheme("Fest");
 //            attributesService.addTheme("Vardag");

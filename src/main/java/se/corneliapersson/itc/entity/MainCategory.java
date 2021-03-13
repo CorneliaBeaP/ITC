@@ -15,8 +15,8 @@ public class MainCategory {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String name;
-    @OneToMany
+    @OneToMany(mappedBy = "mainCategory")
     private List<Garment> garments;
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "mainCategory")
     private List<UnderCategory> underCategories;
 }
