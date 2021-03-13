@@ -14,6 +14,7 @@ import { AttributeTagsComponent } from './garments/add-garment-page/attribute-ta
 import { ChooseOutfitPageComponent } from './garments/choose-outfit-page/choose-outfit-page.component';
 import { GarmentCardComponent } from './garments/choose-outfit-page/garment-card/garment-card.component';
 import { AttributesAlphabeticalPipe } from './pipes/attributes-alphabetical.pipe';
+import { DuplicateGarmentPipe } from './pipes/duplicate-garment.pipe';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { AttributesAlphabeticalPipe } from './pipes/attributes-alphabetical.pipe
     AttributeTagsComponent,
     ChooseOutfitPageComponent,
     GarmentCardComponent,
-    AttributesAlphabeticalPipe
+    AttributesAlphabeticalPipe,
+    DuplicateGarmentPipe
   ],
   imports: [
     BrowserModule,
@@ -34,7 +36,7 @@ import { AttributesAlphabeticalPipe } from './pipes/attributes-alphabetical.pipe
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [UndercategoryPipe, AttributesAlphabeticalPipe],
+  providers: [UndercategoryPipe, AttributesAlphabeticalPipe, DuplicateGarmentPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

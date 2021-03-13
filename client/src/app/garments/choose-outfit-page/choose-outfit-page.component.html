@@ -1,7 +1,62 @@
 <app-navbar></app-navbar>
 <div class="itccontainer">
   <h2 class="m-5">Välj outfit</h2>
+  <form (ngSubmit)="onSubmit()" [formGroup]="form">
+    <div class="row justify-content-center d-flex">
+      <div class="col-3">
+        <button type="button" class="itcbutton" (click)="showMainCategories=!showMainCategories">Huvudkategori</button>
+        <div *ngIf="showMainCategories">
+          <div *ngFor="let m of allMainCategories" class="form-check d-flex">
+            <input class="form-check-input" type="checkbox" value="{{m.id}}" id="{{m.id}}"
+                   (change)="onMainCategoryChange($event)" [formControlName]="'maincategory'">
+            <label class="form-check-label" for="{{m.id}}">
+              {{m.name}}
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="col-3">
+        <button type="button" class="itcbutton" (click)="showUnderCategories=!showUnderCategories">Underkategori
+        </button>
+        <div *ngIf="showUnderCategories">
+          <div *ngFor="let u of allUnderCategories" class="form-check d-flex">
+            <input class="form-check-input" type="checkbox" value="{{u.id}}" id="{{u.id}}"
+                   (change)="onUnderCategoryChange($event)" [formControlName]="'undercategory'">
+            <label class="form-check-label" for="{{u.id}}">
+              {{u.name}}
+            </label>
+          </div>
+        </div>
 
-  <app-garment-card *ngFor="let garment of allGarments" [garment]="garment"></app-garment-card>
-
+      </div>
+      <div class="col-3">
+        <button type="button" class="itcbutton" (click)="showColours=!showColours">Colour</button>
+        <div *ngIf="showColours">
+          <div *ngFor="let c of allColours" class="form-check d-flex">
+            <input class="form-check-input" type="checkbox" value="{{c.id}}" id="{{c.id}}"
+                   (click)="onColourChange($event)" [formControlName]="'colour'">
+            <label class="form-check-label" for="{{c.id}}">
+              {{c.name}}
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="col-3">
+        <button type="button" class="itcbutton" (click)="showThemes=!showThemes">Tema</button>
+        <div *ngIf="showThemes">
+          <div *ngFor="let t of allThemes" class="form-check d-flex">
+            <input class="form-check-input" type="checkbox" value="{{t.id}}" id="{{t.id}}"
+                   (click)="onThemeChange($event)" [formControlName]="'theme'">
+            <label class="form-check-label" for="{{t.id}}">
+              {{t.name}}
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center d-flex">
+      <button type="submit" class="itcbutton">Sök</button>
+    </div>
+  </form>
+  <app-garment-card *ngFor="let garment of garmentsToShow" [garment]="garment"></app-garment-card>
 </div>
