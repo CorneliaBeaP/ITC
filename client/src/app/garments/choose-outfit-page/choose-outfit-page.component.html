@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 <div class="itccontainer">
   <h2 class="m-5">Välj outfit</h2>
-  <form (ngSubmit)="onSubmit()" [formGroup]="form">
+  <form (ngSubmit)="onClear()" [formGroup]="form">
     <div class="row justify-content-center d-flex">
       <div class="col-3">
         <button type="button" class="itcbutton" (click)="showMainCategories=!showMainCategories">Huvudkategori</button>
@@ -55,7 +55,7 @@
       </div>
     </div>
     <div class="row justify-content-center d-flex">
-      <button type="submit" class="itcbutton">Sök</button>
+      <button type="submit" class="itcbutton">Rensa sökningar</button>
     </div>
   </form>
   <div *ngIf="garmentsToShow.length<1">
