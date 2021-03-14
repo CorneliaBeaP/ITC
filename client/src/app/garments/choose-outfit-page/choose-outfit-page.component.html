@@ -8,7 +8,7 @@
         <div *ngIf="showMainCategories">
           <div *ngFor="let m of allMainCategories" class="form-check d-flex">
             <input class="form-check-input" type="checkbox" value="{{m.id}}" id="{{m.id}}"
-                   (change)="onMainCategoryChange($event)" [formControlName]="'maincategory'">
+                   (change)="onAttributeChange($event, 'm')" [formControlName]="'maincategory'">
             <label class="form-check-label" for="{{m.id}}">
               {{m.name}}
             </label>
@@ -21,7 +21,7 @@
         <div *ngIf="showUnderCategories">
           <div *ngFor="let u of allUnderCategories" class="form-check d-flex">
             <input class="form-check-input" type="checkbox" value="{{u.id}}" id="{{u.id}}"
-                   (change)="onUnderCategoryChange($event)" [formControlName]="'undercategory'">
+                   (change)="onAttributeChange($event, 'u')" [formControlName]="'undercategory'">
             <label class="form-check-label" for="{{u.id}}">
               {{u.name}}
             </label>
@@ -34,7 +34,7 @@
         <div *ngIf="showColours">
           <div *ngFor="let c of allColours" class="form-check d-flex">
             <input class="form-check-input" type="checkbox" value="{{c.id}}" id="{{c.id}}"
-                   (click)="onColourChange($event)" [formControlName]="'colour'">
+                   (click)="onAttributeChange($event, 'c')" [formControlName]="'colour'">
             <label class="form-check-label" for="{{c.id}}">
               {{c.name}}
             </label>
@@ -46,7 +46,7 @@
         <div *ngIf="showThemes">
           <div *ngFor="let t of allThemes" class="form-check d-flex">
             <input class="form-check-input" type="checkbox" value="{{t.id}}" id="{{t.id}}"
-                   (click)="onThemeChange($event)" [formControlName]="'theme'">
+                   (click)="onAttributeChange($event, 't')" [formControlName]="'theme'">
             <label class="form-check-label" for="{{t.id}}">
               {{t.name}}
             </label>
