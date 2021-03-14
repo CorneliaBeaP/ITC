@@ -58,5 +58,10 @@
       <button type="submit" class="itcbutton">Sök</button>
     </div>
   </form>
-  <app-garment-card *ngFor="let garment of garmentsToShow" [garment]="garment"></app-garment-card>
+  <div *ngIf="garmentsToShow.length<1">
+    <app-garment-card *ngFor="let garment of allGarments" [garment]="garment"></app-garment-card>
+  </div>
+  <div *ngIf="garmentsToShow.length>0">
+    <app-garment-card *ngFor="let garment of garmentsToShow" [garment]="garment"></app-garment-card>
+  </div>
 </div>

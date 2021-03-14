@@ -79,13 +79,7 @@ export class ChooseOutfitPageComponent implements OnInit, OnDestroy {
     if (event.target.checked == true) {
       let garments = this.getGarmentsByMainCategory(event.target.value);
       garments.forEach(garment => {
-        this.garmentsToShow.forEach(garment2 => {
-          console.log(garment.id);
-          console.log(garment2.id);
-          if (!(garment2.id == garment.id)) {
-            this.garmentsToShow.push(garment);
-          }
-        });
+        this.garmentsToShow.push(garment);
       });
     }
     if (event.target.checked == false) {
@@ -104,7 +98,11 @@ export class ChooseOutfitPageComponent implements OnInit, OnDestroy {
   }
 
   onColourChange(event) {
-    this.addOrRemoveFromShowedGarments(event, 'colour');
+    if (event.target.checked == true) {
+      this.addOrRemoveFromShowedGarments(event, 'colour');
+    }else{
+      this.removeFromGarmentsToShow(event, 'colour');
+    }
   }
 
   onThemeChange(event) {
@@ -116,20 +114,13 @@ export class ChooseOutfitPageComponent implements OnInit, OnDestroy {
     if (event.target.checked == true) {
       let garments = this.getGarmentByAttributeList(event.target.value, attribute);
       garments.forEach(garment => {
-        if (this.garmentsToShow.length > 0) {
-          this.garmentsToShow.forEach(garment2 => {
-            if (!(garment2.id == garment.id)) {
-              console.log(garment2.id);
-              console.log(garment.id)
-              this.garmentsToShow.push(garment);
-              this.duplicateGarmentPipe.transform(this.garmentsToShow);
-            }
-          });
-        } else {
-          this.garmentsToShow.push(garment);
-        }
+        this.garmentsToShow.push(garment);
       });
     }
+
+  }
+
+  removeFromGarmentsToShow(event, attribute: string) {
     if (event.target.checked == false) {
       let garments = this.getGarmentByAttributeList(event.target.value, attribute);
       garments.forEach(garment => {
