@@ -141,8 +141,7 @@ export class ChooseOutfitPageComponent implements OnInit, OnDestroy {
 
   updateGarmentsToShow() {
     this.garmentsToShow = [];
-    console.log('här1');
-
+    
     this.allGarments.forEach(garment => {
       let presentInColours = false;
       let presentInUnderCategories = false;
