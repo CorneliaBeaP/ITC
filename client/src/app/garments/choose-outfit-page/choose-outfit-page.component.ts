@@ -10,6 +10,7 @@ import {UnderCategory} from "../../classes/under-category";
 import {MainCategory} from "../../classes/main-category";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {DuplicateGarmentPipe} from "../../pipes/duplicate-garment.pipe";
+import {forEachComment} from "tslint";
 
 @Component({
   selector: 'app-choose-outfit-page',
@@ -23,6 +24,7 @@ export class ChooseOutfitPageComponent implements OnInit, OnDestroy {
   allColours: Colour[] = [];
   allThemes: Theme[] = [];
   allUnderCategories: UnderCategory[] = [];
+  underCategoryOptionsToShow: UnderCategory[] = [];
   allMainCategories: MainCategory[] = [];
   subscription: Subscription;
   form: FormGroup;
@@ -72,6 +74,7 @@ export class ChooseOutfitPageComponent implements OnInit, OnDestroy {
     });
     this.subscription = this.attributeService.getAllUnderCategories().subscribe(data => {
       this.allUnderCategories = this.alphabeticalPipe.transform(data);
+      this.underCategoryOptionsToShow = this.alphabeticalPipe.transform(data);
     });
     this.subscription = this.attributeService.getAllMainCategories().subscribe(data => {
       this.allMainCategories = data;
@@ -79,11 +82,30 @@ export class ChooseOutfitPageComponent implements OnInit, OnDestroy {
   }
 
   onAttributeChange(event, attribute: string) {
+    let updateduCList = [];
     if (attribute == 'm') {
       if (event.target.checked == true) {
-        Promise.resolve(this.addAttributeToShow(event, this.mCategoryIDToShow)).then(() => this.updateGarmentsToShow());
+        Promise.resolve(this.addAttributeToShow(event, this.mCategoryIDToShow)).then(() => this.updateGarmentsToShow()).then(() => this.allUnderCategories.forEach(uC => {
+          this.mCategoryIDToShow.forEach(mCID => {
+            if (uC.mainCategory.id == mCID) {
+              updateduCList.push(uC);
+            }
+          });
+        })).then(() => this.underCategoryOptionsToShow = updateduCList);
       } else {
-        Promise.resolve(this.removeAttributeToShow(event, this.mCategoryIDToShow)).then(() => this.updateGarmentsToShow());
+        Promise.resolve(this.removeAttributeToShow(event, this.mCategoryIDToShow)).then(() => this.updateGarmentsToShow()).then(() => this.allUnderCategories.forEach(uC => {
+          this.mCategoryIDToShow.forEach(mCID => {
+            if (uC.mainCategory.id == mCID) {
+              updateduCList.push(uC);
+            }
+          });
+        })).then(() => {
+            this.underCategoryOptionsToShow = updateduCList;
+            if (!updateduCList.length) {
+              this.underCategoryOptionsToShow = this.allUnderCategories;
+            }
+          }
+        );
       }
     } else if (attribute == 'u') {
       if (event.target.checked == true) {

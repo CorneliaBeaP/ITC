@@ -19,7 +19,7 @@
         <button type="button" class="itcbutton" (click)="showUnderCategories=!showUnderCategories">Underkategori
         </button>
         <div *ngIf="showUnderCategories">
-          <div *ngFor="let u of allUnderCategories" class="form-check d-flex">
+          <div *ngFor="let u of underCategoryOptionsToShow" class="form-check d-flex">
             <input class="form-check-input" type="checkbox" value="{{u.id}}" id="{{u.id}}"
                    (change)="onAttributeChange($event, 'u')" [formControlName]="'undercategory'">
             <label class="form-check-label" for="{{u.id}}">
