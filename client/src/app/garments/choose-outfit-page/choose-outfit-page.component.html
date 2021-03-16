@@ -58,8 +58,13 @@
       <button type="submit" class="itcbutton">Rensa sökningar</button>
     </div>
   </form>
-  <div *ngIf="garmentsToShow.length<1">
+  <div
+    *ngIf="(garmentsToShow.length<1) && !(mCategoryIDToShow.length || uCategoryIDToShow.length || colourIDToShow.length || themeIDToShow.length)">
     <app-garment-card *ngFor="let garment of allGarments" [garment]="garment"></app-garment-card>
+  </div>
+  <div
+    *ngIf="(garmentsToShow.length<1) && (mCategoryIDToShow.length || uCategoryIDToShow.length || colourIDToShow.length || themeIDToShow.length)">
+    <div class="m-5">Inga sökresultat.</div>
   </div>
   <div *ngIf="garmentsToShow.length>0">
     <app-garment-card *ngFor="let garment of garmentsToShow" [garment]="garment"></app-garment-card>
