@@ -141,40 +141,75 @@ export class ChooseOutfitPageComponent implements OnInit, OnDestroy {
 
   updateGarmentsToShow() {
     this.garmentsToShow = [];
-    this.colourIDToShow.forEach(id => {
-      this.allGarments.forEach(garment => {
-        garment.colours.forEach(colour => {
-          if (id == colour.id) {
-            Promise.resolve(this.garmentsToShow.push(garment)).then(() => this.garmentsToShow = this.removeDuplicates(this.garmentsToShow));
-          }
-        });
-      });
+    console.log('här1');
+
+    this.allGarments.forEach(garment => {
+      let presentInColours = false;
+      let presentInUnderCategories = false;
+      let presentInMainCategories = false;
+      let presentInThemes = false;
+      if (this.isGarmentInChosenColours(garment) || this.colourIDToShow.length < 1) {
+        presentInColours = true;
+      }
+      if (this.isGarmentInChosenUnderCategories(garment) || this.uCategoryIDToShow.length < 1) {
+        presentInUnderCategories = true;
+      }
+      if (this.isGarmentInChosenMainCategories(garment) || this.mCategoryIDToShow.length < 1) {
+        presentInMainCategories = true;
+      }
+      if (this.isGarmentInChosenThemes(garment) || this.themeIDToShow.length < 1) {
+        presentInThemes = true;
+      }
+      if (presentInThemes && presentInMainCategories && presentInUnderCategories && presentInColours) {
+        Promise.resolve(this.garmentsToShow.push(garment)).then(() => this.garmentsToShow = this.removeDuplicates(this.garmentsToShow));
+      }
     });
-    this.themeIDToShow.forEach(id => {
-      this.allGarments.forEach(garment => {
-        garment.themes.forEach(theme => {
-          if (id == theme.id) {
-            Promise.resolve(this.garmentsToShow.push(garment)).then(() => this.garmentsToShow = this.removeDuplicates(this.garmentsToShow));
-          }
-        });
-      });
-    });
-    this.uCategoryIDToShow.forEach(id => {
-      this.allGarments.forEach(garment => {
-        garment.underCategories.forEach(uCategory => {
-          if (id == uCategory.id) {
-            Promise.resolve(this.garmentsToShow.push(garment)).then(() => this.garmentsToShow = this.removeDuplicates(this.garmentsToShow));
-          }
-        })
-      });
-    });
-    this.mCategoryIDToShow.forEach(id => {
-      this.allGarments.forEach(garment => {
-        if (id == garment.mainCategory.id) {
-          Promise.resolve(this.garmentsToShow.push(garment)).then(() => this.garmentsToShow = this.removeDuplicates(this.garmentsToShow));
+  }
+
+  isGarmentInChosenColours(garment: Garment): Boolean {
+    let isGarmentPresent = false;
+    this.colourIDToShow.forEach(colourID => {
+      garment.colours.forEach(garmentColour => {
+        if (colourID == garmentColour.id) {
+          isGarmentPresent = true;
         }
       });
     });
+    return isGarmentPresent;
+  }
+
+  isGarmentInChosenUnderCategories(garment: Garment): Boolean {
+    let isGarmentPresent = false;
+    this.uCategoryIDToShow.forEach(xID => {
+      garment.underCategories.forEach(x => {
+        if (xID == x.id) {
+          isGarmentPresent = true;
+        }
+      });
+    });
+    return isGarmentPresent;
+  }
+
+  isGarmentInChosenThemes(garment: Garment): Boolean {
+    let isGarmentPresent = false;
+    this.themeIDToShow.forEach(xID => {
+      garment.themes.forEach(x => {
+        if (xID == x.id) {
+          isGarmentPresent = true;
+        }
+      });
+    });
+    return isGarmentPresent;
+  }
+
+  isGarmentInChosenMainCategories(garment: Garment): Boolean {
+    let isGarmentPresent = false;
+    this.mCategoryIDToShow.forEach(xID => {
+      if (xID == garment.mainCategory.id) {
+        isGarmentPresent = true;
+      }
+    });
+    return isGarmentPresent;
   }
 
   removeDuplicates(array: any[]): any[] {
