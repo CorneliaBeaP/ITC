@@ -148,7 +148,7 @@ export class ChooseOutfitPageComponent implements OnInit, OnDestroy {
     });
     this.mCategoryIDToShow.forEach(id => {
       this.allGarments.forEach(garment => {
-        if(id == garment.mainCategory.id) {
+        if (id == garment.mainCategory.id) {
           Promise.resolve(this.garmentsToShow.push(garment)).then(() => this.garmentsToShow = this.removeDuplicates(this.garmentsToShow));
         }
       });
@@ -160,7 +160,13 @@ export class ChooseOutfitPageComponent implements OnInit, OnDestroy {
     return [...unique];
   }
 
-  onSubmit() {
+  onClear() {
+    Promise.resolve(this.form.reset()).then(() => {
+      this.uCategoryIDToShow = [];
+      this.mCategoryIDToShow = [];
+      this.colourIDToShow = [];
+      this.themeIDToShow = [];
+    }).finally(() => this.updateGarmentsToShow());
   }
 
   ngOnDestroy(): void {
