@@ -17,4 +17,5 @@ public class Theme {
     private String name;
     @ManyToMany(mappedBy = "themes")
     private List<Garment> garments;
+
 }

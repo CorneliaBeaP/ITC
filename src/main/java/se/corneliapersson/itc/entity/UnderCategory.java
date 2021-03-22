@@ -19,4 +19,5 @@ public class UnderCategory {
     private List<Garment> garments;
     @ManyToOne(fetch = FetchType.EAGER)
     private MainCategory mainCategory;
+
 }

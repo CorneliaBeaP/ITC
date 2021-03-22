@@ -19,4 +19,5 @@ public class MainCategory {
     private List<Garment> garments;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "mainCategory")
     private List<UnderCategory> underCategories;
+
 }
