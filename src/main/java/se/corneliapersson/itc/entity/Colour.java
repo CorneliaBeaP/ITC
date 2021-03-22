@@ -17,5 +17,4 @@ public class Colour {
     private String name;
     @ManyToMany(mappedBy = "colours")
     private List<Garment> garments;
-
 }
