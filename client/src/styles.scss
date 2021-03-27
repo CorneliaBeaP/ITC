@@ -39,3 +39,19 @@ html, body {
 .pointer{
 cursor: pointer;
 }
+
+.chosenoutfitcontainer {
+  left: 0;
+  z-index: 10;
+  top: 40%;
+  position: fixed;
+}
+
+.chosenoutfitcontainercontracted {
+  cursor: pointer;
+  background-color: #f7f7f7;
+  padding: 20px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  height: 65px;
+}

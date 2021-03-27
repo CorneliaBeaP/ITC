@@ -36,6 +36,9 @@ export class ChooseOutfitPageComponent implements OnInit, OnDestroy {
   themeIDToShow: number[] = [];
   uCategoryIDToShow: number[] = [];
   mCategoryIDToShow: number[] = [];
+  showChosenOutfit = false;
+  amountGarmentsChosen = 0;
+  chosenGarments: Garment[] = [];
 
   constructor(private garmentService: GarmentService,
               private attributeService: AttributeService,
@@ -141,7 +144,7 @@ export class ChooseOutfitPageComponent implements OnInit, OnDestroy {
 
   updateGarmentsToShow() {
     this.garmentsToShow = [];
-    
+
     this.allGarments.forEach(garment => {
       let presentInColours = false;
       let presentInUnderCategories = false;

@@ -30,7 +30,7 @@
 
       </div>
       <div class="col-3">
-        <button type="button" class="itcbutton" (click)="showColours=!showColours">Colour</button>
+        <button type="button" class="itcbutton" (click)="showColours=!showColours">Färg</button>
         <div *ngIf="showColours">
           <div *ngFor="let c of allColours" class="form-check d-flex">
             <input class="form-check-input" type="checkbox" value="{{c.id}}" id="{{c.id}}"
@@ -70,3 +70,12 @@
     <app-garment-card *ngFor="let garment of garmentsToShow" [garment]="garment"></app-garment-card>
   </div>
 </div>
+<div class="chosenoutfitcontainer">
+  <div *ngIf="showChosenOutfit">
+    <app-chosen-outfit (showChosenOutfit)="showChosenOutfit=false" [chosenGarments]="chosenGarments"></app-chosen-outfit>
+  </div>
+  <div class="chosenoutfitcontainercontracted" *ngIf="!showChosenOutfit" (click)="showChosenOutfit=true">
+    <i class="fas fa-chevron-right"></i>
+  </div>
+</div>
+

@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="col chosenoutfitcontainerexpanded" [ngClass]="{'nogarmentschosen': chosenGarments.length<1}">
+    <div *ngIf="chosenGarments.length">
+      <app-chosen-garment-card *ngFor="let garment of chosenGarments"></app-chosen-garment-card>
+    </div>
+    <div *ngIf="!chosenGarments.length" >
+      Inga plagg valda
+    </div>
+  </div>
+  <div class="col-1 chosenoutfitcontainercontracted" (click)="hideChosenOutfit()">
+    <i class="fas fa-chevron-left"></i>
+  </div>
+</div>
+
