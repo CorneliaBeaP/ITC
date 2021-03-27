@@ -6,4 +6,29 @@ img {
 .garmentcard {
   padding: 10px;
   display: inline-block;
+  position: relative;
+}
+
+.garmentcard img {
+  width: 100%;
+  height: auto;
+}
+
+.garmentcard .addbtn {
+  visibility: hidden;
+  background-color: rgba(0, 0, 0, 0);
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  color: rgba(0, 0, 0, 0.5);
+  border: none;
+  cursor: pointer;
+}
+
+.garmentcard:hover .addbtn {
+  visibility: visible;
+}
+
+.addbtn:hover {
+  color: rgba(0, 0, 0, 0.9) !important;
 }

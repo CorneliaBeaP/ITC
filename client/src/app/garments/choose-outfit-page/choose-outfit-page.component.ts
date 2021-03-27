@@ -38,7 +38,7 @@ export class ChooseOutfitPageComponent implements OnInit, OnDestroy {
   mCategoryIDToShow: number[] = [];
   showChosenOutfit = false;
   amountGarmentsChosen = 0;
-  chosenGarments: Garment[] = [];
+  chosenGarments: Garment[];
 
   constructor(private garmentService: GarmentService,
               private attributeService: AttributeService,
@@ -51,6 +51,7 @@ export class ChooseOutfitPageComponent implements OnInit, OnDestroy {
     this.createForm();
     this.getAllAttributes();
     this.getAllGarments();
+    this.chosenGarments = [];
   }
 
   createForm() {
@@ -226,6 +227,10 @@ export class ChooseOutfitPageComponent implements OnInit, OnDestroy {
       this.colourIDToShow = [];
       this.themeIDToShow = [];
     }).finally(() => this.updateGarmentsToShow());
+  }
+
+  addGarmentToChosenGarments(garment: Garment){
+    this.chosenGarments.push(garment);
   }
 
   ngOnDestroy(): void {

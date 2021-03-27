@@ -1,8 +1,11 @@
-
 .chosenoutfitcontainerexpanded {
   background-color: #f7f7f7;
   padding: 20px;
-  border-bottom-right-radius: 20px;
+  max-height: 55vh;
+  max-width: 50vw;
+  overflow-y: scroll;
+  border-bottom-right-radius: 25px;
+
 }
 
 .chosenoutfitcontainercontracted {
@@ -11,4 +14,35 @@
 
 .nogarmentschosen {
   border-bottom-right-radius: 0;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0,);
+}
+
+::-webkit-scrollbar-track:hover {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+app-chosen-garment-card {
+  display: inline-block;
+  margin-right: 10px;
+  //margin: 0;
 }

@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {Garment} from "../../../classes/garment";
 import {GarmentService} from "../../../../service/garment.service";
 import {Subscription} from "rxjs";
@@ -12,6 +12,7 @@ import {DomSanitizer} from "@angular/platform-browser";
 export class GarmentCardComponent implements OnInit, OnDestroy {
 
   @Input() garment: Garment;
+  @Output() chosenGarment = new EventEmitter<Garment>();
   subscription: Subscription;
   image;
 
@@ -28,6 +29,10 @@ export class GarmentCardComponent implements OnInit, OnDestroy {
       reader.onload = (e) => this.image = this.sanitizer.bypassSecurityTrustUrl(e.target.result.toString());
       reader.readAsDataURL(new Blob([data]));
     });
+  }
+
+  chooseGarment(garment: Garment){
+    this.chosenGarment.emit(garment);
   }
 
   ngOnDestroy(): void {

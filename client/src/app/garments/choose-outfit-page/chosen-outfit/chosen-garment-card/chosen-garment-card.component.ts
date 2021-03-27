@@ -1,15 +1,38 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Garment} from "../../../../classes/garment";
+import {Subscription} from "rxjs";
+import {GarmentService} from "../../../../../service/garment.service";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-chosen-garment-card',
   templateUrl: './chosen-garment-card.component.html',
   styleUrls: ['./chosen-garment-card.component.scss']
 })
-export class ChosenGarmentCardComponent implements OnInit {
+export class ChosenGarmentCardComponent implements OnInit, OnDestroy {
 
-  constructor() { }
+  @Input() garment: Garment;
+  subscription: Subscription;
+  image;
 
-  ngOnInit(): void {
+  constructor(private garmentService: GarmentService, private sanitizer: DomSanitizer) {
   }
 
+  ngOnInit(): void {
+    this.getPictureForGarment(this.garment.id);
+  }
+
+  getPictureForGarment(id: number) {
+    this.subscription = this.garmentService.getPicture(id).subscribe(data => {
+      const reader = new FileReader();
+      reader.onload = (e) => this.image = this.sanitizer.bypassSecurityTrustUrl(e.target.result.toString());
+      reader.readAsDataURL(new Blob([data]));
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
 }

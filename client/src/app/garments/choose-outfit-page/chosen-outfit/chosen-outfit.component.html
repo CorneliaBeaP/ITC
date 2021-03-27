@@ -1,7 +1,24 @@
 <div class="row">
   <div class="col chosenoutfitcontainerexpanded" [ngClass]="{'nogarmentschosen': chosenGarments.length<1}">
     <div *ngIf="chosenGarments.length">
-      <app-chosen-garment-card *ngFor="let garment of chosenGarments"></app-chosen-garment-card>
+      <div *ngIf="sortGarmentByMainCategory(1, chosenGarments).length>0">
+        <h5>
+          Överdel
+        </h5>
+        <app-chosen-garment-card [garment]="garment" *ngFor="let garment of sortGarmentByMainCategory(1, chosenGarments)"></app-chosen-garment-card>
+      </div>
+      <div *ngIf="sortGarmentByMainCategory(2, chosenGarments).length>0">
+        <h5>
+          Underdel
+        </h5>
+        <app-chosen-garment-card [garment]="garment" *ngFor="let garment of sortGarmentByMainCategory(2, chosenGarments)"></app-chosen-garment-card>
+      </div>
+      <div *ngIf="sortGarmentByMainCategory(3, chosenGarments).length>0">
+        <h5>
+          Över/Underdel
+        </h5>
+        <app-chosen-garment-card [garment]="garment" *ngFor="let garment of sortGarmentByMainCategory(3, chosenGarments)"></app-chosen-garment-card>
+      </div>
     </div>
     <div *ngIf="!chosenGarments.length" >
       Inga plagg valda
