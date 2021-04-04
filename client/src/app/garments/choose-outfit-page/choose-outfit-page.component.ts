@@ -49,8 +49,7 @@ export class ChooseOutfitPageComponent implements OnInit, OnDestroy {
     this.createForm();
     this.getAllAttributes();
     this.getAllGarments();
-    this.chosenGarments = [];
-
+    this.chosenGarments = JSON.parse(sessionStorage.getItem('chosen'));
   }
 
   createForm() {
@@ -233,7 +232,7 @@ export class ChooseOutfitPageComponent implements OnInit, OnDestroy {
   }
 
   updateChosenGarmentCache() {
-    localStorage.setItem('chosen', JSON.stringify(this.chosenGarments));
+    sessionStorage.setItem('chosen', JSON.stringify(this.chosenGarments));
   }
 
   ngOnDestroy(): void {

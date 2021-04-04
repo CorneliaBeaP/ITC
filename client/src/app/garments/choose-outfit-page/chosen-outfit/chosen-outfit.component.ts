@@ -32,12 +32,13 @@ export class ChosenOutfitComponent implements OnInit {
   }
 
   removeGarmentFromChosenGarments(garment: Garment) {
-   Promise.resolve(this.chosenGarments.splice(this.chosenGarments.indexOf(garment), 1)).then(() => this.chosenGarmentsChange.emit(this.chosenGarments)).finally(() => this.updateChosenGarmentCache());
+    Promise.resolve(this.chosenGarments.splice(this.chosenGarments.indexOf(garment), 1)).then(() => this.chosenGarmentsChange.emit(this.chosenGarments)).finally(() => this.updateChosenGarmentCache());
   }
 
   updateChosenGarmentCache() {
-      localStorage.setItem('chosen', JSON.stringify(this.chosenGarments));
+   Promise.resolve(sessionStorage.setItem('chosen', JSON.stringify(this.chosenGarments)));
   }
+  
 
   hideChosenOutfit() {
     this.showChosenOutfit.emit(false);
