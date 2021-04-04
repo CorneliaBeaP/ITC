@@ -37,6 +37,7 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
   pageloaded = false;
   idcounter = 100001;
   picture: FormData;
+  selectDisabled = true;
 
   constructor(private garmentService: GarmentService,
               private attributeService: AttributeService,
@@ -272,13 +273,22 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
   }
 
   onSelectFile(event) { // called each time file input changes
-    if (event.target.files && event.target.files[0]) {
-      let reader = new FileReader();
-      reader.readAsDataURL(event.target.files[0]); // read file as data url
-      reader.onload = (event) => { // called once readAsDataURL is completed
-        this.url = event.target.result;
-      };
-      this.onUpload(event.target.files[0]);
+    if (event.target.files[0].size > 1048576) {
+      this.errorMessage = 'Bilden överstiger 1 MB. Vänligen välj en annan bild.';
+    } else {
+      if (!(event.target.files[0].type.match('image.jpg') || event.target.files[0].type.match('image.jpeg') || event.target.files[0].type.match('image.png'))) {
+        this.errorMessage = `Vänligen välj en bild av typen .png eller .jpg`;
+      } else {
+        if (event.target.files && event.target.files[0]) {
+          this.errorMessage = '';
+          let reader = new FileReader();
+          reader.readAsDataURL(event.target.files[0]); // read file as data url
+          reader.onload = (event) => { // called once readAsDataURL is completed
+            this.url = event.target.result;
+          };
+          this.onUpload(event.target.files[0]);
+        }
+      }
     }
   }
 
@@ -287,13 +297,9 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
     if (!(file.size > 1048576)) {
       if (file.type.match('image.jpg') || file.type.match('image.jpeg') || file.type.match('image.png')) {
         formData.append('name', file);
-        // this.garmentService.uploadPicture(formData);
         this.picture = formData;
-      } else {
-        this.errorMessage = `Vänligen välj en bild av typen .png eller .jpg`;
+        this.selectDisabled=false;
       }
-    } else {
-      this.errorMessage = 'Filen överstiger 1MB, vänligen försök med en mindre fil.'
     }
   }
 
@@ -370,10 +376,7 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
     this.garmentService.addGarment(garment, this.picture);
   }
 
-
-  ngOnDestroy()
-    :
-    void {
+  ngOnDestroy(): void {
     if (this.subscription
     ) {
       this.subscription.unsubscribe();

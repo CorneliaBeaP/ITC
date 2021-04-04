@@ -9,7 +9,7 @@
         <div class="d-flex justify-content-center">
           <input type='file' accept="image/*"
                  (change)="onSelectFile($event)" id="fileupload">
-          <button class="itcbutton btn" (click)="triggerFileUpload()">Välj bild</button>
+          <button class="itcbutton btn" (click)="triggerFileUpload();$event.preventDefault();">Välj bild</button>
         </div>
       </div>
     </div>
@@ -17,7 +17,7 @@
       <div class="col" *ngIf="mainCategoryList">
         <label>Huvudkategori</label>
         <div class="col d-flex justify-content-center">
-          <select (change)="onChangeMainCategory()" [formControlName]="'maincategory'" class="form-select form-select-sm"
+          <select [attr.disabled]="selectDisabled? true : null" (change)="onChangeMainCategory()" [formControlName]="'maincategory'" class="form-select form-select-sm"
                   aria-label=".form-select-sm example" *ngIf="mainCategoryList">
             <option value="{{category.id}}" *ngFor="let category of mainCategoryList"
                     class="dropdown-item">{{category.name}}</option>
@@ -28,7 +28,7 @@
     <div class="row mt-5" *ngIf="updatedUnderCategoryList">
       <label>Underkategori</label>
       <div class="col d-flex justify-content-center">
-        <select [formControlName]="'undercategory'" class="form-select form-select-sm"
+        <select [attr.disabled]="selectDisabled? true : null" [formControlName]="'undercategory'" class="form-select form-select-sm"
                 aria-label=".form-select-sm example" *ngIf="updatedUnderCategoryList"
                 (change)="checkIfOtherUnderCategoryOtherwiseAdd()">
           <option value="{{category.id}}" *ngFor="let category of updatedUnderCategoryList"
@@ -59,7 +59,7 @@
     <div class="row mt-5" *ngIf="colourList">
       <label>Färg</label>
       <div class="col d-flex justify-content-center">
-        <select (change)="checkIfOtherColourOtherwiseAdd()" [formControlName]="'colour'"
+        <select [attr.disabled]="selectDisabled? true : null"  (change)="checkIfOtherColourOtherwiseAdd()" [formControlName]="'colour'"
                 class="form-select form-select-sm"
                 aria-label=".form-select-sm example"
                 *ngIf="colourList">
@@ -90,7 +90,7 @@
     <div class="row mt-5" *ngIf="themeList">
       <label>Tema</label>
       <div class="col d-flex justify-content-center">
-        <select [formControlName]="'theme'" class="form-select form-select-sm" aria-label=".form-select-sm example"
+        <select [attr.disabled]="selectDisabled? true : null"  [formControlName]="'theme'" class="form-select form-select-sm" aria-label=".form-select-sm example"
                 *ngIf="themeList" (change)="checkIfOtherThemeOtherwiseAdd()">
           <option value="{{theme.id}}" *ngFor="let theme of themeList" class="dropdown-item">{{theme.name}}</option>
           <option value="annan" class="dropdown-item">Annan...</option>
