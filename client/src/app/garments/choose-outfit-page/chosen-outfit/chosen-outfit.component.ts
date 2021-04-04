@@ -1,4 +1,4 @@
-import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter, Input, OnChanges} from '@angular/core';
 import {Garment} from "../../../classes/garment";
 import {DuplicateGarmentPipe} from "../../../pipes/duplicate-garment.pipe";
 
@@ -10,22 +10,33 @@ import {DuplicateGarmentPipe} from "../../../pipes/duplicate-garment.pipe";
 export class ChosenOutfitComponent implements OnInit {
 
   @Output() showChosenOutfit = new EventEmitter<boolean>();
+  @Output() chosenGarmentsChange = new EventEmitter<Garment[]>();
   @Input() chosenGarments: Garment[];
+  mainCategoryIDs: number[] = [1, 2, 3];
 
   constructor(private duplicateGarmentPipe: DuplicateGarmentPipe) {
   }
 
   ngOnInit(): void {
+
   }
 
-  sortGarmentByMainCategory(mainCategoryID: number, list: Garment[]): Garment[]{
+  sortGarmentByMainCategory(mainCategoryID: number, list: Garment[]): Garment[] {
     let sortedList: Garment[] = [];
     list.forEach(garment => {
-      if(garment.mainCategory.id==mainCategoryID){
+      if (garment.mainCategory.id == mainCategoryID) {
         sortedList.push(garment);
       }
     });
     return this.duplicateGarmentPipe.transform(sortedList);
+  }
+
+  removeGarmentFromChosenGarments(garment: Garment) {
+   Promise.resolve(this.chosenGarments.splice(this.chosenGarments.indexOf(garment), 1)).then(() => this.chosenGarmentsChange.emit(this.chosenGarments)).finally(() => this.updateChosenGarmentCache());
+  }
+
+  updateChosenGarmentCache() {
+      localStorage.setItem('chosen', JSON.stringify(this.chosenGarments));
   }
 
   hideChosenOutfit() {

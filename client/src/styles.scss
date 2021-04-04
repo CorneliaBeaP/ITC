@@ -3,6 +3,10 @@
   text-align: center;
 }
 
+button:focus {
+  box-shadow: none !important;
+}
+
 .plusbtn {
   text-align: center;
   width: 30px;

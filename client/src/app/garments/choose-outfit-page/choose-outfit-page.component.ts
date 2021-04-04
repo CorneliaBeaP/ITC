@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {Garment} from "../../classes/garment";
 import {GarmentService} from "../../../service/garment.service";
 import {Subscription} from "rxjs";
@@ -10,7 +10,6 @@ import {UnderCategory} from "../../classes/under-category";
 import {MainCategory} from "../../classes/main-category";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {DuplicateGarmentPipe} from "../../pipes/duplicate-garment.pipe";
-import {forEachComment} from "tslint";
 
 @Component({
   selector: 'app-choose-outfit-page',
@@ -36,8 +35,7 @@ export class ChooseOutfitPageComponent implements OnInit, OnDestroy {
   themeIDToShow: number[] = [];
   uCategoryIDToShow: number[] = [];
   mCategoryIDToShow: number[] = [];
-  showChosenOutfit = false;
-  amountGarmentsChosen = 0;
+  showChosenOutfit = true;
   chosenGarments: Garment[];
 
   constructor(private garmentService: GarmentService,
@@ -52,6 +50,7 @@ export class ChooseOutfitPageComponent implements OnInit, OnDestroy {
     this.getAllAttributes();
     this.getAllGarments();
     this.chosenGarments = [];
+
   }
 
   createForm() {
@@ -229,8 +228,12 @@ export class ChooseOutfitPageComponent implements OnInit, OnDestroy {
     }).finally(() => this.updateGarmentsToShow());
   }
 
-  addGarmentToChosenGarments(garment: Garment){
-    this.chosenGarments.push(garment);
+  addGarmentToChosenGarments(garment: Garment) {
+    Promise.resolve(this.chosenGarments.push(garment)).then(() => this.updateChosenGarmentCache());
+  }
+
+  updateChosenGarmentCache() {
+    localStorage.setItem('chosen', JSON.stringify(this.chosenGarments));
   }
 
   ngOnDestroy(): void {

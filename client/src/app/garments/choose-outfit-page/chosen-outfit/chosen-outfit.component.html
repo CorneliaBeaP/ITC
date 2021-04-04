@@ -1,31 +1,27 @@
-<div class="row">
+<div class="row" *ngIf="chosenGarments">
   <div class="col chosenoutfitcontainerexpanded" [ngClass]="{'nogarmentschosen': chosenGarments.length<1}">
-    <div *ngIf="chosenGarments.length">
-      <div *ngIf="sortGarmentByMainCategory(1, chosenGarments).length>0">
-        <h5>
+    <div *ngIf="!chosenGarments.length>0">
+      Inga plagg valda
+    </div>
+    <div *ngIf="chosenGarments.length>0">
+      <div *ngFor="let mainCategoryID of mainCategoryIDs">
+        <h5 *ngIf="mainCategoryID==1 && sortGarmentByMainCategory(mainCategoryID, chosenGarments).length>0">
           Överdel
         </h5>
-        <app-chosen-garment-card [garment]="garment" *ngFor="let garment of sortGarmentByMainCategory(1, chosenGarments)"></app-chosen-garment-card>
-      </div>
-      <div *ngIf="sortGarmentByMainCategory(2, chosenGarments).length>0">
-        <h5>
+        <h5 *ngIf="mainCategoryID==2 && sortGarmentByMainCategory(mainCategoryID, chosenGarments).length>0">
           Underdel
         </h5>
-        <app-chosen-garment-card [garment]="garment" *ngFor="let garment of sortGarmentByMainCategory(2, chosenGarments)"></app-chosen-garment-card>
-      </div>
-      <div *ngIf="sortGarmentByMainCategory(3, chosenGarments).length>0">
-        <h5>
-          Över/Underdel
+        <h5 *ngIf="mainCategoryID==3 && sortGarmentByMainCategory(mainCategoryID, chosenGarments).length>0">
+          Överdel/Underdel
         </h5>
-        <app-chosen-garment-card [garment]="garment" *ngFor="let garment of sortGarmentByMainCategory(3, chosenGarments)"></app-chosen-garment-card>
+        <app-chosen-garment-card (remove)="removeGarmentFromChosenGarments(garment)" [garment]="garment"
+                                 *ngFor="let garment of sortGarmentByMainCategory(mainCategoryID, chosenGarments)"></app-chosen-garment-card>
+
       </div>
-    </div>
-    <div *ngIf="!chosenGarments.length" >
-      Inga plagg valda
+
     </div>
   </div>
   <div class="col-1 chosenoutfitcontainercontracted" (click)="hideChosenOutfit()">
     <i class="fas fa-chevron-left"></i>
   </div>
 </div>
-

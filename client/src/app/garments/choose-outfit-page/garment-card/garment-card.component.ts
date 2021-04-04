@@ -13,6 +13,7 @@ export class GarmentCardComponent implements OnInit, OnDestroy {
 
   @Input() garment: Garment;
   @Output() chosenGarment = new EventEmitter<Garment>();
+
   subscription: Subscription;
   image;
 
