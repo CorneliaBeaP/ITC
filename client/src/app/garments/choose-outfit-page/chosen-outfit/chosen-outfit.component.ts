@@ -12,7 +12,7 @@ export class ChosenOutfitComponent implements OnInit {
   @Output() showChosenOutfit = new EventEmitter<boolean>();
   @Output() chosenGarmentsChange = new EventEmitter<Garment[]>();
   @Input() chosenGarments: Garment[];
-  mainCategoryIDs: number[] = [1, 2, 3];
+  mainCategoryIDs: number[] = [1, 2, 3, 4];
 
   constructor(private duplicateGarmentPipe: DuplicateGarmentPipe) {
   }
@@ -38,7 +38,7 @@ export class ChosenOutfitComponent implements OnInit {
   updateChosenGarmentCache() {
    Promise.resolve(sessionStorage.setItem('chosen', JSON.stringify(this.chosenGarments)));
   }
-  
+
 
   hideChosenOutfit() {
     this.showChosenOutfit.emit(false);
