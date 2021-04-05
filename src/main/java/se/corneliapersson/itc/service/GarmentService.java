@@ -123,11 +123,36 @@ public class GarmentService {
     }
 
     public byte[] getImage(Long id) throws IOException {
-        File sourceimage= new File("client/src/assets/garmentpics/" + id + ".png");
+        File sourceimage = new File("client/src/assets/garmentpics/" + id + ".png");
         RenderedImage image = ImageIO.read(sourceimage);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ImageIO.write(image, "png", bos);
         byte[] data = bos.toByteArray();
         return data;
+    }
+
+    public Response removeGarment(Long id) {
+        Response response;
+        System.out.println("Removing garment with id " + id);
+        try {
+            repository.deleteById(id);
+            response = new Response("OK", "Plagget borttaget.");
+            removeGarmentImage(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            response = new Response("ERROR", "Något gick fel.");
+        }
+        return response;
+    }
+
+    public void removeGarmentImage(Long id) {
+        String folder = "client/src/assets/garmentpics/";
+        String fileName = id.toString() + ".png";
+        Path path = Paths.get(folder + fileName);
+        try {
+            Files.deleteIfExists(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

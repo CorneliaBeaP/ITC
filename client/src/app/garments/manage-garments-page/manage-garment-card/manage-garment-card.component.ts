@@ -14,6 +14,7 @@ export class ManageGarmentCardComponent implements OnInit {
   @Input() garment: Garment;
   subscription: Subscription;
   image;
+  showRemoveQuestion = false;
 
   constructor(private sanitizer: DomSanitizer, private garmentService: GarmentService) {
   }
@@ -35,8 +36,8 @@ export class ManageGarmentCardComponent implements OnInit {
   }
 
   removeGarment() {
-    //TODO: popup: är du säker?
-    //TODO: ta bort plagg
+    this.garmentService.removeGarment(this.garment.id);
+    this.showRemoveQuestion = false;
+    window.location.reload()
   }
-
 }

@@ -14,13 +14,13 @@ public class Garment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @ManyToMany(cascade = CascadeType.REMOVE)
+    @ManyToMany(cascade = CascadeType.REFRESH)
     private List<Colour> colours;
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     private MainCategory mainCategory;
-    @ManyToMany(cascade = CascadeType.REMOVE)
+    @ManyToMany(cascade = CascadeType.REFRESH)
     private List<UnderCategory> underCategories;
-    @ManyToMany(cascade = CascadeType.REMOVE)
+    @ManyToMany(cascade = CascadeType.REFRESH)
     private List<Theme> themes;
 
     public Garment(List<Colour> colours, MainCategory mainCategory, List<UnderCategory> underCategories, List<Theme> themes) {

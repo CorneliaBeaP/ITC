@@ -40,4 +40,8 @@ export class GarmentService {
       return data;
     }));
   }
+
+  removeGarment(id: number) {
+    return this.http.get(`${this.url}/garment/remove/${id}`).subscribe();
+  }
 }
