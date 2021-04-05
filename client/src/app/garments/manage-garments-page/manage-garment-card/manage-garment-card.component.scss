@@ -1,0 +1,38 @@
+.garmentcard .editbtn {
+  visibility: hidden;
+  background-color: rgba(0, 0, 0, 0);
+  position: absolute;
+  bottom: 20px;
+  right: 60px;
+  color: rgba(0, 0, 0, 0.5);
+  border: none;
+  cursor: pointer;
+}
+
+.garmentcard .removebtn {
+  visibility: hidden;
+  background-color: rgba(0, 0, 0, 0);
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  color: rgba(0, 0, 0, 0.5);
+  border: none;
+  cursor: pointer;
+}
+
+.garmentcard:hover .editbtn {
+  visibility: visible;
+}
+
+.garmentcard:hover .removebtn {
+  visibility: visible;
+}
+
+.editbtn:hover {
+  color: rgba(0, 0, 0, 0.9) !important;
+}
+
+.removebtn:hover {
+  color: rgba(204, 37, 4, 0.9) !important;
+}
+

@@ -1,0 +1,5 @@
+<app-navbar></app-navbar>
+<div class="itccontainer">
+  <h2>Hantera plagg</h2>
+  <app-manage-garment-card *ngFor="let garment of allGarments" [garment]="garment"></app-manage-garment-card>
+</div>
