@@ -32,3 +32,4 @@ build/
 ### VS Code ###
 .vscode/
 /client/src/assets/garmentpics/
+/src/main/resources/
