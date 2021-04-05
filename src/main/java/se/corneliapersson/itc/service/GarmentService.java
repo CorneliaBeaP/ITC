@@ -140,7 +140,7 @@ public class GarmentService {
             removeGarmentImage(id);
         } catch (Exception e) {
             e.printStackTrace();
-            response = new Response("ERROR", "Det gick inte att ta bort plagget.");
+            response = new Response("ERROR", "Något gick fel.");
         }
         return response;
     }
