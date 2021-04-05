@@ -35,7 +35,7 @@ export class ChooseOutfitPageComponent implements OnInit, OnDestroy {
   themeIDToShow: number[] = [];
   uCategoryIDToShow: number[] = [];
   mCategoryIDToShow: number[] = [];
-  showChosenOutfit = true;
+  showChosenOutfit = false;
   chosenGarments: Garment[];
 
   constructor(private garmentService: GarmentService,
@@ -49,7 +49,12 @@ export class ChooseOutfitPageComponent implements OnInit, OnDestroy {
     this.createForm();
     this.getAllAttributes();
     this.getAllGarments();
-    this.chosenGarments = JSON.parse(sessionStorage.getItem('chosen'));
+    let list = JSON.parse(sessionStorage.getItem('chosen'));
+    if(!list==null){
+      this.chosenGarments = list;
+    }else {
+      this.chosenGarments = [];
+    }
   }
 
   createForm() {

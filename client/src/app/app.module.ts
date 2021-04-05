@@ -17,6 +17,8 @@ import { AttributesAlphabeticalPipe } from './pipes/attributes-alphabetical.pipe
 import { DuplicateGarmentPipe } from './pipes/duplicate-garment.pipe';
 import { ChosenOutfitComponent } from './garments/choose-outfit-page/chosen-outfit/chosen-outfit.component';
 import { ChosenGarmentCardComponent } from './garments/choose-outfit-page/chosen-outfit/chosen-garment-card/chosen-garment-card.component';
+import { ManageGarmentsPageComponent } from './garments/manage-garments-page/manage-garments-page.component';
+import { ManageGarmentCardComponent } from './garments/manage-garments-page/manage-garment-card/manage-garment-card.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { ChosenGarmentCardComponent } from './garments/choose-outfit-page/chosen
     AttributesAlphabeticalPipe,
     DuplicateGarmentPipe,
     ChosenOutfitComponent,
-    ChosenGarmentCardComponent
+    ChosenGarmentCardComponent,
+    ManageGarmentsPageComponent,
+    ManageGarmentCardComponent
   ],
   imports: [
     BrowserModule,

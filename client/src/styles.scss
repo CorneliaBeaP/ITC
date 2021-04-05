@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 .itccontainer {
   text-align: center;
+  margin: 30px;
 }
 
 button:focus {
@@ -58,4 +59,15 @@ cursor: pointer;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
   height: 65px;
+}
+
+.garmentcard {
+  padding: 10px;
+  display: inline-block;
+  position: relative;
+}
+
+.garmentcard img {
+  max-width: 300px;
+  max-height: 500px;
 }
