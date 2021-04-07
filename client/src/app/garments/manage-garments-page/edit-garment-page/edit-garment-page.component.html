@@ -1,0 +1,63 @@
+<div class="itccontainer">
+  <img [src]="image" alt="image">
+  <div class="col d-flex justify-content-center">
+    <form (ngSubmit)="onSubmit()" [formGroup]="form" (keydown.enter)="$event.preventDefault()">
+      <div class="row mt-5" *ngIf="allUndercategories">
+        <h5 class="mt-4">Underkategori</h5>
+        <div class="row">
+          <div class="col">
+              <input [formControlName]="'undercategoryfreetext'" type="text" class="form-control"
+                     (keyup.enter)="onEnterUnderCategory()">
+              <button type="button" class="itcbutton" (click)="(onEnterUnderCategory())">Lägg till underkategori
+              </button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col d-flex justify-content-center">
+            <div class="tagbox">
+              <app-attribute-tags *ngFor="let category of garment.underCategories" [id]="category.id"
+                                  [name]="category.name"
+                                  (removedAttribute)="removeAttribute($event)"></app-attribute-tags>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h5 class="mt-4">Färg</h5>
+      <div class="row">
+        <div class="col">
+          <input [formControlName]="'colourfreetext'" type="text" class="form-control"
+                 (keyup.enter)="onEnterColour()">
+          <button type="button" class="itcbutton btn" (click)="onEnterColour()">Lägg till färg</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col d-flex justify-content-center">
+          <div class="tagbox">
+            <app-attribute-tags *ngFor="let colour of garment.colours" [id]="colour.id" [name]="colour.name"
+                                (removedAttribute)="removeAttribute($event)"></app-attribute-tags>
+          </div>
+        </div>
+      </div>
+      <h5 class="mt-4">Tema</h5>
+      <div class="row">
+        <div class="col">
+          <input [formControlName]="'themefreetext'" type="text" class="form-control"
+                 (keyup.enter)="onEnterTheme()">
+          <button type="button" class="itcbutton btn" (click)="onEnterTheme()">Lägg till tema</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col d-flex justify-content-center">
+          <div class="tagbox">
+            <app-attribute-tags *ngFor="let theme of garment.themes" [id]="theme.id" [name]="theme.name"
+                                (removedAttribute)="removeAttribute($event)"></app-attribute-tags>
+          </div>
+        </div>
+      </div>
+      <div class="mt-5">
+        <button type="button" class="itcbutton m-2" (click)="cancel()">Avbryt</button>
+        <button type="submit" class="itcbutton m-2">Spara</button>
+      </div>
+    </form>
+  </div>
+</div>
