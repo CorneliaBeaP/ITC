@@ -1,7 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Garment} from "../../../classes/garment";
 import {DomSanitizer} from "@angular/platform-browser";
-import {Subscription} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {GarmentService} from "../../../../service/garment.service";
 
 @Component({
@@ -15,6 +15,9 @@ export class ManageGarmentCardComponent implements OnInit {
   subscription: Subscription;
   image;
   showRemoveQuestion = false;
+  showEditPage = false;
+  @Output() garmentToBeEdited = new EventEmitter<Garment>();
+
 
   constructor(private sanitizer: DomSanitizer, private garmentService: GarmentService) {
   }
@@ -31,8 +34,9 @@ export class ManageGarmentCardComponent implements OnInit {
     });
   }
 
-  editGarment() {
-    //TODO: antingen komma till ny sida eller få en popup
+  editGarment(garment: Garment) {
+    this.showEditPage = true;
+    this.garmentToBeEdited.emit(garment);
   }
 
   removeGarment() {

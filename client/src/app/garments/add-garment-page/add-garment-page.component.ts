@@ -240,12 +240,12 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
   }
 
   addUnderCategory() {
-    if (!this.doesUnderCategoryAlreadyExistInChosenColours(this.form.get('undercategory').value)) {
+    if (!this.doesUnderCategoryAlreadyExistInChosenUnderCategories(this.form.get('undercategory').value)) {
       this.chosenUnderCategories.push(this.getUnderCategoryById(this.form.get('undercategory').value));
     }
   }
 
-  doesUnderCategoryAlreadyExistInChosenColours(id: number): Boolean {
+  doesUnderCategoryAlreadyExistInChosenUnderCategories(id: number): Boolean {
     let alreadyExist = false;
     if (this.chosenUnderCategories.length > 0) {
       this.chosenUnderCategories.forEach((u) => {

@@ -9,7 +9,7 @@ import {RouterModule} from "@angular/router";
 import { AddGarmentPageComponent } from './garments/add-garment-page/add-garment-page.component';
 import {HttpClientModule} from "@angular/common/http";
 import { UndercategoryPipe } from './pipes/undercategory.pipe';
-import {ReactiveFormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { AttributeTagsComponent } from './garments/add-garment-page/attribute-tags/attribute-tags.component';
 import { ChooseOutfitPageComponent } from './garments/choose-outfit-page/choose-outfit-page.component';
 import { GarmentCardComponent } from './garments/choose-outfit-page/garment-card/garment-card.component';
@@ -19,6 +19,7 @@ import { ChosenOutfitComponent } from './garments/choose-outfit-page/chosen-outf
 import { ChosenGarmentCardComponent } from './garments/choose-outfit-page/chosen-outfit/chosen-garment-card/chosen-garment-card.component';
 import { ManageGarmentsPageComponent } from './garments/manage-garments-page/manage-garments-page.component';
 import { ManageGarmentCardComponent } from './garments/manage-garments-page/manage-garment-card/manage-garment-card.component';
+import { EditGarmentPageComponent } from './garments/manage-garments-page/edit-garment-page/edit-garment-page.component';
 
 @NgModule({
   declarations: [
@@ -35,14 +36,16 @@ import { ManageGarmentCardComponent } from './garments/manage-garments-page/mana
     ChosenOutfitComponent,
     ChosenGarmentCardComponent,
     ManageGarmentsPageComponent,
-    ManageGarmentCardComponent
+    ManageGarmentCardComponent,
+    EditGarmentPageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [UndercategoryPipe, AttributesAlphabeticalPipe, DuplicateGarmentPipe],
   bootstrap: [AppComponent]

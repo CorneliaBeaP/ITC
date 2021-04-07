@@ -12,6 +12,7 @@ export class ManageGarmentsPageComponent implements OnInit {
 
   subscription: Subscription;
   allGarments: Garment[] = [];
+  garmentToEdit: Garment;
 
   constructor(private garmentService: GarmentService) {
     this.getAllGarments();
@@ -24,5 +25,11 @@ export class ManageGarmentsPageComponent implements OnInit {
     this.subscription = this.garmentService.getAllGarments().subscribe(data => {
       this.allGarments = data;
     });
+  }
+
+  editGarment(garment: Garment) {
+    this.garmentToEdit = garment;
+    console.log(garment);
+
   }
 }
