@@ -22,7 +22,7 @@ public class AttributesService {
     private static final long OVERDEL_ID = 1;
     private static final long UNDERDEL_ID = 2;
     private static final long OVERDELOCHUNDERDEL_ID = 3;
-    private static final long ACCESSOAR = 4;
+    private static final long ACCESSOAR_ID = 4;
 
     public AttributesService(MainCategoryRepository mainCategoryRepository, UnderCategoryRepository underCategoryRepository, ThemeRepository themeRepository, ColourRepository colourRepository) {
         this.mainCategoryRepository = mainCategoryRepository;
@@ -97,7 +97,7 @@ public class AttributesService {
             mainCategoryType = MainCategoryType.OVEROCHUNDERDEL;
         } else if (id == UNDERDEL_ID) {
             mainCategoryType = MainCategoryType.UNDERDEL;
-        } else {
+        } else if (id == ACCESSOAR_ID){
             mainCategoryType = MainCategoryType.ACCESSOAR;
         }
         return mainCategoryType;
@@ -196,8 +196,10 @@ public class AttributesService {
             mainCategory = mainCategoryRepository.findById(1L);
         } else if (type.equals(MainCategoryType.UNDERDEL)) {
             mainCategory = mainCategoryRepository.findById(2L);
-        } else {
+        } else if (type.equals(MainCategoryType.OVEROCHUNDERDEL)) {
             mainCategory = mainCategoryRepository.findById(3L);
+        } else {
+            mainCategory = mainCategoryRepository.findById(4L);
         }
         if (mainCategory.isPresent()) {
             category.setMainCategory(mainCategory.get());
