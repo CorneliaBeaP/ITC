@@ -58,6 +58,11 @@
             <artifactId>hibernate-entitymanager</artifactId>
             <version>5.4.30.Final</version>
         </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
 
     <build>

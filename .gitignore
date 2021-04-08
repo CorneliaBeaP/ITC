@@ -33,3 +33,4 @@ build/
 .vscode/
 /client/src/assets/garmentpics/
 /src/main/resources/
+/src/test/resources/
