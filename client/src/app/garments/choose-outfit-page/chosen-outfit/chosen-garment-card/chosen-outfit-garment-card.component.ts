@@ -5,11 +5,11 @@ import {GarmentService} from "../../../../../service/garment.service";
 import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
-  selector: 'app-chosen-garment-card',
-  templateUrl: './chosen-garment-card.component.html',
-  styleUrls: ['./chosen-garment-card.component.scss']
+  selector: 'app-chosen-outfit-garment-card',
+  templateUrl: './chosen-outfit-garment-card.component.html',
+  styleUrls: ['./chosen-outfit-garment-card.component.scss']
 })
-export class ChosenGarmentCardComponent implements OnInit, OnDestroy {
+export class ChosenOutfitGarmentCardComponent implements OnInit, OnDestroy {
 
   @Input() garment: Garment;
   @Output() remove = new EventEmitter<Garment>();

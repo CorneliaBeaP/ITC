@@ -10,8 +10,8 @@
           <h5 *ngIf="mainCategoryID==2">Underdel</h5>
           <h5 *ngIf="mainCategoryID==3">Överdel/Underdel</h5>
           <h5 *ngIf="mainCategoryID==4">Accessoar</h5>
-          <app-chosen-garment-card (remove)="removeGarmentFromChosenGarments(garment)" [garment]="garment"
-                                   *ngFor="let garment of sortGarmentByMainCategory(mainCategoryID, chosenGarments)"></app-chosen-garment-card>
+          <app-chosen-outfit-garment-card (remove)="removeGarmentFromChosenGarments(garment)" [garment]="garment"
+                                          *ngFor="let garment of sortGarmentByMainCategory(mainCategoryID, chosenGarments)"></app-chosen-outfit-garment-card>
         </div>
       </div>
     </div>

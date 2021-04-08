@@ -3,11 +3,11 @@ import {Garment} from "../../../classes/garment";
 import {DuplicateGarmentPipe} from "../../../pipes/duplicate-garment.pipe";
 
 @Component({
-  selector: 'app-chosen-outfit',
-  templateUrl: './chosen-outfit.component.html',
-  styleUrls: ['./chosen-outfit.component.scss']
+  selector: 'app-chosen-outfit-sidebar',
+  templateUrl: './chosen-outfit-sidebar.component.html',
+  styleUrls: ['./chosen-outfit-sidebar.component.scss']
 })
-export class ChosenOutfitComponent implements OnInit {
+export class ChosenOutfitSidebarComponent implements OnInit {
 
   @Output() showChosenOutfit = new EventEmitter<boolean>();
   @Output() chosenGarmentsChange = new EventEmitter<Garment[]>();
