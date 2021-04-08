@@ -189,6 +189,7 @@ export class EditGarmentPageComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.garmentService.updateGarment(this.garment);
+    window.location.reload();
   }
 
   ngOnDestroy(): void {

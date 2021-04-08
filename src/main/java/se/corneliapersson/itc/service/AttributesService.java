@@ -97,10 +97,14 @@ public class AttributesService {
             mainCategoryType = MainCategoryType.OVEROCHUNDERDEL;
         } else if (id == UNDERDEL_ID) {
             mainCategoryType = MainCategoryType.UNDERDEL;
-        } else if (id == ACCESSOAR_ID){
+        } else if (id == ACCESSOAR_ID) {
             mainCategoryType = MainCategoryType.ACCESSOAR;
         }
         return mainCategoryType;
+    }
+
+    private String generateDatabaseFriendlyAttributeName(String attributeName) {
+        return attributeName.substring(0, 1).toUpperCase() + attributeName.substring(1).toLowerCase();
     }
 
     //findAll
@@ -189,7 +193,7 @@ public class AttributesService {
     public Response addUnderCategory(String name, MainCategoryType type) {
         Response response = new Response("ERROR", "Kunde inte spara kategori.");
         UnderCategory category = new UnderCategory();
-        category.setName(name);
+        category.setName(generateDatabaseFriendlyAttributeName(name));
         Optional<MainCategory> mainCategory;
 
         if (type.equals(MainCategoryType.OVERDEL)) {
@@ -209,16 +213,16 @@ public class AttributesService {
             mainCategory.get().setUnderCategories(underCategoriesToMainCategory);
             mainCategoryRepository.save(mainCategory.get());
             response.setStatus("OK");
-            response.setMessage("Kategori " + name + " sparad");
+            response.setMessage("Kategori " + category.getName() + " sparad");
         }
         System.out.println(response.getMessage());
         return response;
     }
 
     public Response addColour(String name) {
-        Response response = new Response("Ok", "Färgen " + name + " är sparad.");
         Colour colour = new Colour();
-        colour.setName(name);
+        colour.setName(generateDatabaseFriendlyAttributeName(name));
+        Response response = new Response("OK", "Färgen " + colour.getName() + " är sparad.");
         try {
             colourRepository.save(colour);
         } catch (Exception e) {
@@ -231,9 +235,9 @@ public class AttributesService {
     }
 
     public Response addTheme(String name) {
-        Response response = new Response("Ok", "Temat " + name + " är sparat.");
         Theme theme = new Theme();
-        theme.setName(name);
+        theme.setName(generateDatabaseFriendlyAttributeName(name));
+        Response response = new Response("OK", "Temat " + theme.getName() + " är sparat.");
         try {
             themeRepository.save(theme);
         } catch (Exception e) {
