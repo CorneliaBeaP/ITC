@@ -9,4 +9,6 @@ public class MainCategoryDTO {
 
     private long id;
     private String name;
+    private long attributeId = 1;
+
 }

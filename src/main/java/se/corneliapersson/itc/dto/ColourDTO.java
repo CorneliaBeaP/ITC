@@ -8,4 +8,5 @@ import lombok.Setter;
 public class ColourDTO {
     private long id;
     private String name;
+    private long attributeId = 3;
 }

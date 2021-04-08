@@ -9,4 +9,6 @@ public class ThemeDTO {
 
     private long id;
     private String name;
+    private long attributeId = 4;
+
 }
