@@ -22,6 +22,8 @@ public class GarmentService {
 
     private GarmentRepository repository;
     private AttributesService attributesService;
+    private static final Long NEW_ATTRIBUTE_MIN_ID = 100000L;
+
 
     public GarmentService(GarmentRepository repository, AttributesService attributesService) {
         this.repository = repository;
@@ -56,7 +58,7 @@ public class GarmentService {
         List<UnderCategory> underCategories = new ArrayList<>();
         for (ColourDTO c : garmentDTO.getColours()
         ) {
-            if (c.getId() > 100000) {
+            if (c.getId() >= NEW_ATTRIBUTE_MIN_ID) {
                 attributesService.addColour(c.getName());
                 Colour col = attributesService.findColourByName(c.getName());
                 if (!(col == null)) {
@@ -68,7 +70,7 @@ public class GarmentService {
         }
         for (ThemeDTO t : garmentDTO.getThemes()
         ) {
-            if (t.getId() > 100000) {
+            if (t.getId() >= NEW_ATTRIBUTE_MIN_ID) {
                 attributesService.addTheme(t.getName());
                 Theme theme = attributesService.findThemeByName(t.getName());
                 if (!(theme == null)) {
@@ -80,7 +82,7 @@ public class GarmentService {
         }
         for (UnderCategoryDTO u : garmentDTO.getUnderCategories()
         ) {
-            if (u.getId() > 100000) {
+            if (u.getId() >= NEW_ATTRIBUTE_MIN_ID) {
                 if (u.getMainCategory().getId() == 1) {
                     attributesService.addUnderCategory(u.getName(), MainCategoryType.OVERDEL);
                 } else if (u.getMainCategory().getId() == 2) {
@@ -155,4 +157,27 @@ public class GarmentService {
             e.printStackTrace();
         }
     }
+//
+//    public Response updateGarment(GarmentDTO garmentDTO) {
+//        Optional<Garment> garment = repository.findById(garmentDTO.getId());
+//        if (garment.isPresent()) {
+//            for (UnderCategoryDTO u : garmentDTO.getUnderCategories()
+//            ) {
+//                if (isAttributeNew(u.getId())) {
+//
+//                }
+//            }
+//        }
+//        //Ta fram garment
+//        //Kontrollera om några attribut har id över 1000
+//        //Kolla om de redan finns, isåfall ta det attributet
+//        //Om de inte finns, lägg till
+//    }
+//
+//    public boolean isAttributeNew(Long id) {
+//        if (id >= NEW_ATTRIBUTE_MIN_ID) {
+//            return true;
+//        }
+//        return false;
+//    }
 }
