@@ -233,7 +233,19 @@ export class ChooseOutfitPageComponent implements OnInit, OnDestroy {
   }
 
   addGarmentToChosenGarments(garment: Garment) {
-    Promise.resolve(this.chosenGarments.push(garment)).then(() => this.updateChosenGarmentCache());
+    if(!this.isGarmentAlreadyInChosenGarments(garment)){
+      Promise.resolve(this.chosenGarments.push(garment)).then(() => this.updateChosenGarmentCache());
+    }
+  }
+
+  isGarmentAlreadyInChosenGarments(garment: Garment): boolean{
+    let alreadyInChosenGarments = false;
+    this.chosenGarments.forEach(chosenGarment => {
+      if(chosenGarment.id == garment.id){
+        alreadyInChosenGarments = true;
+      }
+    })
+    return alreadyInChosenGarments;
   }
 
   updateChosenGarmentCache() {
