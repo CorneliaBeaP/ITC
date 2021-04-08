@@ -16,13 +16,17 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GarmentService {
 
     private GarmentRepository repository;
     private AttributesService attributesService;
-    private static final Long NEW_ATTRIBUTE_MIN_ID = 100000L;
+    private static final long NEW_ATTRIBUTE_MIN_ID = 100000;
+    private static final long UNDERCATEGORY_ATTRIBUTE_ID = 2;
+    private static final long COLOUR_ATTRIBUTE_ID = 3;
+    private static final long THEME_ATTRIBUTE_ID = 4;
 
 
     public GarmentService(GarmentRepository repository, AttributesService attributesService) {
@@ -157,27 +161,99 @@ public class GarmentService {
             e.printStackTrace();
         }
     }
-//
-//    public Response updateGarment(GarmentDTO garmentDTO) {
-//        Optional<Garment> garment = repository.findById(garmentDTO.getId());
-//        if (garment.isPresent()) {
-//            for (UnderCategoryDTO u : garmentDTO.getUnderCategories()
-//            ) {
-//                if (isAttributeNew(u.getId())) {
-//
-//                }
-//            }
-//        }
-//        //Ta fram garment
-//        //Kontrollera om några attribut har id över 1000
-//        //Kolla om de redan finns, isåfall ta det attributet
-//        //Om de inte finns, lägg till
-//    }
-//
-//    public boolean isAttributeNew(Long id) {
-//        if (id >= NEW_ATTRIBUTE_MIN_ID) {
-//            return true;
-//        }
-//        return false;
-//    }
+
+    public Response updateGarment(GarmentDTO garmentDTO) {
+        Response response = null;
+        Optional<Garment> garmentOptional = repository.findById(garmentDTO.getId());
+        if (garmentOptional.isPresent()) {
+            Garment garment = garmentOptional.get();
+            for (UnderCategoryDTO u : garmentDTO.getUnderCategories()
+            ) {
+                if (isAttributeNew(u.getId())) {
+                    if (!doesAttributeAlreadyExistInDB(u.getAttributeId(), u)) {
+                        attributesService.addUnderCategory(u.getName(), attributesService.getMainCategoryTypeFromMainCategoryId(u.getMainCategory().getId()));
+                    }
+                    u = attributesService.convertToUnderCategoryDTO(attributesService.findUnderCategoryByName(u.getName()));
+                }
+            }
+
+            for (ColourDTO c : garmentDTO.getColours()
+            ) {
+                if (isAttributeNew(c.getId())) {
+                    if (!doesAttributeAlreadyExistInDB(c.getAttributeId(), c)) {
+                        attributesService.addColour(c.getName());
+                    }
+                    c = attributesService.convertToColourDTO(attributesService.findColourByName(c.getName()));
+                }
+            }
+
+            for (ThemeDTO t : garmentDTO.getThemes()
+            ) {
+                if (isAttributeNew(t.getId())) {
+                    if (!doesAttributeAlreadyExistInDB(t.getAttributeId(), t)) {
+                        attributesService.addTheme(t.getName());
+                    }
+                    t = attributesService.convertToThemeDTO(attributesService.findThemeByName(t.getName()));
+                }
+            }
+
+            List<Colour> updatedColours = new ArrayList<>();
+            for (ColourDTO c : garmentDTO.getColours()
+            ) {
+                updatedColours.add(attributesService.findColourById(c.getId()));
+            }
+
+            List<UnderCategory> updatedUnderCategories = new ArrayList<>();
+            for (UnderCategoryDTO u : garmentDTO.getUnderCategories()
+            ) {
+                updatedUnderCategories.add(attributesService.findUnderCategoryById(u.getId()));
+            }
+
+            List<Theme> updatedThemes = new ArrayList<>();
+            for (ThemeDTO t : garmentDTO.getThemes()
+            ) {
+                updatedThemes.add(attributesService.findThemeById(t.getId()));
+            }
+
+            garment.setColours(updatedColours);
+            garment.setUnderCategories(updatedUnderCategories);
+            garment.setThemes(updatedThemes);
+
+            repository.save(garment);
+            response = new Response("OK", "Information mottagen.");
+        } else {
+            response = new Response("ERROR", "Plagg kunde inte hittas.");
+        }
+        return response;
+    }
+
+    public boolean isAttributeNew(Long id) {
+        if (id >= NEW_ATTRIBUTE_MIN_ID) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean doesAttributeAlreadyExistInDB(long attributeId, Object attribute) {
+        boolean alreadyExists = false;
+        if (attributeId == UNDERCATEGORY_ATTRIBUTE_ID) {
+            UnderCategory undercategoryFromDB = attributesService.findUnderCategoryByName(((UnderCategoryDTO) attribute).getName());
+            if (undercategoryFromDB != null) {
+                alreadyExists = true;
+            }
+        } else if (attributeId == COLOUR_ATTRIBUTE_ID) {
+            Colour colourFromDB = attributesService.findColourByName(((ColourDTO) attribute).getName());
+            if (colourFromDB != null) {
+                alreadyExists = true;
+            }
+        } else if (attributeId == THEME_ATTRIBUTE_ID) {
+            Theme themeFromDB = attributesService.findThemeByName(((ThemeDTO) attribute).getName());
+            if (themeFromDB != null) {
+                alreadyExists = true;
+            }
+        }
+        return alreadyExists;
+    }
+
+
 }

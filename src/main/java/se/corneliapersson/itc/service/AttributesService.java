@@ -19,6 +19,10 @@ public class AttributesService {
     private UnderCategoryRepository underCategoryRepository;
     private ThemeRepository themeRepository;
     private ColourRepository colourRepository;
+    private static final long OVERDEL_ID = 1;
+    private static final long UNDERDEL_ID = 2;
+    private static final long OVERDELOCHUNDERDEL_ID = 3;
+    private static final long ACCESSOAR = 4;
 
     public AttributesService(MainCategoryRepository mainCategoryRepository, UnderCategoryRepository underCategoryRepository, ThemeRepository themeRepository, ColourRepository colourRepository) {
         this.mainCategoryRepository = mainCategoryRepository;
@@ -46,8 +50,8 @@ public class AttributesService {
 
     public List<UnderCategoryDTO> convertToUnderCategoryDTOList(List<UnderCategory> list) {
         List<UnderCategoryDTO> underCategoryDTOS = new ArrayList<>();
-        for (UnderCategory u: list
-             ) {
+        for (UnderCategory u : list
+        ) {
             underCategoryDTOS.add(convertToUnderCategoryDTO(u));
         }
         return underCategoryDTOS;
@@ -60,10 +64,10 @@ public class AttributesService {
         return colourDTO;
     }
 
-    public List<ColourDTO> convertToColourDTOList(List<Colour> colours){
+    public List<ColourDTO> convertToColourDTOList(List<Colour> colours) {
         List<ColourDTO> colourDTOS = new ArrayList<>();
-        for (Colour c: colours
-             ) {
+        for (Colour c : colours
+        ) {
             colourDTOS.add(convertToColourDTO(c));
         }
         return colourDTOS;
@@ -78,11 +82,25 @@ public class AttributesService {
 
     public List<ThemeDTO> convertToThemeDTOList(List<Theme> list) {
         List<ThemeDTO> themeDTOS = new ArrayList<>();
-        for (Theme t: list
+        for (Theme t : list
         ) {
             themeDTOS.add(convertToThemeDTO(t));
         }
         return themeDTOS;
+    }
+
+    public MainCategoryType getMainCategoryTypeFromMainCategoryId(long id) {
+        MainCategoryType mainCategoryType = null;
+        if (id == OVERDEL_ID) {
+            mainCategoryType = MainCategoryType.OVERDEL;
+        } else if (id == OVERDELOCHUNDERDEL_ID) {
+            mainCategoryType = MainCategoryType.OVEROCHUNDERDEL;
+        } else if (id == UNDERDEL_ID) {
+            mainCategoryType = MainCategoryType.UNDERDEL;
+        } else {
+            mainCategoryType = MainCategoryType.ACCESSOAR;
+        }
+        return mainCategoryType;
     }
 
     //findAll
@@ -159,7 +177,7 @@ public class AttributesService {
         return theme;
     }
 
-    public UnderCategory findUnderCategoryByName(String name){
+    public UnderCategory findUnderCategoryByName(String name) {
         UnderCategory underCategory;
         Optional<UnderCategory> foundUC = underCategoryRepository.findByName(name);
         underCategory = foundUC.orElse(null);
