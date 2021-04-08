@@ -29,7 +29,5 @@ export class ManageGarmentsPageComponent implements OnInit {
 
   editGarment(garment: Garment) {
     this.garmentToEdit = garment;
-    console.log(garment);
-
   }
 }
