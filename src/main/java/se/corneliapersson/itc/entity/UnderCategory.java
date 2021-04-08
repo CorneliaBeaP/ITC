@@ -15,6 +15,7 @@ public class UnderCategory {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String name;
+    private long attributeId = 2;
     @ManyToMany(mappedBy = "underCategories")
     private List<Garment> garments;
     @ManyToOne(fetch = FetchType.EAGER)

@@ -14,6 +14,7 @@ public class Colour {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    private long attributeId = 3;
     private String name;
     @ManyToMany(mappedBy = "colours")
     private List<Garment> garments;
