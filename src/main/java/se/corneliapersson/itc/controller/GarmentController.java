@@ -46,4 +46,9 @@ public class GarmentController {
     public Response removeGarment(@PathVariable Long id) {
        return garmentService.removeGarment(id);
     }
+
+    @PutMapping(path = "/api/garment")
+    public Response updateGarment(@RequestBody GarmentDTO garmentDTO){
+        return garmentService.updateGarment(garmentDTO);
+    }
 }

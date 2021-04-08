@@ -151,7 +151,7 @@ public class GarmentService {
         return response;
     }
 
-    public void removeGarmentImage(Long id) {
+    private void removeGarmentImage(Long id) {
         String folder = "client/src/assets/garmentpics/";
         String fileName = id.toString() + ".png";
         Path path = Paths.get(folder + fileName);
@@ -163,7 +163,7 @@ public class GarmentService {
     }
 
     public Response updateGarment(GarmentDTO garmentDTO) {
-        Response response = null;
+        Response response;
         Optional<Garment> garmentOptional = repository.findById(garmentDTO.getId());
         if (garmentOptional.isPresent()) {
             Garment garment = garmentOptional.get();
@@ -173,7 +173,6 @@ public class GarmentService {
                     if (!doesAttributeAlreadyExistInDB(u.getAttributeId(), u)) {
                         attributesService.addUnderCategory(u.getName(), attributesService.getMainCategoryTypeFromMainCategoryId(u.getMainCategory().getId()));
                     }
-                    u = attributesService.convertToUnderCategoryDTO(attributesService.findUnderCategoryByName(u.getName()));
                 }
             }
 
@@ -183,7 +182,6 @@ public class GarmentService {
                     if (!doesAttributeAlreadyExistInDB(c.getAttributeId(), c)) {
                         attributesService.addColour(c.getName());
                     }
-                    c = attributesService.convertToColourDTO(attributesService.findColourByName(c.getName()));
                 }
             }
 
@@ -193,26 +191,25 @@ public class GarmentService {
                     if (!doesAttributeAlreadyExistInDB(t.getAttributeId(), t)) {
                         attributesService.addTheme(t.getName());
                     }
-                    t = attributesService.convertToThemeDTO(attributesService.findThemeByName(t.getName()));
                 }
             }
 
             List<Colour> updatedColours = new ArrayList<>();
             for (ColourDTO c : garmentDTO.getColours()
             ) {
-                updatedColours.add(attributesService.findColourById(c.getId()));
+                updatedColours.add(attributesService.findColourByName(c.getName()));
             }
 
             List<UnderCategory> updatedUnderCategories = new ArrayList<>();
             for (UnderCategoryDTO u : garmentDTO.getUnderCategories()
             ) {
-                updatedUnderCategories.add(attributesService.findUnderCategoryById(u.getId()));
+                updatedUnderCategories.add(attributesService.findUnderCategoryByName(u.getName()));
             }
 
             List<Theme> updatedThemes = new ArrayList<>();
             for (ThemeDTO t : garmentDTO.getThemes()
             ) {
-                updatedThemes.add(attributesService.findThemeById(t.getId()));
+                updatedThemes.add(attributesService.findThemeByName(t.getName()));
             }
 
             garment.setColours(updatedColours);
@@ -227,14 +224,14 @@ public class GarmentService {
         return response;
     }
 
-    public boolean isAttributeNew(Long id) {
+    private boolean isAttributeNew(Long id) {
         if (id >= NEW_ATTRIBUTE_MIN_ID) {
             return true;
         }
         return false;
     }
 
-    public boolean doesAttributeAlreadyExistInDB(long attributeId, Object attribute) {
+    private boolean doesAttributeAlreadyExistInDB(long attributeId, Object attribute) {
         boolean alreadyExists = false;
         if (attributeId == UNDERCATEGORY_ATTRIBUTE_ID) {
             UnderCategory undercategoryFromDB = attributesService.findUnderCategoryByName(((UnderCategoryDTO) attribute).getName());
