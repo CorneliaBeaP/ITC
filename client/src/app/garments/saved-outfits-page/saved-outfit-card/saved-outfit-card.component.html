@@ -1,0 +1,26 @@
+<div class="outfitCard">
+  <div *ngIf="outfit.garments.length==2">
+    <app-outfit-garment-card class="thumbnailx2" *ngIf="thumbnailGarment1" [garment]="thumbnailGarment1"></app-outfit-garment-card>
+    <app-outfit-garment-card class="thumbnailx2" *ngIf="thumbnailGarment2" [garment]="thumbnailGarment2"></app-outfit-garment-card>
+  </div>
+  <div *ngIf="outfit.garments.length==3">
+    <app-outfit-garment-card class="thumbnailx3-1" *ngIf="thumbnailGarment1" [garment]="thumbnailGarment1"></app-outfit-garment-card>
+    <app-outfit-garment-card class="thumbnailx3-1" *ngIf="thumbnailGarment2" [garment]="thumbnailGarment2"></app-outfit-garment-card>
+    <app-outfit-garment-card class="thumbnailx3-2" *ngIf="thumbnailGarment3" [garment]="thumbnailGarment3"></app-outfit-garment-card>
+  </div>
+  <div *ngIf="outfit.garments.length==4">
+    <app-outfit-garment-card class="thumbnailx4" *ngIf="thumbnailGarment1" [garment]="thumbnailGarment1"></app-outfit-garment-card>
+    <app-outfit-garment-card class="thumbnailx4" *ngIf="thumbnailGarment2" [garment]="thumbnailGarment2"></app-outfit-garment-card>
+    <app-outfit-garment-card class="thumbnailx4" *ngIf="thumbnailGarment3" [garment]="thumbnailGarment3"></app-outfit-garment-card>
+    <app-outfit-garment-card class="thumbnailx4" *ngIf="thumbnailGarment4" [garment]="thumbnailGarment4"></app-outfit-garment-card>
+  </div>
+  <div *ngIf="outfit.garments.length>4">
+    <app-outfit-garment-card class="thumbnailxmany" *ngIf="thumbnailGarment1" [garment]="thumbnailGarment1"></app-outfit-garment-card>
+    <app-outfit-garment-card class="thumbnailxmany" *ngIf="thumbnailGarment2" [garment]="thumbnailGarment2"></app-outfit-garment-card>
+    <app-outfit-garment-card class="thumbnailxmany" *ngIf="thumbnailGarment3" [garment]="thumbnailGarment3"></app-outfit-garment-card>
+    <app-outfit-garment-card class="thumbnailxmany" *ngIf="thumbnailGarment4" [garment]="thumbnailGarment4"></app-outfit-garment-card>
+    <div class="extra">+ {{outfit.garments.length-2}}</div>
+  </div>
+</div>
+
+

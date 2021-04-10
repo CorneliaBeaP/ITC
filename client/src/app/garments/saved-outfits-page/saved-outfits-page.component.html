@@ -1,1 +1,10 @@
 <app-navbar></app-navbar>
+<div class="itccontainer">
+  <h2>Sparade Outfits</h2>
+  <div *ngIf="outfits">
+    <div class="d-flex justify-content-center flex-wrap">
+      <app-saved-outfit-card *ngFor="let outfit of outfits" [outfit]="outfit"></app-saved-outfit-card>
+    </div>
+  </div>
+</div>
+

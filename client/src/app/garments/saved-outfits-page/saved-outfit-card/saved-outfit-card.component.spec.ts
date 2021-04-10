@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SavedOutfitsGarmentCardComponent } from './saved-outfits-garment-card.component';
+import { SavedOutfitCardComponent } from './saved-outfit-card.component';
 
 describe('SavedOutfitsGarmentCardComponent', () => {
-  let component: SavedOutfitsGarmentCardComponent;
-  let fixture: ComponentFixture<SavedOutfitsGarmentCardComponent>;
+  let component: SavedOutfitCardComponent;
+  let fixture: ComponentFixture<SavedOutfitCardComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SavedOutfitsGarmentCardComponent ]
+      declarations: [ SavedOutfitCardComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SavedOutfitsGarmentCardComponent);
+    fixture = TestBed.createComponent(SavedOutfitCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

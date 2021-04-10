@@ -21,7 +21,8 @@ import { ManageGarmentsPageComponent } from './garments/manage-garments-page/man
 import { ManageGarmentCardComponent } from './garments/manage-garments-page/manage-garment-card/manage-garment-card.component';
 import { EditGarmentPageComponent } from './garments/manage-garments-page/edit-garment-page/edit-garment-page.component';
 import { SavedOutfitsPageComponent } from './garments/saved-outfits-page/saved-outfits-page.component';
-import { SavedOutfitsGarmentCardComponent } from './garments/saved-outfits-page/saved-outfits-garment-card/saved-outfits-garment-card.component';
+import { SavedOutfitCardComponent } from './garments/saved-outfits-page/saved-outfit-card/saved-outfit-card.component';
+import { OutfitGarmentCardComponent } from './garments/saved-outfits-page/saved-outfit-card/outfit-garment-card/outfit-garment-card.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { SavedOutfitsGarmentCardComponent } from './garments/saved-outfits-page/
     ManageGarmentCardComponent,
     EditGarmentPageComponent,
     SavedOutfitsPageComponent,
-    SavedOutfitsGarmentCardComponent
+    SavedOutfitCardComponent,
+    OutfitGarmentCardComponent
   ],
   imports: [
     BrowserModule,
