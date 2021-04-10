@@ -54,6 +54,15 @@ public class GarmentService {
         return garmentDTOS;
     }
 
+    public Garment getGarmentById(long id) {
+        Optional<Garment> garmentOptional = repository.findById(id);
+        if (garmentOptional.isPresent()) {
+            return garmentOptional.get();
+        } else {
+            return null;
+        }
+    }
+
     public Garment addGarment(GarmentDTO garmentDTO) {
         Garment garment = new Garment();
         garment.setMainCategory(attributesService.findMainCategoryById(garmentDTO.getMainCategory().getId()));
