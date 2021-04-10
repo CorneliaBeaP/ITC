@@ -22,6 +22,8 @@ public class Garment {
     private List<UnderCategory> underCategories;
     @ManyToMany(cascade = CascadeType.REFRESH)
     private List<Theme> themes;
+    @ManyToMany(cascade = CascadeType.REFRESH)
+    private List<Outfit> includedInOutfits;
 
     public Garment(List<Colour> colours, MainCategory mainCategory, List<UnderCategory> underCategories, List<Theme> themes) {
         this.colours = colours;
