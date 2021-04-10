@@ -100,8 +100,10 @@ public class GarmentService {
                     attributesService.addUnderCategory(u.getName(), MainCategoryType.OVERDEL);
                 } else if (u.getMainCategory().getId() == 2) {
                     attributesService.addUnderCategory(u.getName(), MainCategoryType.UNDERDEL);
-                } else {
+                } else if (u.getMainCategory().getId() == 3){
                     attributesService.addUnderCategory(u.getName(), MainCategoryType.OVEROCHUNDERDEL);
+                }else {
+                    attributesService.addUnderCategory(u.getName(), MainCategoryType.ACCESSOAR);
                 }
                 UnderCategory underCategory = attributesService.findUnderCategoryByName(u.getName());
                 if (!(underCategory == null)) {

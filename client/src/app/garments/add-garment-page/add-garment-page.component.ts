@@ -340,7 +340,7 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.errorMessage = '';
     if (this.form.invalid || this.chosenColours.length < 1 || this.chosenThemes.length < 1) {
-      this.errorMessage = 'form is invalid';
+      this.errorMessage = 'Vänligen fyll i samtliga fält.';
       return;
     }
     let garment: Garment = new Garment;
@@ -349,7 +349,6 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
     garment.colours = this.chosenColours;
     garment.themes = this.chosenThemes;
 
-    // console.log(this.picture.get('name'));
     this.garmentService.addGarment(garment, this.picture);
   }
 

@@ -190,6 +190,21 @@ public class AttributesService {
 
     //Add
 
+    public void generateAllMainCategories(){
+        MainCategory mainCategory1 = new MainCategory();
+        mainCategory1.setName("Överdel");
+        MainCategory mainCategory2 = new MainCategory();
+        mainCategory2.setName("Underdel");
+        MainCategory mainCategory3 = new MainCategory();
+        mainCategory3.setName("Överdel/Underdel");
+        MainCategory mainCategory4 = new MainCategory();
+        mainCategory4.setName("Accessoar");
+        mainCategoryRepository.save(mainCategory1);
+        mainCategoryRepository.save(mainCategory2);
+        mainCategoryRepository.save(mainCategory3);
+        mainCategoryRepository.save(mainCategory4);
+    }
+
     public Response addUnderCategory(String name, MainCategoryType type) {
         Response response = new Response("ERROR", "Kunde inte spara kategori.");
         UnderCategory category = new UnderCategory();
