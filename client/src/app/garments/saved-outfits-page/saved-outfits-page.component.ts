@@ -12,6 +12,8 @@ export class SavedOutfitsPageComponent implements OnInit, OnDestroy {
 
   outfits: Outfit[];
   subscription: Subscription;
+  showOutfit = false;
+  outfitToShow;
 
   constructor(private outfitService: OutfitService) {
   }
@@ -30,6 +32,15 @@ export class SavedOutfitsPageComponent implements OnInit, OnDestroy {
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
+  }
+
+  showSpecificOutfit(outfit: Outfit) {
+    this.showOutfit = true;
+    this.outfitToShow = outfit;
+  }
+
+  goBack() {
+    this.showOutfit = false;
   }
 
 }

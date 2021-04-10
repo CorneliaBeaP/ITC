@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {Subscription} from "rxjs";
 import {Outfit} from "../../../classes/outfit";
 import {Garment} from "../../../classes/garment";
@@ -15,6 +15,9 @@ export class SavedOutfitCardComponent implements OnInit {
   thumbnailGarment2: Garment;
   thumbnailGarment3: Garment;
   thumbnailGarment4: Garment;
+  showSpecificOutfit = false;
+  @Output() showOutfitEvent= new EventEmitter<Outfit>();
+
 
   constructor() {
   }
@@ -37,5 +40,10 @@ export class SavedOutfitCardComponent implements OnInit {
         }
       }
     }
+  }
+
+  showOutfit(){
+    this.showSpecificOutfit = true;
+    this.showOutfitEvent.emit(this.outfit);
   }
 }
