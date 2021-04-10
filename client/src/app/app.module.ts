@@ -20,6 +20,7 @@ import { ChosenOutfitGarmentCardComponent } from './garments/choose-outfit-page/
 import { ManageGarmentsPageComponent } from './garments/manage-garments-page/manage-garments-page.component';
 import { ManageGarmentCardComponent } from './garments/manage-garments-page/manage-garment-card/manage-garment-card.component';
 import { EditGarmentPageComponent } from './garments/manage-garments-page/edit-garment-page/edit-garment-page.component';
+import { SavedOutfitsPageComponent } from './garments/saved-outfits-page/saved-outfits-page.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { EditGarmentPageComponent } from './garments/manage-garments-page/edit-g
     ChosenOutfitGarmentCardComponent,
     ManageGarmentsPageComponent,
     ManageGarmentCardComponent,
-    EditGarmentPageComponent
+    EditGarmentPageComponent,
+    SavedOutfitsPageComponent
   ],
   imports: [
     BrowserModule,
