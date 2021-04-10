@@ -1,10 +1,8 @@
 package se.corneliapersson.itc.controller;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import se.corneliapersson.itc.dto.OutfitDTO;
+import se.corneliapersson.itc.dto.Response;
 import se.corneliapersson.itc.service.OutfitService;
 
 import java.util.List;
@@ -24,5 +22,10 @@ public class OutfitController {
     public List<OutfitDTO> getAllOutfits() {
        return outfitService.getAllOutfitsAsDTOs();
     }
-    
+
+    @PostMapping
+    public Response addOutfit(@RequestBody OutfitDTO outfitDTO) {
+        return outfitService.saveOutfit(outfitDTO);
+    }
+
 }
