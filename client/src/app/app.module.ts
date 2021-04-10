@@ -23,6 +23,8 @@ import { EditGarmentPageComponent } from './garments/manage-garments-page/edit-g
 import { SavedOutfitsPageComponent } from './garments/saved-outfits-page/saved-outfits-page.component';
 import { SavedOutfitCardComponent } from './garments/saved-outfits-page/saved-outfit-card/saved-outfit-card.component';
 import { OutfitGarmentCardComponent } from './garments/saved-outfits-page/saved-outfit-card/outfit-garment-card/outfit-garment-card.component';
+import {ImageCropperModule} from "ngx-image-cropper";
+
 
 @NgModule({
   declarations: [
@@ -51,7 +53,8 @@ import { OutfitGarmentCardComponent } from './garments/saved-outfits-page/saved-
     RouterModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    ImageCropperModule
   ],
   providers: [UndercategoryPipe, AttributesAlphabeticalPipe, DuplicateGarmentPipe],
   bootstrap: [AppComponent]

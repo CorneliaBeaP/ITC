@@ -5,11 +5,18 @@
   <form (ngSubmit)="onSubmit()" [formGroup]="form" (keydown.enter)="$event.preventDefault()">
     <div class="row">
       <div class="col">
-        <img [src]="url" height="200"> <br/>
-        <div class="d-flex justify-content-center">
-          <input type='file' accept="image/*"
-                 (change)="onSelectFile($event)" id="fileupload">
+        <div>
           <button class="itcbutton btn" (click)="triggerFileUpload();$event.preventDefault();">Välj bild</button>
+          <input type="file" (change)="fileChangeEvent($event)" accept="image/*" id="fileupload"/>
+          <image-cropper
+            [imageChangedEvent]="imageChangedEvent"
+            [maintainAspectRatio]="true"
+            [aspectRatio]="4 / 5"
+            format="png"
+            (imageCropped)="imageCropped($event)"
+            [resizeToWidth]="400"
+          ></image-cropper>
+          <img [src]="croppedImage" width="300"/>
         </div>
       </div>
     </div>
@@ -17,7 +24,8 @@
       <div class="col" *ngIf="mainCategoryList">
         <label>Huvudkategori</label>
         <div class="col d-flex justify-content-center">
-          <select [attr.disabled]="selectDisabled? true : null" (change)="onChangeMainCategory()" [formControlName]="'maincategory'" class="form-select form-select-sm"
+          <select [attr.disabled]="selectDisabled? true : null" (change)="onChangeMainCategory()"
+                  [formControlName]="'maincategory'" class="form-select form-select-sm"
                   aria-label=".form-select-sm example" *ngIf="mainCategoryList">
             <option value="{{category.id}}" *ngFor="let category of mainCategoryList"
                     class="dropdown-item">{{category.name}}</option>
@@ -28,7 +36,8 @@
     <div class="row mt-5" *ngIf="updatedUnderCategoryList">
       <label>Underkategori</label>
       <div class="col d-flex justify-content-center">
-        <select [attr.disabled]="selectDisabled? true : null" [formControlName]="'undercategory'" class="form-select form-select-sm"
+        <select [attr.disabled]="selectDisabled? true : null" [formControlName]="'undercategory'"
+                class="form-select form-select-sm"
                 aria-label=".form-select-sm example" *ngIf="updatedUnderCategoryList"
                 (change)="checkIfOtherUnderCategoryOtherwiseAdd()">
           <option value="{{category.id}}" *ngFor="let category of updatedUnderCategoryList"
@@ -51,7 +60,8 @@
       <div class="row">
         <div class="col d-flex justify-content-center">
           <div class="tagbox">
-            <app-attribute-tags *ngFor="let category of chosenUnderCategories" [id]="category.id" [name]="category.name" (removedAttribute)="removeAttribute($event)"></app-attribute-tags>
+            <app-attribute-tags *ngFor="let category of chosenUnderCategories" [id]="category.id" [name]="category.name"
+                                (removedAttribute)="removeAttribute($event)"></app-attribute-tags>
           </div>
         </div>
       </div>
@@ -59,7 +69,8 @@
     <div class="row mt-5" *ngIf="colourList">
       <label>Färg</label>
       <div class="col d-flex justify-content-center">
-        <select [attr.disabled]="selectDisabled? true : null"  (change)="checkIfOtherColourOtherwiseAdd()" [formControlName]="'colour'"
+        <select [attr.disabled]="selectDisabled? true : null" (change)="checkIfOtherColourOtherwiseAdd()"
+                [formControlName]="'colour'"
                 class="form-select form-select-sm"
                 aria-label=".form-select-sm example"
                 *ngIf="colourList">
@@ -83,14 +94,16 @@
     <div class="row">
       <div class="col d-flex justify-content-center">
         <div class="tagbox">
-          <app-attribute-tags *ngFor="let colour of chosenColours" [id]="colour.id" [name]="colour.name" (removedAttribute)="removeAttribute($event)"></app-attribute-tags>
+          <app-attribute-tags *ngFor="let colour of chosenColours" [id]="colour.id" [name]="colour.name"
+                              (removedAttribute)="removeAttribute($event)"></app-attribute-tags>
         </div>
       </div>
     </div>
     <div class="row mt-5" *ngIf="themeList">
       <label>Tema</label>
       <div class="col d-flex justify-content-center">
-        <select [attr.disabled]="selectDisabled? true : null"  [formControlName]="'theme'" class="form-select form-select-sm" aria-label=".form-select-sm example"
+        <select [attr.disabled]="selectDisabled? true : null" [formControlName]="'theme'"
+                class="form-select form-select-sm" aria-label=".form-select-sm example"
                 *ngIf="themeList" (change)="checkIfOtherThemeOtherwiseAdd()">
           <option value="{{theme.id}}" *ngFor="let theme of themeList" class="dropdown-item">{{theme.name}}</option>
           <option value="annan" class="dropdown-item">Annan...</option>
@@ -111,7 +124,8 @@
     <div class="row">
       <div class="col d-flex justify-content-center">
         <div class="tagbox">
-          <app-attribute-tags *ngFor="let theme of chosenThemes" [id]="theme.id" [name]="theme.name" (removedAttribute)="removeAttribute($event)"></app-attribute-tags>
+          <app-attribute-tags *ngFor="let theme of chosenThemes" [id]="theme.id" [name]="theme.name"
+                              (removedAttribute)="removeAttribute($event)"></app-attribute-tags>
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {GarmentService} from "../../../service/garment.service";
 import {AttributeService} from "../../../service/attribute.service";
-import {Observable, Subscription} from "rxjs";
+import {Subscription} from "rxjs";
 import {MainCategory} from "../../classes/main-category";
 import {UnderCategory} from "../../classes/under-category";
 import {UndercategoryPipe} from "../../pipes/undercategory.pipe";
@@ -9,8 +9,8 @@ import {Colour} from "../../classes/colour";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Theme} from "../../classes/theme";
 import {Garment} from "../../classes/garment";
-import {strict} from "assert";
 import {AttributesAlphabeticalPipe} from "../../pipes/attributes-alphabetical.pipe";
+import {base64ToFile, ImageCroppedEvent} from "ngx-image-cropper";
 
 @Component({
   selector: 'app-add-garment-page',
@@ -19,7 +19,6 @@ import {AttributesAlphabeticalPipe} from "../../pipes/attributes-alphabetical.pi
 })
 export class AddGarmentPageComponent implements OnInit, OnDestroy {
 
-  url: string | ArrayBuffer;
   errorMessage: string;
   subscription: Subscription;
   mainCategoryList: MainCategory[];
@@ -38,6 +37,8 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
   idcounter = 100001;
   picture: FormData;
   selectDisabled = true;
+  imageChangedEvent: any = '';
+  croppedImage: any = '';
 
   constructor(private garmentService: GarmentService,
               private attributeService: AttributeService,
@@ -278,37 +279,6 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
     element.click();
   }
 
-  onSelectFile(event) { // called each time file input changes
-    if (event.target.files[0].size > 1048576) {
-      this.errorMessage = 'Bilden överstiger 1 MB. Vänligen välj en annan bild.';
-    } else {
-      if (!(event.target.files[0].type.match('image.jpg') || event.target.files[0].type.match('image.jpeg') || event.target.files[0].type.match('image.png'))) {
-        this.errorMessage = `Vänligen välj en bild av typen .png eller .jpg`;
-      } else {
-        if (event.target.files && event.target.files[0]) {
-          this.errorMessage = '';
-          let reader = new FileReader();
-          reader.readAsDataURL(event.target.files[0]); // read file as data url
-          reader.onload = (event) => { // called once readAsDataURL is completed
-            this.url = event.target.result;
-          };
-          this.onUpload(event.target.files[0]);
-        }
-      }
-    }
-  }
-
-  onUpload(file: any) {
-    let formData = new FormData();
-    if (!(file.size > 1048576)) {
-      if (file.type.match('image.jpg') || file.type.match('image.jpeg') || file.type.match('image.png')) {
-        formData.append('name', file);
-        this.picture = formData;
-        this.selectDisabled = false;
-      }
-    }
-  }
-
   chooseMainCategory(id: number) {
     this.updatedUnderCategoryList = this.undercategoryPipe.transform(this.underCategoryList, id);
   }
@@ -369,7 +339,7 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     this.errorMessage = '';
-    if (this.form.invalid || this.chosenColours.length < 1 || this.chosenThemes.length < 1 || !this.url) {
+    if (this.form.invalid || this.chosenColours.length < 1 || this.chosenThemes.length < 1) {
       this.errorMessage = 'form is invalid';
       return;
     }
@@ -379,12 +349,38 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
     garment.colours = this.chosenColours;
     garment.themes = this.chosenThemes;
 
+    // console.log(this.picture.get('name'));
     this.garmentService.addGarment(garment, this.picture);
   }
 
+  fileChangeEvent(event: any): void {
+    this.imageChangedEvent = event;
+  }
+
+  imageCropped(event: ImageCroppedEvent) {
+    this.selectDisabled = false;
+    this.croppedImage = event.base64;
+    let file = base64ToFile(this.croppedImage);
+    if (!(file.size > 1048576)) {
+      this.uploadCroppedImage(file);
+    } else {
+      this.errorMessage = 'Filen är för stor. Tillåten storlek: ' + 1048576 + 'kb, filens storlek: ' + file.size;
+    }
+  }
+
+  uploadCroppedImage(image) {
+    let formData = new FormData();
+    if (!(image.size > 1048576)) {
+      if (image.type.match('image.jpg') || image.type.match('image.jpeg') || image.type.match('image.png')) {
+        formData.append('name', image);
+        this.picture = formData;
+        this.selectDisabled = false;
+      }
+    }
+  }
+
   ngOnDestroy(): void {
-    if (this.subscription
-    ) {
+    if (this.subscription) {
       this.subscription.unsubscribe();
     }
   }
