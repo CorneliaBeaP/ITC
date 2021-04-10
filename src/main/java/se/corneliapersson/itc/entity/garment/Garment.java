@@ -1,7 +1,8 @@
-package se.corneliapersson.itc.entity;
+package se.corneliapersson.itc.entity.garment;
 
 import lombok.Getter;
 import lombok.Setter;
+import se.corneliapersson.itc.entity.outfit.Outfit;
 
 import javax.persistence.*;
 import java.util.List;

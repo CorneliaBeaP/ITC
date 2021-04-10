@@ -14,7 +14,14 @@
                                           *ngFor="let garment of sortGarmentByMainCategory(mainCategoryID, chosenGarments)"></app-chosen-outfit-garment-card>
         </div>
       </div>
-      <button class="itcbutton" type="button" (click)="saveOufit()">Spara outfit</button>
+      <div class="btn-group">
+        <button type="button" class="btn ">Spara outfit med kategori </button>
+        <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        </button>
+        <div class="dropdown-menu" *ngIf="outfitCategories">
+          <a class="dropdown-item" (click)="saveOufit(category.id)" *ngFor="let category of outfitCategories">{{category.name}}</a>
+        </div>
+      </div>
     </div>
   </div>
   <div class="col-1 chosenoutfitcontainercontracted" (click)="hideChosenOutfit()">

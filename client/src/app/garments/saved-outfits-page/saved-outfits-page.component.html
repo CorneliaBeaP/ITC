@@ -2,14 +2,24 @@
 <div class="itccontainer">
   <div *ngIf="!showOutfit">
     <h2>Sparade Outfits</h2>
-    <div *ngIf="outfits">
+    <button type="button" class="itcbutton" *ngFor="let category of outfitCategories"
+            (click)="togglefilter(category.id)" [ngClass]="{'active' : isFilterActive(category.id) }">{{category.name}}</button>
+    <div *ngIf="outfits && filter.length<1">
       <div class="d-flex justify-content-center flex-wrap">
-        <app-saved-outfit-card *ngFor="let outfit of outfits" [outfit]="outfit" (showOutfitEvent)="showSpecificOutfit(outfit)"></app-saved-outfit-card>
+        <app-saved-outfit-card *ngFor="let outfit of outfits" [outfit]="outfit"
+                               (showOutfitEvent)="showSpecificOutfit(outfit)"></app-saved-outfit-card>
       </div>
     </div>
   </div>
+  <div *ngIf="outfits && filter.length>0">
+    <div class="d-flex justify-content-center flex-wrap">
+      <app-saved-outfit-card *ngFor="let outfit of filteredOutfits" [outfit]="outfit"
+                             (showOutfitEvent)="showSpecificOutfit(outfit)"></app-saved-outfit-card>
+    </div>
+  </div>
   <div *ngIf="showOutfit">
-    <app-outfit-garment-card class="garmentcard" *ngFor="let garment of outfitToShow.garments" [garment]="garment"></app-outfit-garment-card>
+    <app-outfit-garment-card class="garmentcard" *ngFor="let garment of outfitToShow.garments"
+                             [garment]="garment"></app-outfit-garment-card>
     <div>
       <button type="button" (click)="goBack()" class="itcbutton">Gå tillbaka</button>
     </div>

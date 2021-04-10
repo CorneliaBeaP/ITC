@@ -1,6 +1,7 @@
 package se.corneliapersson.itc.controller;
 
 import org.springframework.web.bind.annotation.*;
+import se.corneliapersson.itc.dto.OutfitCategoryDTO;
 import se.corneliapersson.itc.dto.OutfitDTO;
 import se.corneliapersson.itc.dto.Response;
 import se.corneliapersson.itc.service.OutfitService;
@@ -26,5 +27,10 @@ public class OutfitController {
     @PostMapping
     public Response addOutfit(@RequestBody OutfitDTO outfitDTO) {
         return outfitService.saveOutfit(outfitDTO);
+    }
+
+    @GetMapping(path = "/categories")
+    public List<OutfitCategoryDTO> getAllCategories() {
+        return outfitService.getAllOutfitCategoryDTOS();
     }
 }

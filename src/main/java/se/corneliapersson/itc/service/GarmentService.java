@@ -2,9 +2,10 @@ package se.corneliapersson.itc.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import se.corneliapersson.itc.domain.GarmentRepository;
+import se.corneliapersson.itc.domain.garment.GarmentRepository;
 import se.corneliapersson.itc.dto.*;
-import se.corneliapersson.itc.entity.*;
+import se.corneliapersson.itc.entity.garment.*;
+import se.corneliapersson.itc.entity.outfit.Outfit;
 
 import javax.imageio.ImageIO;
 import java.awt.image.RenderedImage;

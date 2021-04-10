@@ -1,4 +1,4 @@
-package se.corneliapersson.itc.entity;
+package se.corneliapersson.itc.entity.garment;
 
 public enum MainCategoryType {
     OVERDEL,

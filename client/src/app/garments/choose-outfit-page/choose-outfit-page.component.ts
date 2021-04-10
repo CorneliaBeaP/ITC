@@ -1,4 +1,4 @@
-import {Component, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Garment} from "../../classes/garment";
 import {GarmentService} from "../../../service/garment.service";
 import {Subscription} from "rxjs";

@@ -6,9 +6,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-import se.corneliapersson.itc.domain.*;
+import se.corneliapersson.itc.domain.garment.*;
 import se.corneliapersson.itc.dto.GarmentDTO;
-import se.corneliapersson.itc.entity.*;
+import se.corneliapersson.itc.entity.garment.*;
 
 import java.util.ArrayList;
 import java.util.List;

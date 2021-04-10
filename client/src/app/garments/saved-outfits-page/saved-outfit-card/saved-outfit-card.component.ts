@@ -2,6 +2,8 @@ import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angula
 import {Subscription} from "rxjs";
 import {Outfit} from "../../../classes/outfit";
 import {Garment} from "../../../classes/garment";
+import {OutfitService} from "../../../../service/outfit.service";
+import {OutfitCategory} from "../../../classes/outfit-category";
 
 @Component({
   selector: 'app-saved-outfit-card',
@@ -16,7 +18,8 @@ export class SavedOutfitCardComponent implements OnInit {
   thumbnailGarment3: Garment;
   thumbnailGarment4: Garment;
   showSpecificOutfit = false;
-  @Output() showOutfitEvent= new EventEmitter<Outfit>();
+  @Output() showOutfitEvent = new EventEmitter<Outfit>();
+
 
 
   constructor() {
@@ -34,7 +37,7 @@ export class SavedOutfitCardComponent implements OnInit {
         this.thumbnailGarment2 = garments[1];
         if (garments.length > 2) {
           this.thumbnailGarment3 = garments[2];
-          if(garments.length > 3) {
+          if (garments.length > 3) {
             this.thumbnailGarment4 = garments[3];
           }
         }
@@ -42,7 +45,7 @@ export class SavedOutfitCardComponent implements OnInit {
     }
   }
 
-  showOutfit(){
+  showOutfit() {
     this.showSpecificOutfit = true;
     this.showOutfitEvent.emit(this.outfit);
   }

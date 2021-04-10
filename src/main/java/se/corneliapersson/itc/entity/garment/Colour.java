@@ -1,4 +1,4 @@
-package se.corneliapersson.itc.entity;
+package se.corneliapersson.itc.entity.garment;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,16 +9,13 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class MainCategory {
+public class Colour {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    private long attributeId = 3;
     private String name;
-    private long attributeId = 1;
-    @OneToMany(mappedBy = "mainCategory")
+    @ManyToMany(mappedBy = "colours")
     private List<Garment> garments;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "mainCategory")
-    private List<UnderCategory> underCategories;
-
 }

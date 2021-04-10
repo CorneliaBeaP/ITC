@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import se.corneliapersson.itc.dto.GarmentDTO;
 import se.corneliapersson.itc.dto.Response;
-import se.corneliapersson.itc.entity.Garment;
+import se.corneliapersson.itc.entity.garment.Garment;
 import se.corneliapersson.itc.service.GarmentService;
 
 import java.io.IOException;

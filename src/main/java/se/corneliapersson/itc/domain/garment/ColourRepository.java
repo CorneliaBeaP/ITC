@@ -1,9 +1,9 @@
-package se.corneliapersson.itc.domain;
+package se.corneliapersson.itc.domain.garment;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import se.corneliapersson.itc.entity.Colour;
+import se.corneliapersson.itc.entity.garment.Colour;
 
 import java.util.Optional;
 

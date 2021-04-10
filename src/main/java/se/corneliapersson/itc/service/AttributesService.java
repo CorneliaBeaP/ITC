@@ -1,12 +1,12 @@
 package se.corneliapersson.itc.service;
 
 import org.springframework.stereotype.Service;
-import se.corneliapersson.itc.domain.ColourRepository;
-import se.corneliapersson.itc.domain.MainCategoryRepository;
-import se.corneliapersson.itc.domain.ThemeRepository;
-import se.corneliapersson.itc.domain.UnderCategoryRepository;
+import se.corneliapersson.itc.domain.garment.ColourRepository;
+import se.corneliapersson.itc.domain.garment.MainCategoryRepository;
+import se.corneliapersson.itc.domain.garment.ThemeRepository;
+import se.corneliapersson.itc.domain.garment.UnderCategoryRepository;
 import se.corneliapersson.itc.dto.*;
-import se.corneliapersson.itc.entity.*;
+import se.corneliapersson.itc.entity.garment.*;
 
 import java.util.ArrayList;
 import java.util.List;

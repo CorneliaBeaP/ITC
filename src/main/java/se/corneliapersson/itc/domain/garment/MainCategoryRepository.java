@@ -1,8 +1,8 @@
-package se.corneliapersson.itc.domain;
+package se.corneliapersson.itc.domain.garment;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import se.corneliapersson.itc.entity.MainCategory;
+import se.corneliapersson.itc.entity.garment.MainCategory;
 
 import java.util.Optional;
 

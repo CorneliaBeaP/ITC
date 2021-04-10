@@ -24,4 +24,10 @@ export class OutfitService {
   saveOutfit(outfit: Outfit) {
     return this.http.post(`${this.url}`, outfit).subscribe();
   }
+
+  getAllOutfitCateogries(){
+    return this.http.get(`${this.url}/categories`).pipe(map(data => {
+      let data2 = JSON.stringify(data);
+      return JSON.parse(data2);
+    }));  }
 }

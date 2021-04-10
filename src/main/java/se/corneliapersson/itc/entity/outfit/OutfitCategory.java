@@ -1,4 +1,4 @@
-package se.corneliapersson.itc.entity;
+package se.corneliapersson.itc.entity.outfit;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,13 +9,10 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-public class Colour {
-
+public class OutfitCategory {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private long attributeId = 3;
     private String name;
-    @ManyToMany(mappedBy = "colours")
-    private List<Garment> garments;
+
 }
