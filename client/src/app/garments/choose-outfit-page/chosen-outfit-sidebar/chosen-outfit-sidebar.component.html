@@ -14,6 +14,7 @@
                                           *ngFor="let garment of sortGarmentByMainCategory(mainCategoryID, chosenGarments)"></app-chosen-outfit-garment-card>
         </div>
       </div>
+      <button class="itcbutton" type="button" (click)="saveOufit()">Spara outfit</button>
     </div>
   </div>
   <div class="col-1 chosenoutfitcontainercontracted" (click)="hideChosenOutfit()">

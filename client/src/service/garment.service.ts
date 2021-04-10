@@ -11,9 +11,7 @@ import {log} from "util";
 export class GarmentService {
   url: string;
 
-  constructor(
-    private http: HttpClient
-  ) {
+  constructor(private http: HttpClient) {
     this.url = 'http://localhost:8080/api/garment';
   }
 

@@ -46,17 +46,22 @@ public class OutfitService {
 
     public List<OutfitDTO> getAllOutfitsAsDTOs() {
         List<OutfitDTO> outfitDTOS = new ArrayList<>();
-        for (Outfit outfit: repository.findAll()
-             ) {
+        for (Outfit outfit : repository.findAll()
+        ) {
             outfitDTOS.add(convertToOutfitDTO(outfit));
         }
         return outfitDTOS;
     }
 
     public Response saveOutfit(OutfitDTO outfitDTO) {
+        Outfit outfit = convertNewOutfitToOutfitObject(outfitDTO);
         Response response = new Response("OK", "Outfit sparad");
         try {
-            repository.save(convertNewOutfitToOutfitObject(outfitDTO));
+            repository.save(outfit);
+            for (GarmentDTO garmentDTO : outfitDTO.getGarments()
+            ) {
+                garmentService.saveOutfitToGarmentsOutfits(garmentDTO.getId(), outfit);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             response.setMessage("Något gick fel.");

@@ -20,12 +20,11 @@ public class OutfitController {
 
     @GetMapping(path = "/all")
     public List<OutfitDTO> getAllOutfits() {
-       return outfitService.getAllOutfitsAsDTOs();
+        return outfitService.getAllOutfitsAsDTOs();
     }
 
     @PostMapping
     public Response addOutfit(@RequestBody OutfitDTO outfitDTO) {
         return outfitService.saveOutfit(outfitDTO);
     }
-
 }

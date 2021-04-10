@@ -1,6 +1,8 @@
 import {Component, OnInit, Output, EventEmitter, Input, OnChanges} from '@angular/core';
 import {Garment} from "../../../classes/garment";
 import {DuplicateGarmentPipe} from "../../../pipes/duplicate-garment.pipe";
+import {Outfit} from "../../../classes/outfit";
+import {OutfitService} from "../../../../service/outfit.service";
 
 @Component({
   selector: 'app-chosen-outfit-sidebar',
@@ -14,7 +16,8 @@ export class ChosenOutfitSidebarComponent implements OnInit {
   @Input() chosenGarments: Garment[];
   mainCategoryIDs: number[] = [1, 2, 3, 4];
 
-  constructor(private duplicateGarmentPipe: DuplicateGarmentPipe) {
+  constructor(private duplicateGarmentPipe: DuplicateGarmentPipe,
+              private outfitService: OutfitService) {
   }
 
   ngOnInit(): void {
@@ -39,8 +42,13 @@ export class ChosenOutfitSidebarComponent implements OnInit {
    Promise.resolve(sessionStorage.setItem('chosen', JSON.stringify(this.chosenGarments)));
   }
 
-
   hideChosenOutfit() {
     this.showChosenOutfit.emit(false);
+  }
+
+  saveOufit() {
+    let outfit: Outfit = new Outfit();
+    outfit.garments = this.chosenGarments;
+    this.outfitService.saveOutfit(outfit);
   }
 }

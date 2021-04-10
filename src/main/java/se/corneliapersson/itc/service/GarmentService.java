@@ -261,5 +261,11 @@ public class GarmentService {
         return alreadyExists;
     }
 
+    public void saveOutfitToGarmentsOutfits(long garmentid, Outfit outfit) {
+        Garment garment = getGarmentById(garmentid);
+        List<Outfit> outfitsGarmentIsIncludedIn = garment.getIncludedInOutfits();
+        outfitsGarmentIsIncludedIn.add(outfit);
+        repository.save(garment);
+    }
 
 }
