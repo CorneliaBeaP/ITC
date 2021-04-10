@@ -99,48 +99,54 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
 
   onEnterColour() {
     let colour = new Colour();
-    let colourfreetext = this.form.get('colourfreetext');
-    colour.name = colourfreetext.value;
-    colour.id = this.idcounter;
-    this.idcounter++;
-    if (!this.doesColourAlreadyExistInColourList(colour.name)) {
-      this.chosenColours.push(colour);
-    } else {
-      this.errorMessage = 'Färg finns redan!';
+    let colourfreetext = this.form.get('colourfreetext').value;
+    if (colourfreetext.length > 0) {
+      colour.name = colourfreetext;
+      colour.id = this.idcounter;
+      this.idcounter++;
+      if (!this.doesColourAlreadyExistInColourList(colour.name)) {
+        this.chosenColours.push(colour);
+      } else {
+        this.errorMessage = 'Färg finns redan!';
+      }
+      this.form.get('colourfreetext').reset('');
+      this.showColourTextField = false;
     }
-    colourfreetext.reset('');
-    this.showColourTextField = false;
   }
 
   onEnterTheme() {
     let theme = new Theme;
-    let themefreetext = this.form.get('themefreetext');
-    theme.name = themefreetext.value;
-    theme.id = this.idcounter;
-    this.idcounter++;
-    if (!this.doesThemeAlreadyExistInThemeList(theme.name)) {
-      this.chosenThemes.push(theme);
-    } else {
-      this.errorMessage = 'Tema finns redan!'
+    let themefreetext = this.form.get('themefreetext').value;
+    if (themefreetext.length > 0) {
+      theme.name = themefreetext;
+      theme.id = this.idcounter;
+      this.idcounter++;
+      if (!this.doesThemeAlreadyExistInThemeList(theme.name)) {
+        this.chosenThemes.push(theme);
+      } else {
+        this.errorMessage = 'Tema finns redan!'
+      }
+      this.form.get('themefreetext').reset('');
+      this.showThemeTextField = false;
     }
-    themefreetext.reset('');
-    this.showThemeTextField = false;
   }
 
   onEnterUnderCategory() {
     let underCategory = new UnderCategory();
-    let freetext = this.form.get('undercategoryfreetext');
-    underCategory.name = freetext.value;
-    underCategory.id = this.idcounter;
-    this.idcounter++;
-    underCategory.mainCategory = this.getMainCategoryById(this.getValueFromForm('maincategory'));
-    if (!this.doesUnderCategoryAlreadyExistInUndercategoryList(underCategory.name)) {
-      this.chosenUnderCategories.push(underCategory);
-    } else {
-      this.errorMessage = 'Underkategori finns redan!'
+    let freetext = this.form.get('undercategoryfreetext').value;
+    if (freetext.length > 0) {
+      underCategory.name = freetext;
+      underCategory.id = this.idcounter;
+      this.idcounter++;
+      underCategory.mainCategory = this.getMainCategoryById(this.getValueFromForm('maincategory'));
+      if (!this.doesUnderCategoryAlreadyExistInUndercategoryList(underCategory.name)) {
+        this.chosenUnderCategories.push(underCategory);
+      } else {
+        this.errorMessage = 'Underkategori finns redan!'
+      }
+      this.form.get('undercategoryfreetext').reset('');
+      this.showUnderCategoryTextfield = false;
     }
-    freetext.reset('');
-    this.showUnderCategoryTextfield = false;
   }
 
   getColourById(id: number): Colour {
@@ -298,7 +304,7 @@ export class AddGarmentPageComponent implements OnInit, OnDestroy {
       if (file.type.match('image.jpg') || file.type.match('image.jpeg') || file.type.match('image.png')) {
         formData.append('name', file);
         this.picture = formData;
-        this.selectDisabled=false;
+        this.selectDisabled = false;
       }
     }
   }

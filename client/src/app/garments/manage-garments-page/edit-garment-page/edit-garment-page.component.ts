@@ -106,45 +106,51 @@ export class EditGarmentPageComponent implements OnInit, OnDestroy {
 
   onEnterColour() {
     let colour = new Colour();
-    let colourfreetext = this.form.get('colourfreetext');
-    colour.name = colourfreetext.value;
-    colour.id = this.idcounter;
-    this.idcounter++;
-    if (!this.doesColourAlreadyExistInChosenColours(colour.name)) {
-      this.garment.colours.push(colour);
-    } else {
-      this.errorMessage = 'Färg finns redan!';
+    let colourfreetext = this.form.get('colourfreetext').value;
+    if (colourfreetext.length > 0) {
+      colour.name = colourfreetext;
+      colour.id = this.idcounter;
+      this.idcounter++;
+      if (!this.doesColourAlreadyExistInChosenColours(colour.name)) {
+        this.garment.colours.push(colour);
+      } else {
+        this.errorMessage = 'Färg finns redan!';
+      }
+      this.form.get('colourfreetext').reset('');
     }
-    colourfreetext.reset('');
   }
 
   onEnterTheme() {
     let theme = new Theme;
-    let themefreetext = this.form.get('themefreetext');
-    theme.name = themefreetext.value;
-    theme.id = this.idcounter;
-    this.idcounter++;
-    if (!this.doesThemeAlreadyExistInChosenThemes(theme.name)) {
-      this.garment.themes.push(theme);
-    } else {
-      this.errorMessage = 'Tema finns redan!'
+    let themefreetext = this.form.get('themefreetext').value;
+    if (themefreetext.length > 0) {
+      theme.name = themefreetext;
+      theme.id = this.idcounter;
+      this.idcounter++;
+      if (!this.doesThemeAlreadyExistInChosenThemes(theme.name)) {
+        this.garment.themes.push(theme);
+      } else {
+        this.errorMessage = 'Tema finns redan!'
+      }
+      this.form.get('themefreetext').reset('');
     }
-    themefreetext.reset('');
   }
 
   onEnterUnderCategory() {
     let underCategory = new UnderCategory();
-    let freetext = this.form.get('undercategoryfreetext');
-    underCategory.name = freetext.value;
-    underCategory.id = this.idcounter;
-    this.idcounter++;
-    underCategory.mainCategory = this.garment.mainCategory;
-    if (!this.doesUnderCategoryAlreadyExistInChosenUnderCategories(underCategory.name)) {
-      this.garment.underCategories.push(underCategory);
-    } else {
-      this.errorMessage = 'Underkategori finns redan!'
+    let freetext = this.form.get('undercategoryfreetext').value;
+    if (freetext.length > 0){
+      underCategory.name = freetext;
+      underCategory.id = this.idcounter;
+      this.idcounter++;
+      underCategory.mainCategory = this.garment.mainCategory;
+      if (!this.doesUnderCategoryAlreadyExistInChosenUnderCategories(underCategory.name)) {
+        this.garment.underCategories.push(underCategory);
+      } else {
+        this.errorMessage = 'Underkategori finns redan!'
+      }
+      this.form.get('undercategoryfreetext').reset('');
     }
-    freetext.reset('');
   }
 
   doesColourAlreadyExistInChosenColours(name: string): Boolean {
