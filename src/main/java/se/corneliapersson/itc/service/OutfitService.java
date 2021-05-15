@@ -49,6 +49,7 @@ public class OutfitService {
     public OutfitDTO convertToOutfitDTO(Outfit outfit) {
         OutfitDTO outfitDTO = new OutfitDTO();
         outfitDTO.setCategoryid(outfit.getCategory().getId());
+        outfitDTO.setId(outfit.getId());
         List<GarmentDTO> garmentDTOS = new ArrayList<>();
         for (Garment garment : outfit.getGarments()
         ) {
@@ -89,6 +90,18 @@ public class OutfitService {
             e.printStackTrace();
             response.setMessage("Något gick fel.");
             response.setStatus("ERROR");
+        }
+        return response;
+    }
+
+    public Response deleteOutfit(long id) {
+        Response response = new Response("OK", "Outfit borttagen");
+        Optional<Outfit> outfit = repository.findById(id);
+        if (outfit.isPresent()) {
+            repository.delete(outfit.get());
+        } else {
+            response.setStatus("ERROR");
+            response.setMessage("Kunde inte hitta outfit");
         }
         return response;
     }

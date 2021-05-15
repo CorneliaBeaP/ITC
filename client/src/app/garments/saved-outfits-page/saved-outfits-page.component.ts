@@ -77,8 +77,12 @@ export class SavedOutfitsPageComponent implements OnInit, OnDestroy {
     }
   }
 
+  removeOutfit(id: number) {
+    this.outfitService.deleteOutfit(id);
+    location.reload();
+  }
+
   goBack() {
     this.showOutfit = false;
   }
-
 }

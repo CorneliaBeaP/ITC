@@ -33,4 +33,9 @@ public class OutfitController {
     public List<OutfitCategoryDTO> getAllCategories() {
         return outfitService.getAllOutfitCategoryDTOS();
     }
+
+    @GetMapping(path = "/{id}")
+    public Response deleteOutfit(@PathVariable Long id) {
+        return this.outfitService.deleteOutfit(id);
+    }
 }

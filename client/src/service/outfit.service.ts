@@ -25,9 +25,14 @@ export class OutfitService {
     return this.http.post(`${this.url}`, outfit).subscribe();
   }
 
-  getAllOutfitCateogries(){
+  getAllOutfitCateogries() {
     return this.http.get(`${this.url}/categories`).pipe(map(data => {
       let data2 = JSON.stringify(data);
       return JSON.parse(data2);
-    }));  }
+    }));
+  }
+
+  deleteOutfit(id: number) {
+    return this.http.get(`${this.url}/${id}`).subscribe();
+  }
 }
