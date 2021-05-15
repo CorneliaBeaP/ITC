@@ -4,7 +4,7 @@
   {{errorMessage}}
   <form (ngSubmit)="onSubmit()" [formGroup]="form" (keydown.enter)="$event.preventDefault()">
     <div class="row">
-      <div class="col">
+      <div class="col justify-content-center d-flex">
         <div>
           <button class="itcbutton btn" (click)="triggerFileUpload();$event.preventDefault();">Välj bild</button>
           <input type="file" (change)="fileChangeEvent($event)" accept="image/*" id="fileupload"/>
@@ -14,8 +14,7 @@
             [aspectRatio]="4 / 5"
             format="png"
             (imageCropped)="imageCropped($event)"
-            [resizeToWidth]="400"
-          ></image-cropper>
+            [resizeToWidth]="400"></image-cropper>
           <img [src]="croppedImage" width="300"/>
         </div>
       </div>
