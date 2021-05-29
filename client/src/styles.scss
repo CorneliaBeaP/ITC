@@ -1,4 +1,6 @@
-/* You can add global styles to this file, and also import other style files */
+@import "styles/variables";
+@import "styles/buttons";
+
 .itccontainer {
   text-align: center;
   align-items: center;
@@ -7,41 +9,24 @@
   margin: 30px;
 }
 
-button:focus {
-  box-shadow: none !important;
-}
-
-.plusbtn {
-  text-align: center;
-  width: 30px;
-  height: 30px;
-}
-
-.plusbtn:hover {
-  color: red;
-}
-
-.itcbutton {
-  color: white;
-  background-color: rgba(0, 0, 0, 0.5);
-  border: none;
-  outline: none;
-  border-radius: 5px;
-  padding: 5px 20px 5px 20px;
-  min-width: 70px;
-}
-
-.itcbutton:hover {
-  color: white;
-  background-color: rgba(0, 0, 0, 0.6);
-}
 
 html, body {
   width: 100%;
   height: 100%;
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
   overflow-x: hidden;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 18px;
+
+}
+
+.divider {
+  color: white;
+  align-self: center;
+  color: rgba(255, 255, 255, .55);
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .pointer {
@@ -131,4 +116,8 @@ html, body {
       object-fit: cover;
     }
   }
+}
+
+input[type=text] {
+  height: 35px;
 }

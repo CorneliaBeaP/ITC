@@ -1,0 +1,52 @@
+@import "variables";
+
+button:focus {
+  box-shadow: none !important;
+}
+
+.plusbtn {
+  text-align: center;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  color: $primary-colour;
+}
+
+.plusbtn:hover {
+  color: $primary-colour-hover;
+}
+
+.itcbutton {
+  color: white;
+  background-color: $primary-colour;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  padding: 5px 20px 5px 20px;
+  min-width: 70px;
+  text-transform: uppercase;
+}
+
+.itcbutton:hover {
+  color: white;
+  background-color: $primary-colour-hover;
+}
+
+.editbtn{
+  background-color: rgba(0, 0, 0, 0);
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.editbtn:hover {
+  color: rgba(0, 0, 0, 0.9) !important;
+}
+
+.removebtn{
+  background-color: rgba(0, 0, 0, 0);
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.removebtn:hover {
+  color: rgba(204, 37, 4, 0.9) !important;
+}

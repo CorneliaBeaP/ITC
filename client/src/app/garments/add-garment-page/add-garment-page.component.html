@@ -44,17 +44,9 @@
           <option value="annan" class="dropdown-item">Annan...</option>
         </select>
       </div>
-      <div class="row" *ngIf="showUnderCategoryTextfield">
-        <div class="col d-flex justify-content-center">
+      <div class="d-flex justify-content-center" *ngIf="showUnderCategoryTextfield">
           <input [formControlName]="'undercategoryfreetext'" type="text" class="form-control"
                  (keyup.enter)="onEnterUnderCategory()">
-          <div class="row mt-1">
-            <div class="col d-flex justify-content-center">
-              <button type="button" class="itcbutton btn" (click)="(onEnterUnderCategory())">Lägg till underkategori
-              </button>
-            </div>
-          </div>
-        </div>
       </div>
       <div class="row">
         <div class="col d-flex justify-content-center">
@@ -83,11 +75,6 @@
       <div class="col d-flex justify-content-center">
         <input [formControlName]="'colourfreetext'" type="text" class="form-control"
                (keyup.enter)="onEnterColour()">
-        <div class="row mt-1">
-          <div class="col d-flex justify-content-center">
-            <button type="button" class="itcbutton btn" (click)="onEnterColour()">Lägg till färg</button>
-          </div>
-        </div>
       </div>
     </div>
     <div class="row">
@@ -113,11 +100,6 @@
       <div class="col d-flex justify-content-center">
         <input [formControlName]="'themefreetext'" type="text" class="form-control"
                (keyup.enter)="onEnterTheme()">
-        <div class="row mt-1">
-          <div class="col d-flex justify-content-center">
-            <button type="button" class="itcbutton btn" (click)="onEnterTheme()">Lägg till tema</button>
-          </div>
-        </div>
       </div>
     </div>
     <div class="row">
